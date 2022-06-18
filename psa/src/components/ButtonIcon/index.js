@@ -1,12 +1,11 @@
 import React from "react";
 import { ButtonContainer, ButtonCustom, Icon } from "./styled";
-import project_icon from "../../utils/icons/project_icon.png";
 
 export const ButtonIcon = (props) => {
-	const {img, name} = props
+	const {img, name, onClick} = props
   return (
     <ButtonContainer>
-      <ButtonCustom>
+      <ButtonCustom onClick= {onClick}>
         {name}
         <Icon src={img} />
       </ButtonCustom>
