@@ -4,7 +4,6 @@ import { colors } from "../../utils/colors";
 export const ButtonContainer = styled.div`
   width: 60px;
   height: 50px;
-
 `;
 
 export const ButtonCustom = styled.button`

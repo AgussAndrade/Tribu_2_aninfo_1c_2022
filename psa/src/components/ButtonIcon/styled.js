@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { colors } from "../../utils/colors";
 
 export const ButtonContainer = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
+  width: 550px;
+  height: 450px;
+  margin-left: 15px;
+  margin-right: 15px;
 `;
 
 export const ButtonCustom = styled.button`
@@ -15,7 +17,7 @@ export const ButtonCustom = styled.button`
   padding: 30px 0px 10px;
   border-radius: 10px;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
   color: ${colors.blue};
   font-family: "Verdana";
   font-weight: bold;
@@ -29,6 +31,7 @@ export const ButtonCustom = styled.button`
 `;
 
 export const Icon = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 70%;
+  margin-top: 20px;
 `;

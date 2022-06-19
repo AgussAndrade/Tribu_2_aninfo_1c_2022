@@ -15,6 +15,7 @@ export const Home = () => {
     <PrincipalContainer>
       <TopBar />
       <BodyContainer>
+      <HomePresentation/>
         <ButtonsContainer>
           <ButtonIcon
             img={project_icon}

@@ -12,18 +12,23 @@ export const PrincipalContainer = styled.div`
 `
 
 export const BodyContainer = styled.div`
-    width: 100%;
+    width: 95%;
     height: 100%;
     flex-direction: column;
-   
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 `
 
 export const ButtonsContainer = styled.div`
     display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 15px 15px 15px;
-    justify-content: space-between;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    
 `
