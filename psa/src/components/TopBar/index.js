@@ -5,17 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { UserIconButton } from "../UserIconButton";
 import psa_logo from "../../utils/icons/psa_logo.png";
 
-export const TopBar = () =>{
+export const TopBar = (props) =>{
     const navigate = useNavigate()
+    const {buttonSelected} = props;
     return(
         <Container>
             <LogoContainer>
                 <Icon src={psa_logo} />
             </LogoContainer>
             <ButtonContainer>
-                <TopBarButton name = {'Proyectos'} onClick = {()=>{navigate('/projects')}}/>
-                <TopBarButton name = {'Soporte'} onClick = {()=>{navigate('/support')}}/>
-                <TopBarButton name = {'Recursos'} onClick = {()=>{navigate('/resources')}}/>
+                <TopBarButton buttonSelected={buttonSelected === 'Proyectos'} name = {'Proyectos'} onClick = {()=>{navigate('/projects')}}/>
+                <TopBarButton buttonSelected={buttonSelected === 'Soporte'} name = {'Soporte'} onClick = {()=>{navigate('/support')}}/>
+                <TopBarButton buttonSelected={buttonSelected === 'Recursos'} name = {'Recursos'} onClick = {()=>{navigate('/resources')}}/>
                 <UserIconButton/>
             </ButtonContainer>
             

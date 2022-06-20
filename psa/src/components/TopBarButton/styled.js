@@ -14,7 +14,7 @@ export const StyledButton = styled.button`
         border: none;
     cursor: pointer;
     }
-    background-color: ${colors.lightGrey};
+    background-color: ${props => props.selected ? colors.strongGrey : colors.lightGrey};
     border: none;
     font-family: "Verdana";
     font-weight: bold;

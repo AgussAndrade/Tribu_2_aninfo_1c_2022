@@ -1,12 +1,14 @@
 import React from "react";
+import { ButtonIcon } from "../../components/ButtonIcon";
+import { ButtonsContainer, PrincipalContainer, BodyContainer } from "./styled";
+import { TopBar } from "../../components/TopBar";
 import { useNavigate } from "react-router-dom";
+import { HomePresentation } from "../../components/HomePresentation";
 
 export const Resources = () => {
   const navigate = useNavigate();
+
   return (
-    <div>
-      <p>Esto es recursos</p>
-      <button onClick={() => navigate(-1)}>Volver</button>
-    </div>
+    <TopBar buttonSelected={"Recursos"}/>
   );
 };
