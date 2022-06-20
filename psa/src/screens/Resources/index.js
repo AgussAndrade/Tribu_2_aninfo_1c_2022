@@ -1,14 +1,25 @@
 import React from "react";
-import { ButtonIcon } from "../../components/ButtonIcon";
-import { ButtonsContainer, PrincipalContainer, BodyContainer } from "./styled";
-import { TopBar } from "../../components/TopBar";
 import { useNavigate } from "react-router-dom";
-import { HomePresentation } from "../../components/HomePresentation";
+import { PrincipalContainer } from "../Home/styled";
+import { TopBar } from "../../components/TopBar";
+import { Button } from "./styled";
+import { ResourcesInput } from "./components/ResourcesInput";
+import { ResourcesSelect } from "./components/ResourcesSelect";
 
 export const Resources = () => {
   const navigate = useNavigate();
 
   return (
-    <TopBar buttonSelected={"Recursos"}/>
+    <PrincipalContainer>
+      <TopBar buttonSelected={"Recursos"}/>
+      <ResourcesInput label="Ingrese nombre del Empleado:" />
+      <ResourcesSelect label="Ingrese fecha:"/>
+      <Button
+        onClick={() => {
+          navigate("/resources/employee");
+        }}>
+        Continuar
+      </Button>
+    </PrincipalContainer>
   );
 };
