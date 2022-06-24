@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "../../utils/colors";
 
 export const ButtonContainer = styled.div`
   width: 60px;
