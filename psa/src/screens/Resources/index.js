@@ -3,7 +3,7 @@ import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
 import { useNavigate, Link } from "react-router-dom";
 import {Label} from "./styled";
-import { Form } from 'react-bootstrap';
+import { Form, Container } from 'react-bootstrap';
 
 export const Resources = () => {
   const navigate = useNavigate();
