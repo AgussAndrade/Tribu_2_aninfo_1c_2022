@@ -12,3 +12,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.linkResources{
+  width: 180px;
+  height: 50px;
+  background-color: #393636;
+  border: none;
+  font-family: "Verdana";
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+.linkResources:hover{
+
+    background-color: #CED4DB;
+    border: none;
+    cursor: pointer;
+
+}

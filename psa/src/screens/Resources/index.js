@@ -1,32 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
 import { useNavigate, Link } from "react-router-dom";
-import {Label} from "./styled";
-import { Form, Container } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 export const Resources = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
 
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
-      <Container >
+      <Form >
         <Form.Group className="mb-3" controlId="name">
-            <Label>Ingrese nombre del Empleado</Label>
-            <Form.Control type="input" name="dob" placeholder="Juan Lopez" />
+            <Form.Label Ingrese nombre del Empleado />
+            <Form.Control type="input" name="dob" placeholder="Juan Lopez" onChange={e=>setName(e.target.value)} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="date">
-            <Label>Ingrese Fecha</Label>
-            <Form.Control type="date" name="date" placeholder="" />
+      
+            <Form.Control type="date" name="date" placeholder="" onChange={e=>setDate(e.target.value)}/>
         </Form.Group>
-      </Container>
-      <Link
-          to={{
-            pathname: "/page",
-            state: "" // your data array of objects
-          }}
-        ></Link>
+      </Form>
+      <Link className="linkResources"
+          to={"/resources/employee"}
+          state={{name:name,
+                  date:date}}
+        >Continuar</Link>
     </PrincipalContainer>
   );
 };
