@@ -1,10 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
-import { Button } from "./styled";
-import { ResourcesInput } from "./components/ResourcesInput";
-import { ResourcesSelect } from "./components/ResourcesSelect";
+import { useNavigate, Link } from "react-router-dom";
+import {Label} from "./styled";
+import { Form } from 'react-bootstrap';
 
 export const Resources = () => {
   const navigate = useNavigate();
@@ -12,14 +11,22 @@ export const Resources = () => {
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
-      <ResourcesInput label="Ingrese nombre del Empleado:" />
-      <ResourcesSelect label="Ingrese fecha:"/>
-      <Button
-        onClick={() => {
-          navigate("/resources/employee");
-        }}>
-        Continuar
-      </Button>
+      <Container >
+        <Form.Group className="mb-3" controlId="name">
+            <Label>Ingrese nombre del Empleado</Label>
+            <Form.Control type="input" name="dob" placeholder="Juan Lopez" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="date">
+            <Label>Ingrese Fecha</Label>
+            <Form.Control type="date" name="date" placeholder="" />
+        </Form.Group>
+      </Container>
+      <Link
+          to={{
+            pathname: "/page",
+            state: "" // your data array of objects
+          }}
+        ></Link>
     </PrincipalContainer>
   );
 };

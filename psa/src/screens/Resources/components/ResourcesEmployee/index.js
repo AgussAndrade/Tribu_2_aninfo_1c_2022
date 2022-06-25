@@ -7,7 +7,7 @@ export const ResourcesEmployee = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <TopBar />
+      <TopBar buttonSelected={"Recursos"}/>
       <p>
           Esta es la vista de un empleado. 
           Debe tener pestañas para Administración de horas y Perfil de empleado
