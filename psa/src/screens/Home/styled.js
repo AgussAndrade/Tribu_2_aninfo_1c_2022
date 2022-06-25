@@ -26,6 +26,7 @@ export const ButtonsContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 80%;
     height: 100%;
     padding-top: 15px;
     padding-left: 15px;
