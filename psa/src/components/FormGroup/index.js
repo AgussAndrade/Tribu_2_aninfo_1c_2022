@@ -1,7 +1,7 @@
 import React from "react";
 import { FormGroup, FormLabel, FormControl } from "./styled"
 
-export const FormGroupComp = (props) => {
+export const FormGroupContainer = (props) => {
     const {controlId, label, type, name, placeholder, handleChange} = props;
     return (
         <FormGroup controlId={controlId}>

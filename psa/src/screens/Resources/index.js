@@ -3,7 +3,7 @@ import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
 import { useNavigate } from "react-router-dom";
 import { FormContainer, FormBtnLink } from "./styled";
-import { FormGroupComp } from "../../components/FormGroup";
+import { FormGroupContainer } from "../../components/FormGroup";
 
 export const Resources = () => {
   const [name, setName] = useState("");
@@ -13,7 +13,7 @@ export const Resources = () => {
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
       <FormContainer >
-        <FormGroupComp
+        <FormGroupContainer
           controlId="name"
           label="Ingrese nombre del Empleado"
           type="input"
@@ -21,7 +21,7 @@ export const Resources = () => {
           placeholder="Juan Lopez"
           handleChange={setName}
         />
-        <FormGroupComp 
+        <FormGroupContainer
           controlId="date"
           label="Ingrese una Fecha"
           type="date"
