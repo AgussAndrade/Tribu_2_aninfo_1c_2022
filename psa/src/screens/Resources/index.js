@@ -1,32 +1,41 @@
 import React, { useState } from "react";
 import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
-import { useNavigate, Link } from "react-router-dom";
-import { Form } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { FormContainer, FormBtnLink } from "./styled";
+import { FormGroupComp } from "../../components/FormGroup";
 
 export const Resources = () => {
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
 
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
-      <Form >
-        <Form.Group className="mb-3" controlId="name">
-            <Form.Label Ingrese nombre del Empleado />
-            <Form.Control type="input" name="dob" placeholder="Juan Lopez" onChange={e=>setName(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="date">
-      
-            <Form.Control type="date" name="date" placeholder="" onChange={e=>setDate(e.target.value)}/>
-        </Form.Group>
-      </Form>
-      <Link className="linkResources"
+      <FormContainer >
+        <FormGroupComp
+          controlId="name"
+          label="Ingrese nombre del Empleado"
+          type="input"
+          name="name"
+          placeholder="Juan Lopez"
+          handleChange={setName}
+        />
+        <FormGroupComp 
+          controlId="date"
+          label="Ingrese una Fecha"
+          type="date"
+          name="date"
+          placeholder=""
+          handleChange={setDate}
+        />
+      </FormContainer>
+      <FormBtnLink
           to={"/resources/employee"}
           state={{name:name,
                   date:date}}
-        >Continuar</Link>
+        >Continuar
+      </FormBtnLink>
     </PrincipalContainer>
   );
 };
