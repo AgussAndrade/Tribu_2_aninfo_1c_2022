@@ -11,6 +11,7 @@ export const ButtonCustom = styled.button`
     &:hover {
     cursor: pointer;
     }
+    min-width: 60px;
 `;
 
 export const Icon = styled.img`
