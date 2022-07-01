@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PrincipalContainer, BodyContainer, TaskContainer } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
-import { colors } from "../../utils/colors";
+import { Modal } from "../../components/Modal";
 
 export const ProjectDescription = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const proyecto = {
     nombre: "Nombre1",
     descripcion: "Esta es la descripcion1",
@@ -45,6 +47,7 @@ export const ProjectDescription = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
+      <Modal open={showModal} onClose={()=>setShowModal(false)}/>
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
@@ -55,9 +58,8 @@ export const ProjectDescription = () => {
           fechaInicio={"Fecha de inicio: 27/7/2022"}
           fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
           lider={"Lider: Yo"}
-          onClick={() => {
-            navigate("/");
-          }}
+          onClick={() =>setShowModal(true)
+          }
         />
         <TaskContainer>
             AP
