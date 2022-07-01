@@ -5,11 +5,6 @@ import {
   OptionsContainer,
   ButtonNewProyect,
   BodyContainer,
-  CardContainer,
-  CardTextContainer,
-  TitleText,
-  DescriptionText,
-  InfoProjectContainer
 } from "./styled";
 import {Card} from "./components/Card"
 import { TopBar } from "../../components/TopBar";
