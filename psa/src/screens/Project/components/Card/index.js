@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   CardContainer,
   CardTextContainer,
@@ -12,7 +11,6 @@ import { GenericButton } from "../../../../components/GenericButton"
 
 export const Card = (props) => {
     const {nombreProyecto, descripcionProyecto, onClick} = props;
-
     return(
         <CardContainer>
           <CardTextContainer>
