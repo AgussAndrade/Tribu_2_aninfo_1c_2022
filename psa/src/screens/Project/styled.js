@@ -15,10 +15,10 @@ export const OptionsContainer = styled.div`
     width: 100%;
     height: 80px;
     display: flex;
-    flex-direction: column;
     background-color: ${colors.lightBlue2};
     justify-content: center;
-    
+    flex-direction: row;
+		align-items: center;
 `
 
 export const CardContainer = styled.div`
@@ -38,6 +38,7 @@ export const BodyContainer = styled.div`
     background-color: ${colors.backgroundGrey};
     align-items: center;
     flex-direction: column;
+		padding-bottom: 20px;
 `
 
 export const CardTextContainer = styled.div`
@@ -68,17 +69,28 @@ export const DescriptionText = styled.p`
   color: ${colors.blue};
   font-family: "Verdana";
  
+`
+export const InputContainer = styled.div`
+	width: 100%;
+  height: 50%;
+  display: flex;
+	margin-left: 35px;
+`
 
-
+export const Input = styled.input`
+  font-size: 15px;
+	border-radius: 10px;
+	border: none;
+	padding: 10px;
 `
 
 export const ButtonNewProyect = styled.div`
-    width: 10%;
+    width: 15%;
     height: 50%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     font-family: "Verdana";
-    align-self: flex-end;
+    /* align-self: flex-end; */
     padding-right: 50px;
     min-width: fit-content;
 
