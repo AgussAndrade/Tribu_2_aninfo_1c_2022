@@ -26,8 +26,5 @@ export const TicketForm = () => {
         )
     }
 
-    return (
-        <GenericForm>
-            {formInputs()}
-        </GenericForm>);
+    return ( formInputs() );
 }
