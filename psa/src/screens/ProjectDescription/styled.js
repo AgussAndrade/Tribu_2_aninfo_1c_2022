@@ -27,9 +27,11 @@ export const TaskContainer = styled.div`
     width: 95%;
     height: 100%;
     display: flex;
-    background-color: white;
+    flex-direction: column;
     align-items: center;
     border-radius: 20px;
     margin-top: 15px;
+    background-color: ${colors.lightGrey};
+    padding-bottom: 20px;
 `
 

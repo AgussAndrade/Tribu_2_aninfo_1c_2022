@@ -4,7 +4,7 @@ import {
   CardTextContainer,
   TitleText,
   DescriptionText,
-  InfoProjectContainer
+  ButtonContainer
 } from "./styled";
 import { colors } from "../../../../utils/colors"
 import { GenericButton } from "../../../../components/GenericButton"
@@ -21,13 +21,13 @@ export const Card = (props) => {
             	{descripcionProyecto}
             </DescriptionText>
           </CardTextContainer>
-          <InfoProjectContainer>
+          <ButtonContainer>
             <GenericButton
-              name={"Información"}
+              name={"Detalle"}
               onClick={onClick}
               color = {colors.lightBlue}
             ></GenericButton>
-          </InfoProjectContainer>
+          </ButtonContainer>
         </CardContainer>
     );
 }

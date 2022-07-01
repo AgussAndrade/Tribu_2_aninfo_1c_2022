@@ -35,15 +35,15 @@ export const DescriptionText = styled.p`
 
 `
 
-export const InfoProjectContainer = styled.div`
+export const ButtonContainer = styled.div`
     height: 35%;
     display: flex;
-    width: 15%;
+    width: 10%;
     min-width: fit-content;
     align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
-    margin-left: 10px;
+    margin-left: 30px;
     
 `
 

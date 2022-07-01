@@ -5,17 +5,21 @@ import {
   OptionsContainer,
   ButtonNewProyect,
   BodyContainer,
+  Input,
+  InputContainer,
 } from "./styled";
 import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
+import { useState } from "react";
 
 export const Project = () => {
+  const [searchTerm, setSerchTerm] = useState("");
   const proyectos = [
     {
-      nombre: "Nombre1",
-      descripcion: "Esta es la descripcion1",
+      nombre: "Proyecto: Prueba de titulo",
+      descripcion: "Cuando hablamos del Adress space nos referimos a la abstraccion que provee el kernel del sistema operativo al proceso sobre la memoria de la computadora. Este representa el estado completo de la memoria de un proceso y esta compuesto por cuatro secciones: code, data, heap y stack",
       tarea1: [
         {
           nombre: "Nombre1",
@@ -25,7 +29,7 @@ export const Project = () => {
       ],
     },
     {
-      nombre: "Nombre2",
+      nombre: "Proyecto: Aprobar aninfo",
       descripcion: "Esta es la descripcion2",
       tarea2: [
         {
@@ -36,7 +40,7 @@ export const Project = () => {
       ],
     },
     {
-      nombre: "Nombre3",
+      nombre: "Proyecto: Ejemplo para filtrar",
       descripcion: "Esta es la descripcion3",
       tarea3: [
         {
@@ -47,7 +51,7 @@ export const Project = () => {
       ],
     },
     {
-      nombre: "Nombre4",
+      nombre: "Proyecto: Dividir por dos cifras",
       descripcion: "Esta es la descripcion4",
       tarea4: [
         {
@@ -58,7 +62,7 @@ export const Project = () => {
       ],
     },
     {
-      nombre: "Nombre5",
+      nombre: "Proyecto: Ultimo ejemplo",
       descripcion: "Esta es la descripcion5",
       tarea4: [
         {
@@ -71,15 +75,23 @@ export const Project = () => {
   ];
 
   const Cards = () => {
-    return proyectos.map((proyecto) => (
-      <Card
-        nombreProyecto={proyecto.nombre}
-        descripcionProyecto={proyecto.descripcion}
-        onClick={() => {
-          navigate("/");
-        }}
-      />
-    ));
+    return proyectos
+      .filter((val) => {
+        if (searchTerm == "") return val;
+        else if (
+          val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+        )
+          return val;
+      })
+      .map((proyecto) => (
+        <Card
+          nombreProyecto={proyecto.nombre}
+          descripcionProyecto={proyecto.descripcion}
+          onClick={() => {
+            navigate("/projects/id");
+          }}
+        />
+      ));
   };
 
   const navigate = useNavigate();
@@ -87,6 +99,15 @@ export const Project = () => {
     <PrincipalContainer>
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>
+        <InputContainer>
+          <Input
+            type="text"
+            placeholder="Buscar..."
+            onChange={(event) => {
+              setSerchTerm(event.target.value);
+            }}
+          />
+        </InputContainer>
         <ButtonNewProyect>
           <GenericButton
             name={"Nuevo proyecto"}

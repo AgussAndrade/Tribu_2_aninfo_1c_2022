@@ -14,19 +14,34 @@ export const ProjectDescription = () => {
     descripcion: "Esta es la descripcion1",
     tareas: [
       {
-        nombre: "Nombre1",
-        descripcion: "Esta es la descripcion de tarea 1",
-        fechaCreacion: "fecha1",
+        nombre: "Tarea: Nombre1",
+        descripcion: "Descripcion: Esta es la descripcion de tarea 1, es una descripcion larga para probar el overflow de la caja de texto a ver si funciona bien o si no funciona bien por eso es larga. Aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        fechaCreacion: "Fecha de creacion: 22/2/2022",
+        estado: "Estado: En curso",
       },
       {
-        nombre: "Nombre2",
-        descripcion: "Esta es la descripcion de tarea 2",
-        fechaCreacion: "fecha2",
+        nombre: "Tarea: Nombre2",
+        descripcion: "Descripcion: Esta es la descripcion de tarea 2",
+        fechaCreacion: "Fecha de creacion: 22/2/2022",
+        estado: "Estado: En curso",
       },
       {
-        nombre: "Nombre3",
-        descripcion: "Esta es la descripcion de tarea 3",
-        fechaCreacion: "fecha3",
+        nombre: "Tarea: Nombre3",
+        descripcion: "Descripcion: Esta es la descripcion de tarea 3",
+        fechaCreacion: "Fecha de creacion: 22/2/2022",
+        estado: "Estado: En curso",
+      },
+      {
+        nombre: "Tarea: Nombre4",
+        descripcion: "Descripcion: Esta es la descripcion de tarea 4",
+        fechaCreacion: "Fecha de creacion: 22/2/2022",
+        estado: "Estado: En curso",
+      },
+      {
+        nombre: "Tarea: Nombre5",
+        descripcion: "Descripcion: Esta es la descripcion de tarea 5",
+        fechaCreacion: "Fecha de creacion: 22/2/2022",
+        estado: "Estado: En curso",
       },
     ],
   };
@@ -34,9 +49,10 @@ export const ProjectDescription = () => {
   const TaskCards = () => {
     return proyecto.tareas.map((tarea) => (
       <TaskCard
-        nombreProyecto={tarea.nombre}
-        descripcionProyecto={tarea.descripcion}
+        nombreTarea={tarea.nombre}
+        descripcionTarea={tarea.descripcion}
         fechaCreacion={tarea.fechaCreacion}
+        estado={tarea.estado}
         onClick={() => {
           navigate("/");
         }}
@@ -62,7 +78,7 @@ export const ProjectDescription = () => {
           }
         />
         <TaskContainer>
-            AP
+            <TaskCards/>
         </TaskContainer>
       </BodyContainer>
     </PrincipalContainer>
