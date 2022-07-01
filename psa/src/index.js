@@ -6,6 +6,7 @@ import { Home } from './screens/Home';
 import { Project } from './screens/Project';
 import { Resources } from './screens/Resources';
 import { Support } from './screens/Support';
+import { ProjectDescription } from './screens/ProjectDescription';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
       <Route path="/projects" element={<Project />} />
       <Route path="/resources" element={<Resources />} />
       <Route path="/support" element={<Support />} />
+      <Route path="/projects/id" element={<ProjectDescription />} />
     </Routes>
   </BrowserRouter>
 );

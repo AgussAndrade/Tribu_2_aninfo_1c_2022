@@ -25,35 +25,30 @@ export const TitleText = styled.p`
   
 `
 
-export const DescriptionText = styled.p`
+export const ProjectInfoText = styled.p`
   font-size: 16px;
   margin: 0%;
   color: ${colors.blue};
   font-family: "Verdana";
   margin-top: 10px;
-
-
 `
 
-export const InfoProjectContainer = styled.div`
-    height: 35%;
+export const EditProjectContainer = styled.div`
+    height: 30px;
     display: flex;
-    width: 15%;
+    width: 10%;
     min-width: fit-content;
+
     align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
-    margin-left: 10px;
-    
 `
 
 export const CardContainer = styled.div`
     width: 95%;
-    height: 120px;
+    height: 100%;
     display: flex;
     background-color: ${colors.lightGrey2};
     border-radius: 20px;
     margin-top: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `
