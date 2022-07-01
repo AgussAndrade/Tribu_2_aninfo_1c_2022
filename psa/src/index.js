@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import { Home } from './screens/Home';
 import { Project } from './screens/Project';
 import { Resources } from './screens/Resources';
+import { ResourcesEmployee } from './screens/Resources/components/ResourcesEmployee';
 import { Support } from './screens/Support';
 import { ProjectDescription } from './screens/ProjectDescription';
 
@@ -15,6 +16,7 @@ root.render(
       <Route path="/" element={<Home />} />
       <Route path="/projects" element={<Project />} />
       <Route path="/resources" element={<Resources />} />
+      <Route path="/resources/employee" element={<ResourcesEmployee />} />
       <Route path="/support" element={<Support />} />
       <Route path="/projects/id" element={<ProjectDescription />} />
     </Routes>
