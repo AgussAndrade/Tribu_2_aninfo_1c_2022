@@ -15,7 +15,6 @@ export const LogoContainer = styled.div`
     width: 50%;
     height: 100%;
     background-color: ${colors.lightBlue};
-    position: relative;
 `
 
 export const Icon = styled.img`
