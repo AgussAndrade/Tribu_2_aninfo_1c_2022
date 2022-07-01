@@ -1,40 +1,18 @@
-import React, { useState } from 'react';
-import { PrincipalContainer, BodyContainer } from "./styled";
-import { TopBar } from "../../components/TopBar";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {Button, Modal} from 'react-bootstrap';
-import { GenericForm } from "../../components/Form/index"
+import {GenericModal} from "../../components/GenericModal";
+
+import {Button} from "react-bootstrap";
+import {TicketForm} from "./TicketForm";
 
 export const Support = () => {
     const [modalShow, setModalShow] = useState(false);
     const navigate = useNavigate();
 
-    function GenericModal(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        {props.title}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {props.form}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
-                </Modal.Footer>
-            </Modal>
-        );
-    }
-
     return (
-        <PrincipalContainer>
-            <TopBar buttonSelected = {"Soporte"} />
+        <div>
+            <p>Esto es soporte</p>
+            <button onClick={() => navigate("/")}>Volver</button>
             <Button variant="primary" onClick={() => setModalShow(true)}>
                 Launch vertically centered modal
             </Button>
@@ -42,9 +20,9 @@ export const Support = () => {
             <GenericModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                form = {<GenericForm/>}
+                form = {<TicketForm/>}
                 title = {"Crear ticket"}
             />
-        </PrincipalContainer>
+    </div>
     );
 };
