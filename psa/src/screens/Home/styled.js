@@ -7,7 +7,7 @@ export const PrincipalContainer = styled.div`
     align-items:center;
     display: flex;
     flex-direction: column;
-    font-family: "Verdana";
+    font-family: "Roboto";
     background-color: ${colors.backgroundGrey};
 `
 

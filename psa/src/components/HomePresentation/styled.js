@@ -28,7 +28,7 @@ export const TextContainer = styled.div`
 export const Text = styled.p`
   font-size: 25px;
   color: ${colors.blue};
-  font-family: "Verdana";
+  font-family: "Roboto";
   margin-left: 100px;
   margin-top: 20px;
   font-weight: bold;
