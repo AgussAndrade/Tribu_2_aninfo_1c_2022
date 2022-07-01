@@ -5,18 +5,83 @@ import {
   OptionsContainer,
   ButtonNewProyect,
   BodyContainer,
-  CardContainer,
-  CardTextContainer,
-  TitleText,
-  DescriptionText,
-  InfoProjectContainer
 } from "./styled";
-import {Card} from "./components/Card"
+import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 
 export const Project = () => {
+  const proyectos = [
+    {
+      nombre: "Nombre1",
+      descripcion: "Esta es la descripcion1",
+      tarea1: [
+        {
+          nombre: "Nombre1",
+          descripcion: "Esta es la descripcion de tarea 1",
+          fechaCreacion: "fecha1",
+        },
+      ],
+    },
+    {
+      nombre: "Nombre2",
+      descripcion: "Esta es la descripcion2",
+      tarea2: [
+        {
+          nombre: "Nombre2",
+          descripcion: "Esta es la descripcion de tarea 2",
+          fechaCreacion: "fecha2",
+        },
+      ],
+    },
+    {
+      nombre: "Nombre3",
+      descripcion: "Esta es la descripcion3",
+      tarea3: [
+        {
+          nombre: "Nombre3",
+          descripcion: "Esta es la descripcion de tarea 3",
+          fechaCreacion: "fecha3",
+        },
+      ],
+    },
+    {
+      nombre: "Nombre4",
+      descripcion: "Esta es la descripcion4",
+      tarea4: [
+        {
+          nombre: "Nombre4",
+          descripcion: "Esta es la descripcion de tarea 4",
+          fechaCreacion: "fecha4",
+        },
+      ],
+    },
+    {
+      nombre: "Nombre5",
+      descripcion: "Esta es la descripcion5",
+      tarea4: [
+        {
+          nombre: "Nombre5",
+          descripcion: "Esta es la descripcion de tarea 5",
+          fechaCreacion: "fecha5",
+        },
+      ],
+    },
+  ];
+
+  const Cards = () => {
+    return proyectos.map((proyecto) => (
+      <Card
+        nombreProyecto={proyecto.nombre}
+        descripcionProyecto={proyecto.descripcion}
+        onClick={() => {
+          navigate("/");
+        }}
+      />
+    ));
+  };
+
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
@@ -26,35 +91,14 @@ export const Project = () => {
           <GenericButton
             name={"Nuevo proyecto"}
             onClick={() => {
-              navigate("/support");
+              navigate("/");
             }}
-            color = {colors.lightBlue}
+            color={colors.lightBlue}
           ></GenericButton>
         </ButtonNewProyect>
       </OptionsContainer>
       <BodyContainer>
-        <Card nombreProyecto = {"Titulo: Prueba 1"} descripcionProyecto = {"Descripcion: La prueba 1 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        
-        <Card nombreProyecto = {"Titulo: Prueba 2"} descripcionProyecto = {"Descripcion: La prueba 2 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        <Card nombreProyecto = {"Titulo: Prueba 3"} descripcionProyecto = {"Descripcion: La prueba 3 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        <Card nombreProyecto = {"Titulo: Prueba 4"} descripcionProyecto = {"Descripcion: La prueba 4 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        <Card nombreProyecto = {"Titulo: Prueba 5"} descripcionProyecto = {"Descripcion: La prueba 5 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        <Card nombreProyecto = {"Titulo: Prueba 6"} descripcionProyecto = {"Descripcion: La prueba 6 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
-        <Card nombreProyecto = {"Titulo: Prueba 7"} descripcionProyecto = {"Descripcion: La prueba 7 es esta"} onClick ={() => {
-              navigate("/");
-            }}/>
+        <Cards />
       </BodyContainer>
     </PrincipalContainer>
   );

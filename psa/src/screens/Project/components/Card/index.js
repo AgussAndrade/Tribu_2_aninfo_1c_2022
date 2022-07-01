@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import {
   CardContainer,
   CardTextContainer,
@@ -12,7 +11,6 @@ import { GenericButton } from "../../../../components/GenericButton"
 
 export const Card = (props) => {
     const {nombreProyecto, descripcionProyecto, onClick} = props;
-		const navigate = useNavigate();
     return(
         <CardContainer>
           <CardTextContainer>

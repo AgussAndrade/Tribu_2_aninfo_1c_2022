@@ -21,10 +21,6 @@ export const OptionsContainer = styled.div`
     
 `
 
-
-
-
-
 export const CardContainer = styled.div`
     width: 95%;
     height: 120px;
@@ -58,21 +54,6 @@ export const CardTextContainer = styled.div`
 
 `
 
-export const TitleContainer = styled.div`
-    width: 100%;
-    height: 40px;
-    display: flex;
- 
-
-`
-
-export const DescriptionContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
- 
-
-`
 
 export const TitleText = styled.p`
   font-size: 25px;
