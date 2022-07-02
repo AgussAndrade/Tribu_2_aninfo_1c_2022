@@ -26,7 +26,12 @@ export const Resources = () => {
       navigate('/resources/error');
       return;
     }
-    axios.get('https://anypoint.mulesoft.com/mocking/api/v1/sources/exchange/assets/754f50e8-20d8-4223-bbdc-56d50131d0ae/recursos-psa/1.0.0/m/api/recursos').then(
+    axios.get('https://api.kraken.com/0/public/Ticker?pair=xbtusds',(req,response) => {
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setHeader("Access-Control-Allow-Credentials", "true");
+      response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+      response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    }).then(
       (repos) => {
         if(repos.status == 200){
           navigate('/resources/employee',
