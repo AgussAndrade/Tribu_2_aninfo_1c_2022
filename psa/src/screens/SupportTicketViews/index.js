@@ -13,9 +13,13 @@ import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
+import { DerivateTicketForm } from "../Support/components/DerivateTicketForm";
+import { GenericModal } from "../Support/components/GenericModal";
+
 
 export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
+  const [modalShow, setModalShow] = useState(false)
   const tickets = [
     {
       nombre: "El inventario no se actualiza correctamente",
@@ -111,8 +115,8 @@ export const SupportTicketViews = () => {
           severidadProyecto={ticket.severidad}
           responsableProyecto={ticket.responsable}
           vencimientoProyecto={ticket.vencimiento}
-          onClick={() => {
-            navigate("#");
+          derivateOnClick={() => {
+            setModalShow(true);
           }}
         />
       ));
@@ -144,6 +148,12 @@ export const SupportTicketViews = () => {
       </OptionsContainer>
       <BodyContainer>
         <Cards />
+        <GenericModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            form = {<DerivateTicketForm/>}
+            title = {"Derivar ticket"}
+        />
       </BodyContainer>
     </PrincipalContainer>
   );
