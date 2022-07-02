@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TopBar } from "../../../components/TopBar";
 import { useNavigate } from "react-router-dom";
-import { RegularButton } from "../../../components/RegularButton";
+import { GenericButton } from "../../../components/GenericButton";
 import { ButtonContainer, Container , Text, TextContainer } from "../PantallaDerivarTicket/styled";
 import  {Modal}  from "../../../components/Modal";
 
@@ -72,14 +72,14 @@ export const PantallaDerivarTicket = (props) =>{
                 <Modal toggle={this.toggle} activo={this.state.activo}>
                     <h2> Holis </h2>
                 </Modal>
-                <RegularButton name = {'Crear tarea'} onClick = {()=>{navigate('/support')}}/>
-                <RegularButton name = {'Seleccionar tarea'} onClick = {()=>{navigate('/support')}}/>
+                <GenericButton name = {'Crear tarea'} onClick = {()=>{navigate('/support')}}/>
+                <GenericButton name = {'Seleccionar tarea'} onClick = {()=>{navigate('/support')}}/>
             </ButtonContainer>
             </TextContainer>
             
             <ButtonContainer>
-                <RegularButton name = {'Cancelar'} onClick = {()=>{navigate('/support')}}/>
-                <RegularButton name = {'Derivar ticket'} onClick = {()=>{navigate('/support')}}/>
+                <GenericButton name = {'Cancelar'} onClick = {()=>{navigate('/support')}}/>
+                <GenericButton name = {'Derivar ticket'} onClick = {()=>{navigate('/support')}}/>
             </ButtonContainer>
             
         </div>
