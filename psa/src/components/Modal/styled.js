@@ -28,7 +28,7 @@ export const TitleContainer = styled.div`
 
 export const Title = styled.p`
   font-size: 18px;
-  color: ${colors.white};
+  color: ${colors.white2};
 `
 
 export const TextContainer = styled.div`
@@ -44,6 +44,7 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
   display: flex;
 `
+
 
 
 export const Overlay = styled.div`

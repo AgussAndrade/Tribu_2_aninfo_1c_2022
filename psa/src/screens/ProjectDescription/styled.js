@@ -47,5 +47,5 @@ export const Input = styled.input`
   border-radius: 10px;
 	border: none;
 	padding: 10px;
-	background-color: ${colors.white};
+	background-color: ${colors.white2};
 `

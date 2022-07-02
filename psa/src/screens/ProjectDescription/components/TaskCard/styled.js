@@ -48,7 +48,7 @@ export const CardContainer = styled.div`
     width: 95%;
     height: 100%;
     display: flex;
-    background-color: ${colors.white};
+    background-color: ${colors.white2};
     border-radius: 20px;
     margin-top: 20px;
 `
