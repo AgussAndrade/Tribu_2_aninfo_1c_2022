@@ -2,14 +2,7 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useState} from "react";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
-export const EditFormTicket = ({onlyRead}) => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState(getCurrentDate("/"));
-    const [clientId, setClientId] = useState("");
-
+export const EditFormTicket = () => {
     const handleSubmit = () => {}
 
     const formInputs = () => {
@@ -19,22 +12,13 @@ export const EditFormTicket = ({onlyRead}) => {
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
-                                <Form.Label>Titulo</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name = "title"/>
+                                <Form.Label>Código</Form.Label>
+                                <Form.Control type="text" placeholder="Titulo del ticket" name = "code" disabled={true}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
                                 <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket"/>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId= "severity" >
-                                <Form.Label>Severidad</Form.Label>
-                                <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
-                                </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col>
@@ -47,6 +31,25 @@ export const EditFormTicket = ({onlyRead}) => {
                                     <option value="Lucia" data-id-employer = "1"></option>
                                 </datalist>
                             </Form.Group>
+                            <Form.Group className="mb-3" controlId= "state" >
+                                <Form.Label>Estado</Form.Label>
+                                <Form.Control as={"input"} list = "employers" ></Form.Control>
+                                <datalist id={"employers"}>
+                                    <option value="Julian" data-id-employer = "3"></option>
+                                    <option value="Juan" data-id-employer = "2"></option>
+                                    <option value="Lucia" data-id-employer = "1"></option>
+                                </datalist>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId= "severity" >
+                                <Form.Label>Severidad</Form.Label>
+                                <Form.Select>
+                                    <option value="3">Mayor</option>
+                                    <option value="2">Medio</option>
+                                    <option value="1">Baja</option>
+                                </Form.Select>
+                            </Form.Group>
+
                             <Form.Group className="mb-3" controlId= "end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
                                 <Form.Control type="date" name='end_time' />
@@ -60,6 +63,26 @@ export const EditFormTicket = ({onlyRead}) => {
                                     <option value="Juan" data-id-client = "2"></option>
                                     <option value="Lucia" data-id-client = "1"></option>
                                 </datalist>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="title">
+                                <Form.Label>Producto</Form.Label>
+                                <Form.Control type="text" placeholder="Producto" name = "title" disabled={true}/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="title">
+                                <Form.Label>Version</Form.Label>
+                                <Form.Control type="text" placeholder="Version" name = "title" disabled={true}/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="title">
+                                <Form.Label>Tareas</Form.Label>
+                                <Form.Control type="text" placeholder="Tareas" name = "title" disabled={true}/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="title">
+                                <Form.Label>Areas</Form.Label>
+                                <Form.Control type="text" placeholder="Areas" name = "title" disabled={true}/>
                             </Form.Group>
                         </Col>
                     </Row>
