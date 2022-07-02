@@ -32,14 +32,15 @@ export const ResourcesEmployee = (props) => {
       <Container>
         Administracion Horas
       </Container>
-      <Form >
+      <ResourcesHoursForm date={date}></ResourcesHoursForm>
+      {/* <Form >
             <label>Fecha:{date}{proyect}</label>
 
             <FormControl placeholder="FNPC-121" onChange={e=>setTask(e.target.value)} />
             <FormControl placeholder="2" onChange={e=>setHours(e.target.value)} />
             <FormControl placeholder="Se agregó el controlador de login" onChange={e=>setDetail(e.target.value)} />
             <Button onClick={handleSubmit}>Enviar</Button>
-      </Form>
+      </Form> */}
       <ResourcesHoursTable></ResourcesHoursTable>
     </PrincipalContainer>
   );
