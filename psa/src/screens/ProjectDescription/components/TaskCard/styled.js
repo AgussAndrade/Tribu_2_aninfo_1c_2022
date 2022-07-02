@@ -35,7 +35,7 @@ export const ProjectInfoText = styled.p`
 `
 
 export const EditProjectContainer = styled.div`
-    height: 30px;
+    height: 45px;
     display: flex;
     width: 10%;
     min-width: fit-content;
