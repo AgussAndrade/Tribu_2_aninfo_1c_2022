@@ -1,6 +1,6 @@
 import React from "react";
 import { TopBarButton } from "../TopBarButton";
-import { ButtonContainer, Container, Icon, LogoContainer } from "./styled";
+import { ButtonContainer, Container, Icon, LogoButton, LogoContainer } from "./styled";
 import { useNavigate } from "react-router-dom";
 import { UserIconButton } from "../UserIconButton";
 import psa_logo from "../../utils/icons/psa_logo.png";
@@ -11,7 +11,9 @@ export const TopBar = (props) =>{
     return(
         <Container>
             <LogoContainer>
-                <Icon src={psa_logo} />
+                <LogoButton>
+                    <Icon src={psa_logo} onClick = {()=>{navigate('/')}}/>
+                </LogoButton>
             </LogoContainer>
             <ButtonContainer>
                 <TopBarButton buttonSelected={buttonSelected === 'Proyectos'} name = {'Proyectos'} onClick = {()=>{navigate('/projects')}}/>
