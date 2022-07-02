@@ -1,4 +1,4 @@
-import {Modal, Button} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 
 export const GenericModal = (props) => {
     return (
@@ -16,9 +16,6 @@ export const GenericModal = (props) => {
             <Modal.Body>
                 {props.form}
             </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-            </Modal.Footer>
         </Modal>
     );
 }

@@ -6,7 +6,6 @@ import {
   DescriptionText,
   ButtonContainer,
   TicketsInfo,
-  GenericTextBox
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
@@ -32,7 +31,7 @@ export const SupportCard = (props) => {
           <ButtonContainer>
             <GenericButton
               name={"Ver Tickets"}
-              onClick={onClick}
+              onClick={() => {}}
               color = {colors.lightBlue}
             ></GenericButton>
             <GenericButton
@@ -40,9 +39,7 @@ export const SupportCard = (props) => {
               onClick={onClick}
               color = {colors.lightBlue}
             ></GenericButton>
-          </ButtonContainer>  
-
-
+          </ButtonContainer>
         </CardContainer>
     );
 }

@@ -13,9 +13,12 @@ import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
+import {GenericModal} from "../../components/GenericModal";
+import {TicketForm} from "./components/TicketForm";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
+  const [modalShow, setModalShow] = useState(false)
   const proyectos = [
     {
       nombre: "Sistema de inventarios",
@@ -99,9 +102,7 @@ export const Support = () => {
           descripcionProyecto={proyecto.descripcion}
           ticketsAbiertos={proyecto.ticketsAbiertos}
           ticketsCerrados={proyecto.ticketsCerrados}
-          onClick={() => {
-            navigate("/projects/id");
-          }}
+          onClick={() => setModalShow(true)}
         />
       ));
   };
@@ -132,6 +133,12 @@ export const Support = () => {
       </OptionsContainer>
       <BodyContainer>
         <Cards />
+        <GenericModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            form = {<TicketForm/>}
+            title = {"Crear ticket"}
+        />
       </BodyContainer>
     </PrincipalContainer>
   );
