@@ -12,7 +12,7 @@ import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
 
 export const SupportCard = (props) => {
-    const {nombreProyecto, descripcionProyecto, ticketsAbiertos,ticketsCerrados, onClick} = props;
+    const {nombreProyecto, estadoProyecto, severidadProyecto,responsableProyecto, onClick} = props;
     return(
         <CardContainer>
           <CardTextContainer>
@@ -20,23 +20,33 @@ export const SupportCard = (props) => {
             	{nombreProyecto}
             </TitleText>
             <DescriptionText>
-            	{descripcionProyecto}
+              {estadoProyecto}
+            </DescriptionText>
+            <DescriptionText>
+            {severidadProyecto}
+            </DescriptionText>
+            <DescriptionText>
+            {responsableProyecto}
             </DescriptionText>
           </CardTextContainer>
-          <TicketsInfo>
-            <TicketsInfo>
-              Tickets Abiertos:{ticketsAbiertos}
-            </TicketsInfo>
-            Tickets Cerrados:{ticketsCerrados}
-          </TicketsInfo>
           <ButtonContainer>
             <GenericButton
-              name={"Ver Tickets"}
+              name={"Editar Ticket"}
               onClick={onClick}
               color = {colors.lightBlue}
             ></GenericButton>
             <GenericButton
-              name={"Abrir Ticket"}
+              name={"Derivar Ticket"}
+              onClick={onClick}
+              color = {colors.lightBlue}
+            ></GenericButton>
+            <GenericButton
+              name={"Info Ampliada"}
+              onClick={onClick}
+              color = {colors.lightBlue}
+            ></GenericButton>
+            <GenericButton
+              name={"Cerrar Ticket"}
               onClick={onClick}
               color = {colors.lightBlue}
             ></GenericButton>

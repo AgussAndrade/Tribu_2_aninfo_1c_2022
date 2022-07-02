@@ -18,10 +18,10 @@ export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const proyectos = [
     {
-      nombre: "Sistema de inventarios",
-      descripcion: "Versión: 1.1.0",
-      ticketsAbiertos: "1",
-      ticketsCerrados: "2",
+      nombre: "El inventario no se actualiza correctamente",
+      estado: "Desarrollo",
+      severidad: "CRITICO",
+      responsable: "Yo",
       tarea1: [
         {
           nombre: "Nombre1",
@@ -31,10 +31,10 @@ export const SupportTicketViews = () => {
       ],
     },
     {
-      nombre: "Proyecto: Aprobar aninfo",
-      descripcion: "Esta es la descripcion2",
-      ticketsAbiertos: "1",
-      ticketsCerrados: "2",
+      nombre: "El inventario no se actualiza correctamente",
+      estado: "Desarrollo",
+      severidad: "CRITICO",
+      responsable: "Yo",
       tarea2: [
         {
           nombre: "Nombre2",
@@ -44,10 +44,10 @@ export const SupportTicketViews = () => {
       ],
     },
     {
-      nombre: "Proyecto: Ejemplo para filtrar",
-      descripcion: "Esta es la descripcion3",
-      ticketsAbiertos: "1",
-      ticketsCerrados: "2",
+      nombre: "El inventario no se actualiza correctamente",
+      estado: "Desarrollo",
+      severidad: "CRITICO",
+      responsable: "Yo",
       tarea3: [
         {
           nombre: "Nombre3",
@@ -57,10 +57,10 @@ export const SupportTicketViews = () => {
       ],
     },
     {
-      nombre: "Proyecto: Dividir por dos cifras",
-      descripcion: "Esta es la descripcion4",
-      ticketsAbiertos: "1",
-      ticketsCerrados: "2",
+      nombre: "El inventario no se actualiza correctamente",
+      estado: "Desarrollo",
+      severidad: "CRITICO",
+      responsable: "Yo",
       tarea4: [
         {
           nombre: "Nombre4",
@@ -70,10 +70,10 @@ export const SupportTicketViews = () => {
       ],
     },
     {
-      nombre: "Proyecto: Ultimo ejemplo",
-      descripcion: "Esta es la descripcion5",
-      ticketsAbiertos: "1",
-      ticketsCerrados: "2",
+      nombre: "El inventario no se actualiza correctamente",
+      estado: "Desarrollo",
+      severidad: "CRITICO",
+      responsable: "Yo",
       tarea5: [
         {
           nombre: "Nombre5",
@@ -96,9 +96,9 @@ export const SupportTicketViews = () => {
       .map((proyecto) => (
         <SupportCard
           nombreProyecto={proyecto.nombre}
-          descripcionProyecto={proyecto.descripcion}
-          ticketsAbiertos={proyecto.ticketsAbiertos}
-          ticketsCerrados={proyecto.ticketsCerrados}
+          estadoProyecto={proyecto.estado}
+          severidadProyecto={proyecto.severidad}
+          responsableProyecto={proyecto.responsable}
           onClick={() => {
             navigate("#");
           }}
@@ -114,7 +114,7 @@ export const SupportTicketViews = () => {
         <InputContainer>
           <Input
             type="text"
-            placeholder="Buscar..."
+            placeholder="Buscar Ticket..."
             onChange={(event) => {
               setSerchTerm(event.target.value);
             }}

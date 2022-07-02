@@ -23,18 +23,16 @@ export const GenericTextBox = styled.div`
 
 `
 
-
-
 export const TitleText = styled.p`
-  font-size: 35px;
+  font-size: 25px;
   color: ${colors.blue};
   font-family: "Verdana";
   margin: 0%;
-  
+  font-weight: 700;
 `
 
 export const DescriptionText = styled.p`
-  font-size: 25px;
+  font-size: 15px;
   margin: 0%;
   color: ${colors.blue};
   font-family: "Verdana";
