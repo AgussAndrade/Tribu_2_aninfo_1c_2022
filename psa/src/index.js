@@ -7,6 +7,7 @@ import { Project } from './screens/Project';
 import { Resources } from './screens/Resources';
 import { Support } from './screens/Support';
 import { ProjectDescription } from './screens/ProjectDescription';
+import { SupportTicketViews } from './screens/SupportTicketViews';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
       <Route path="/resources" element={<Resources />} />
       <Route path="/support" element={<Support />} />
       <Route path="/projects/id" element={<ProjectDescription />} />
+      <Route path="/supportticketviews" element={<SupportTicketViews />} />
     </Routes>
   </BrowserRouter>
 );
