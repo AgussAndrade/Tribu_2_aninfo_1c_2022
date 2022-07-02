@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { GenericButton } from "../GenericButton";
 import {
   ButtonContainer,
   ModalButton,
@@ -19,11 +17,23 @@ import {
   DescriptionInput,
 } from "./styled";
 import { colors } from "../../utils/colors";
+import { useState } from "react";
 
 export const Modal = (props) => {
   const { open, onClose } = props;
-  const navigate = useNavigate();
-
+  
+  const proyecto =
+    {
+      nombre: "Proyecto: Prueba de titulo",
+      descripcion: "Cuando hablamos del Adress space nos referimos a la abstraccion que provee el kernel del sistema operativo al proceso sobre la memoria de la computadora. Este representa el estado completo de la memoria de un proceso y esta compuesto por cuatro secciones: code, data, heap y stack",
+      tarea1: [
+        {
+          nombre: "Nombre1",
+          descripcion: "Esta es la descripcion de tarea 1",
+          fechaCreacion: "fecha1",
+        },
+      ],
+    }
   if (!open) return null;
   return (
     <Overlay>
@@ -34,7 +44,7 @@ export const Modal = (props) => {
         <FormContainer>
           <StyledTextInputContainer>
             <Text>Nombre:</Text>
-            <Input type="text" />
+            <Input type="text" defaultValue={proyecto.nombre}/>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
@@ -56,8 +66,8 @@ export const Modal = (props) => {
             <Text>Descripcion:</Text>
           </StyledTextInputContainer>
           <DescriptionContainer>
-            <DescriptionInput>
-              
+            <DescriptionInput type="text" defaultValue={proyecto.descripcion}>
+
             </DescriptionInput>
           </DescriptionContainer>
         </FormContainer>

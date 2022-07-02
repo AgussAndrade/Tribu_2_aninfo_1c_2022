@@ -77,11 +77,12 @@ export const Project = () => {
   const Cards = () => {
     return proyectos
       .filter((val) => {
-        if (searchTerm == "") return val;
+        if (searchTerm === "") return val;
         else if (
           val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
         )
           return val;
+        return "";
       })
       .map((proyecto) => (
         <Card
@@ -121,6 +122,8 @@ export const Project = () => {
       <BodyContainer>
         <Cards />
       </BodyContainer>
+
     </PrincipalContainer>
+    
   );
 };
