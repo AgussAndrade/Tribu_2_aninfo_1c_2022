@@ -17,6 +17,15 @@ export const LogoContainer = styled.div`
     background-color: ${colors.lightBlue};
 `
 
+export const LogoButton = styled.button`
+    background-color: transparent;
+    border: none;
+    &:hover {
+    cursor: pointer;
+    }
+    min-width: 60px;
+`;
+
 export const Icon = styled.img`
   width: 100px;
   height: 100%;
