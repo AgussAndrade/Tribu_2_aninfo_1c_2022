@@ -1,4 +1,5 @@
 import {Modal} from "react-bootstrap";
+import "./style.css"
 
 export const GenericModal = (props) => {
     return (

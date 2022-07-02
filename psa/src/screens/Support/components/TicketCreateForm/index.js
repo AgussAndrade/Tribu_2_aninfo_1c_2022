@@ -10,9 +10,13 @@ export const TicketCreateForm = () => {
     const [endDate, setEndDate] = useState(getCurrentDate("/"));
     const [clientId, setClientId] = useState("");
 
+
+    const handleSubmit = () => {
+    }
+
     const formInputs = () => {
         return (
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Container>
                     <Row>
                         <Col>
@@ -62,7 +66,7 @@ export const TicketCreateForm = () => {
                         </Col>
                     </Row>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Guardar
                     </Button>
                     </Container>
                 </Form>
