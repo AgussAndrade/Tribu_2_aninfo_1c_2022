@@ -12,10 +12,7 @@ export const CardTextContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 100px;
-    
-
 `
-
 
 export const TitleText = styled.p`
   font-size: 25px;
