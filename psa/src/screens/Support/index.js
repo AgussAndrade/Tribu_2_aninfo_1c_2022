@@ -1,12 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { TopBar } from "../../components/TopBar";
+import { ProductosSoporte } from "../../components/ProductosSoporte";
 
 export const Support = () => {
-  const navigate = useNavigate();
   return (
     <div>
-      <p>Esto es soporte</p>
-      <button onClick={() => navigate(-1)}>Volver</button>
+      <TopBar buttonSelected={"Soporte"}/>
+      <ProductosSoporte/>
     </div>
   );
 };
+//<button onClick={()=> navigate('/')}>Volver</button>

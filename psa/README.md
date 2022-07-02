@@ -68,3 +68,25 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+### Deploying to Heroku
+
+To deploy this app to Heroku, simply push the latest changes to Heroku's remote repository for this app.
+
+First add Heroku to your list of remotes
+```bash
+$ heroku login
+...
+$ heroku git:remote -a psa-mvp
+```
+
+Push your changes to Heroku and it will deploy this app
+```bash
+$ git add .
+$ git commit -m "..."
+$ git push heroku master
+```
+
+You can see the logs by running `heroku logs --tail` and check if the build was successful
