@@ -7,10 +7,44 @@ export const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 50px;
   z-index: 1000;
+  height: 500px;
+  width: 400px;
+  min-height: 400px;
+  min-width: 300px;
   background-color: ${colors.lightGrey};
+  border-radius: 15px;
+  overflow: hidden;
 `;
+
+export const TitleContainer = styled.div`
+  width: 100%;
+  height: 10%;
+  background-color: ${colors.lightBlue};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const Title = styled.p`
+  font-size: 18px;
+  color: ${colors.white2};
+`
+
+export const TextContainer = styled.div`
+  width: 100%;
+  height: 80%;
+  background-color: ${colors.lightGrey};
+  display: flex; 
+`
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  height: 10%;
+  justify-content: flex-end;
+  display: flex;
+`
+
 
 
 export const Overlay = styled.div`
