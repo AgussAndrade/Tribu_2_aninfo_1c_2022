@@ -14,6 +14,7 @@ import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
 import { EditionModal } from "./components/EditionModal";
+import {EditionTaskModal} from "./components/EditionTaskModal"
 import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 
@@ -21,7 +22,7 @@ export const ProjectDescription = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
-
+  const [showModalTask, setShowModalTask] = useState(false);
   // use effect para ver cuando se elimina el proyecto
 
   // use effect para ver cuando se elimina tarea
@@ -64,47 +65,42 @@ export const ProjectDescription = () => {
     ],
   };
 
+  const mantequita = {
+    estado: "string",
+    fechaFin: "string",
+    fechaInicio: "string",
+    id: 0,
+    legajoLider: 22,
+    nombre: "string"
+  }
+
   const [items, setItems] = useState({});
   const [error, setError] = useState("");
 
- /* const axios = require ("axios");
 
-  axios.get('https://moduloproyectos.herokuapp.com/proyectos',(req,response) => {
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Credentials", "true");
-    response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-  }).then(
-    (repos) => {
-      if(repos.status == 200){
-        navigate('/resources/employee',
-        {
-          state:{
-            name:name,
-            date:date}
-        })
-      }else{
-        navigate('/resources/error');
-      };
-    }
-  );
-};*/
+//  useEffect(() => {
+//     fetch("https://moduloproyectos.herokuapp.com/proyectos", {
+//       method: "GET",
+//     } )
+//       .then(res => res.json())
+//       .then(
+//         (result) => {
+//           setItems(result);
+//           console.log( "res" + result)
+//         },
+//         (error) => {
+//           setError(error);
+//         }
+//       )
+//   }, []); //esto parece que anda
 
- useEffect(() => {
-    fetch("https://moduloproyectos.herokuapp.com/proyectos", {
-      method: "GET",
-    } )
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setItems(result);
-          console.log( "res" + result)
-        },
-        (error) => {
-          setError(error);
-        }
-      )
-  }, []);
+  // fetch("https://moduloproyectos.herokuapp.com/proyectos", {  // Enter your IP address here
+
+  //     method: 'POST',
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify(mantequita) // body data type must match "Content-Type" header
+
+  //   }) //esto anda confirmado por el evilar2
 
   const TaskCards = () => {
     return proyecto.tareas
@@ -121,9 +117,7 @@ export const ProjectDescription = () => {
           descripcionTarea={tarea.descripcion}
           fechaCreacion={tarea.fechaCreacion}
           estado={tarea.estado}
-          onClick={() => {
-            navigate("/");
-          }}
+          onClick={() => setShowModalTask(true)}
         />
       ));
   };
@@ -131,7 +125,8 @@ export const ProjectDescription = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <EditionModal open={showModal} onClose={() => setShowModal(false)} />
+      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Editar Proyecto" defaultVal = {true}/>
+      <EditionTaskModal open={showModalTask} onClose={() => setShowModalTask(false)} />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
