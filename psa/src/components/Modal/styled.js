@@ -40,6 +40,7 @@ export const Input = styled.input`
 	padding:5px;
   margin-left: 10px;
   height: 80%;
+  
 `
 export const DescriptionInput = styled.textarea`
   text-size-adjust: inherit;
