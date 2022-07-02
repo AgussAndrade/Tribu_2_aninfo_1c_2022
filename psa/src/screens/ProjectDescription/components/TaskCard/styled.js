@@ -35,11 +35,10 @@ export const ProjectInfoText = styled.p`
 `
 
 export const EditProjectContainer = styled.div`
-    height: 30px;
+    height: 45px;
     display: flex;
     width: 10%;
     min-width: fit-content;
-
     align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
@@ -49,7 +48,7 @@ export const CardContainer = styled.div`
     width: 95%;
     height: 100%;
     display: flex;
-    background-color: white;
+    background-color: ${colors.white2};
     border-radius: 20px;
     margin-top: 20px;
 `

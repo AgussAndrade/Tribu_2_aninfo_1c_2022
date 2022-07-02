@@ -7,7 +7,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const StyledButton = styled.button`
-    width: 90px;
+    width: 100px;
     height: 25px;
     &:hover {
         background-color: ${colors.grey};

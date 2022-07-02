@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PrincipalContainer, BodyContainer, TaskContainer } from "./styled";
+import { PrincipalContainer, BodyContainer, TaskContainer, InputContainer, Input } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
 import { Modal } from "../../components/Modal";
 
+
 export const ProjectDescription = () => {
   const [showModal, setShowModal] = useState(false);
-
+	const [searchTerm, setSerchTerm] = useState("");
   const proyecto = {
     nombre: "Nombre1",
     descripcion: "Esta es la descripcion1",
@@ -47,7 +48,14 @@ export const ProjectDescription = () => {
   };
 
   const TaskCards = () => {
-    return proyecto.tareas.map((tarea) => (
+    return proyecto.tareas.filter((val) => {
+			if (searchTerm == "") return val;
+			else if (
+				val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+			)
+				return val;
+		})
+			.map((tarea) => (
       <TaskCard
         nombreTarea={tarea.nombre}
         descripcionTarea={tarea.descripcion}
@@ -59,7 +67,7 @@ export const ProjectDescription = () => {
       />
     ));
   };
-
+	
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
@@ -78,9 +86,26 @@ export const ProjectDescription = () => {
           }
         />
         <TaskContainer>
-            <TaskCards/>
+				<InputContainer>
+				<Input
+            type="text"
+            placeholder="Buscar..."
+            onChange={(event) => {
+              setSerchTerm(event.target.value);
+            }}
+          />
+				</InputContainer>
+          <TaskCards/>
         </TaskContainer>
       </BodyContainer>
     </PrincipalContainer>
   );
 };
+
+{/* <FormGroupContainer
+          controlId="date"
+          type="date"
+          name="date"
+          placeholder=""
+        /> */}
+        // import {FormGroupContainer} from "../../components/FormGroup"
