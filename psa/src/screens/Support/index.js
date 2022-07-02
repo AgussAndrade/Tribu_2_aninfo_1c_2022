@@ -13,8 +13,8 @@ import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
-import {GenericModal} from "../../components/GenericModal";
-import {TicketForm} from "./components/TicketForm";
+import {GenericModal} from "./components/GenericModal";
+import {TicketCreateForm} from "./components/TicketCreateForm";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
@@ -136,7 +136,7 @@ export const Support = () => {
         <GenericModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            form = {<TicketForm/>}
+            form = {<TicketCreateForm/>}
             title = {"Crear ticket"}
         />
       </BodyContainer>

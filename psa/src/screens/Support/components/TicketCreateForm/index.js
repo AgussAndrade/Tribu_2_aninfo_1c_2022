@@ -2,7 +2,7 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useState} from "react";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
-export const TicketForm = () => {
+export const TicketCreateForm = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
