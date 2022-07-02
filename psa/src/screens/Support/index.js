@@ -108,7 +108,7 @@ export const Support = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <TopBar buttonSelected={"Proyectos"} />
+      <TopBar buttonSelected={"Soporte"} />
       <OptionsContainer>
         <InputContainer>
           <Input
