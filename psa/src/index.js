@@ -7,6 +7,9 @@ import { Project } from './screens/Project';
 import { Resources } from './screens/Resources';
 import { ResourcesEmployee } from './screens/Resources/components/ResourcesEmployee';
 import { Support } from './screens/Support';
+import { PantallaCrearTicket } from './screens/Support/PantallaCrearTicket';
+import { PantallaVerTickets } from './screens/Support/PantallaVerTickets';
+import  PantallaDerivarTicket  from './screens/Support/PantallaDerivarTicket';
 import { ProjectDescription } from './screens/ProjectDescription';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +21,9 @@ root.render(
       <Route path="/resources" element={<Resources />} />
       <Route path="/resources/employee" element={<ResourcesEmployee />} />
       <Route path="/support" element={<Support />} />
+      <Route path="/support/pantallaCrearTicket" element={<PantallaCrearTicket />} />
+      <Route path="/support/pantallaVerTickets" element={<PantallaVerTickets />} />
+      <Route path="/support/pantallaDerivarTicket" element={<PantallaDerivarTicket />} />
       <Route path="/projects/id" element={<ProjectDescription />} />
     </Routes>
   </BrowserRouter>
