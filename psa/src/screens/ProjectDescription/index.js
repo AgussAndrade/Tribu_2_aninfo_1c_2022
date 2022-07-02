@@ -1,22 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PrincipalContainer, BodyContainer, TaskContainer, InputContainer, Input } from "./styled";
+import {
+  PrincipalContainer,
+  ProyectOptionsContainer,
+  BodyContainer,
+  TaskContainer,
+  InputContainer,
+  Input,
+  OptionsContainer,
+  DeleteButtonContainer,
+} from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
+import { EditionModal } from "./components/EditionModal";
 import { Modal } from "../../components/Modal";
-
+import { DeleteButton } from "../../components/DeleteButton";
 
 export const ProjectDescription = () => {
   const [showModal, setShowModal] = useState(false);
-	const [searchTerm, setSerchTerm] = useState("");
+  const [searchTerm, setSerchTerm] = useState("");
+  const [deleteProject, setDeleteProject] = useState(false);
+
+  // use effect para ver cuando se elimina el proyecto
+
+  // use effect para ver cuando se elimina tarea
+
   const proyecto = {
     nombre: "Nombre1",
     descripcion: "Esta es la descripcion1",
     tareas: [
       {
         nombre: "Tarea: Nombre1",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 1, es una descripcion larga para probar el overflow de la caja de texto a ver si funciona bien o si no funciona bien por eso es larga. Aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        descripcion:
+          "Descripcion: Esta es la descripcion de tarea 1, es una descripcion larga para probar el overflow de la caja de texto a ver si funciona bien o si no funciona bien por eso es larga. Aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         fechaCreacion: "Fecha de creacion: 22/2/2022",
         estado: "Estado: En curso",
       },
@@ -47,31 +64,74 @@ export const ProjectDescription = () => {
     ],
   };
 
+  const [items, setItems] = useState({});
+  const [error, setError] = useState("");
+
+ /* const axios = require ("axios");
+
+  axios.get('https://moduloproyectos.herokuapp.com/proyectos',(req,response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Credentials", "true");
+    response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  }).then(
+    (repos) => {
+      if(repos.status == 200){
+        navigate('/resources/employee',
+        {
+          state:{
+            name:name,
+            date:date}
+        })
+      }else{
+        navigate('/resources/error');
+      };
+    }
+  );
+};*/
+
+ useEffect(() => {
+    fetch("https://moduloproyectos.herokuapp.com/proyectos", {
+      method: "GET",
+    } )
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setItems(result);
+          console.log( "res" + result)
+        },
+        (error) => {
+          setError(error);
+        }
+      )
+  }, []);
+
   const TaskCards = () => {
-    return proyecto.tareas.filter((val) => {
-			if (searchTerm == "") return val;
-			else if (
-				val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-			)
-				return val;
-		})
-			.map((tarea) => (
-      <TaskCard
-        nombreTarea={tarea.nombre}
-        descripcionTarea={tarea.descripcion}
-        fechaCreacion={tarea.fechaCreacion}
-        estado={tarea.estado}
-        onClick={() => {
-          navigate("/");
-        }}
-      />
-    ));
+    return proyecto.tareas
+      .filter((val) => {
+        if (searchTerm == "") return val;
+        else if (
+          val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+        )
+          return val;
+      })
+      .map((tarea) => (
+        <TaskCard
+          nombreTarea={tarea.nombre}
+          descripcionTarea={tarea.descripcion}
+          fechaCreacion={tarea.fechaCreacion}
+          estado={tarea.estado}
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+      ));
   };
-	
+
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <Modal open={showModal} onClose={()=>setShowModal(false)}/>
+      <EditionModal open={showModal} onClose={() => setShowModal(false)} />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
@@ -82,30 +142,26 @@ export const ProjectDescription = () => {
           fechaInicio={"Fecha de inicio: 27/7/2022"}
           fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
           lider={"Lider: Yo"}
-          onClick={() =>setShowModal(true)
-          }
+          onClick={() => setShowModal(true)}
         />
         <TaskContainer>
-				<InputContainer>
-				<Input
-            type="text"
-            placeholder="Buscar..."
-            onChange={(event) => {
-              setSerchTerm(event.target.value);
-            }}
-          />
-				</InputContainer>
-          <TaskCards/>
+          <InputContainer>
+            <Input
+              type="text"
+              placeholder="Buscar..."
+              onChange={(event) => {
+                setSerchTerm(event.target.value);
+              }}
+            />
+          </InputContainer>
+          <TaskCards />
         </TaskContainer>
+        <OptionsContainer>
+          <DeleteButtonContainer>
+          <DeleteButton setDelete= {setDeleteProject} optionText = {"proyecto"}/>
+          </DeleteButtonContainer>
+        </OptionsContainer>
       </BodyContainer>
     </PrincipalContainer>
   );
 };
-
-{/* <FormGroupContainer
-          controlId="date"
-          type="date"
-          name="date"
-          placeholder=""
-        /> */}
-        // import {FormGroupContainer} from "../../components/FormGroup"

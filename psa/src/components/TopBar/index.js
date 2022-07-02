@@ -11,9 +11,7 @@ export const TopBar = (props) =>{
     return(
         <Container>
             <LogoContainer>
-                <LogoButton>
-                    <Icon src={psa_logo} onClick = {()=>{navigate('/')}}/>
-                </LogoButton>
+                <Icon src={psa_logo} onClick = {() => {navigate("/")}}/>
             </LogoContainer>
             <ButtonContainer>
                 <TopBarButton buttonSelected={buttonSelected === 'Proyectos'} name = {'Proyectos'} onClick = {()=>{navigate('/projects')}}/>

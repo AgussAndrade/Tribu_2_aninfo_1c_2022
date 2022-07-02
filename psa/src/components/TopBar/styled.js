@@ -29,6 +29,7 @@ export const LogoButton = styled.button`
 export const Icon = styled.img`
   width: 100px;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const Container = styled.div`
