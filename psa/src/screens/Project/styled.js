@@ -88,22 +88,20 @@ export const ButtonNewProyect = styled.div`
     width: 15%;
     height: 50%;
     display: flex;
-    /* flex-direction: column; */
     font-family: "Verdana";
-    /* align-self: flex-end; */
     padding-right: 50px;
     min-width: fit-content;
 
 `
-export const InfoProjectContainer = styled.div`
-    height: 35%;
-    display: flex;
-    width: 15%;
-    min-width: fit-content;
-    align-self: flex-end;
-    padding-bottom:15px;
-    padding-right: 25px;
-    margin-left: 10px;
+// export const InfoProjectContainer = styled.div`
+//     height: 35%;
+//     display: flex;
+//     width: 15%;
+//     min-width: fit-content;
+//     align-self: flex-end;
+//     padding-bottom:15px;
+//     padding-right: 25px;
+//     margin-left: 10px;
 
     
-`
+// `

@@ -9,6 +9,7 @@ export const PrincipalContainer = styled.div`
     flex-direction: column;
     font-family: "Verdana";
     background-color: ${colors.backgroundGrey};
+		
 `
 
 
@@ -33,5 +34,18 @@ export const TaskContainer = styled.div`
     margin-top: 15px;
     background-color: ${colors.lightGrey};
     padding-bottom: 20px;
+		overflow-y: scroll;
+`
+export const InputContainer = styled.div`
+	width: 100%;
+    height: 50%;
+    display: flex;
 `
 
+export const Input = styled.input`
+  font-size: 15px;
+  border-radius: 10px;
+	border: none;
+	padding: 10px;
+	background-color: ${colors.white};
+`
