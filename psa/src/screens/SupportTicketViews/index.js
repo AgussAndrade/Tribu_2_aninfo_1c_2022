@@ -16,12 +16,14 @@ import { SupportCard} from "./components/SupportCard";
 
 export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
-  const proyectos = [
+  const tickets = [
     {
       nombre: "El inventario no se actualiza correctamente",
+      tareas: "10",
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
+      vencimiento: "10 dias",
       tarea1: [
         {
           nombre: "Nombre1",
@@ -32,9 +34,11 @@ export const SupportTicketViews = () => {
     },
     {
       nombre: "El inventario no se actualiza correctamente",
+      tareas: "10",
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
+      vencimiento: "10 dias",
       tarea2: [
         {
           nombre: "Nombre2",
@@ -45,9 +49,11 @@ export const SupportTicketViews = () => {
     },
     {
       nombre: "El inventario no se actualiza correctamente",
+      tareas: "10",
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
+      vencimiento: "10 dias",
       tarea3: [
         {
           nombre: "Nombre3",
@@ -58,9 +64,11 @@ export const SupportTicketViews = () => {
     },
     {
       nombre: "El inventario no se actualiza correctamente",
+      tareas: "10",
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
+      vencimiento: "10 dias",
       tarea4: [
         {
           nombre: "Nombre4",
@@ -71,9 +79,11 @@ export const SupportTicketViews = () => {
     },
     {
       nombre: "El inventario no se actualiza correctamente",
+      tareas: "10",
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
+      vencimiento: "10 dias",
       tarea5: [
         {
           nombre: "Nombre5",
@@ -85,7 +95,7 @@ export const SupportTicketViews = () => {
   ];
 
   const Cards = () => {
-    return proyectos
+    return tickets
       .filter((val) => {
         if (searchTerm == "") return val;
         else if (
@@ -93,12 +103,14 @@ export const SupportTicketViews = () => {
         )
           return val;
       })
-      .map((proyecto) => (
+      .map((ticket) => (
         <SupportCard
-          nombreProyecto={proyecto.nombre}
-          estadoProyecto={proyecto.estado}
-          severidadProyecto={proyecto.severidad}
-          responsableProyecto={proyecto.responsable}
+          nombreProyecto={ticket.nombre}
+          tareasProyecto={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
+          estadoProyecto={ticket.estado}
+          severidadProyecto={ticket.severidad}
+          responsableProyecto={ticket.responsable}
+          vencimientoProyecto={ticket.vencimiento}
           onClick={() => {
             navigate("#");
           }}

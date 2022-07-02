@@ -12,7 +12,7 @@ import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
 
 export const SupportCard = (props) => {
-    const {nombreProyecto, estadoProyecto, severidadProyecto,responsableProyecto, onClick} = props;
+    const {nombreProyecto, tareasProyecto, estadoProyecto, severidadProyecto,responsableProyecto, vencimientoProyecto, onClick} = props;
     return(
         <CardContainer>
           <CardTextContainer>
@@ -20,13 +20,16 @@ export const SupportCard = (props) => {
             	{nombreProyecto}
             </TitleText>
             <DescriptionText>
-              {estadoProyecto}
+            	Tareas: {tareasProyecto} | 
+              
+            	Estado: {estadoProyecto} | 
+              
+            	Severidad {severidadProyecto} | 
+            
+            	Responsable: {responsableProyecto} 
             </DescriptionText>
             <DescriptionText>
-            {severidadProyecto}
-            </DescriptionText>
-            <DescriptionText>
-            {responsableProyecto}
+            	Vencimiento: {vencimientoProyecto} 
             </DescriptionText>
           </CardTextContainer>
           <ButtonContainer>
@@ -48,7 +51,7 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Cerrar Ticket"}
               onClick={onClick}
-              color = {colors.lightBlue}
+              color = {colors.red}
             ></GenericButton>
           </ButtonContainer>  
 
