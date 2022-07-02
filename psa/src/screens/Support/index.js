@@ -9,8 +9,6 @@ import {
   InputContainer,
 } from "./styled";
 import { TopBar } from "../../components/TopBar";
-import { GenericButton } from "../../components/GenericButton";
-import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
@@ -121,15 +119,6 @@ export const Support = () => {
             }}
           />
         </InputContainer>
-        <ButtonNewProyect>
-          <GenericButton
-            name={"Nuevo proyecto"}
-            onClick={() => {
-              navigate("/");
-            }}
-            color={colors.lightBlue}
-          ></GenericButton>
-        </ButtonNewProyect>
       </OptionsContainer>
       <BodyContainer>
         <Cards />

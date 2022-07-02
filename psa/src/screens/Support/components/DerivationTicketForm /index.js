@@ -1,8 +1,8 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useState} from "react";
+import {useState} from "@types/react";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 
-export const TicketCreateForm = () => {
+export const DerivationTicketForm = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
@@ -11,12 +11,13 @@ export const TicketCreateForm = () => {
     const [clientId, setClientId] = useState("");
 
 
-    const handleSubmit = () => {}
+    const handleSubmit = () => {
+    }
 
     const formInputs = () => {
         return (
-                <Form onSubmit={handleSubmit}>
-                    <Container>
+            <Form onSubmit={handleSubmit}>
+                <Container>
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
@@ -69,8 +70,8 @@ export const TicketCreateForm = () => {
                             Guardar
                         </Button>
                     </div>
-                    </Container>
-                </Form>
+                </Container>
+            </Form>
         )
     }
 
