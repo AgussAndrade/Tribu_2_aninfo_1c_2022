@@ -8,7 +8,7 @@ import {
   Input,
   InputContainer,
 } from "./styled";
-import { NewProjectModal } from "./components/NewProjectModal"
+import { NewProjectModal } from "./components/NewProjectModal";
 import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
@@ -19,80 +19,20 @@ export const Project = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [projects, setProjects] = useState([]);
+  const [employees, setEmployees] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https:moduloproyectos.herokuapp.com/proyectos", {
       method: "GET",
-    } )
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setProjects(result);
-        },
-      )
-      .catch(() => navigate("/error"))
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setProjects(result);
+      })
+      .catch(() => navigate("/error"));
   }, []);
-
-
-
-  const proyectos = [
-    {
-      nombre: "Proyecto: Prueba de titulo",
-      descripcion: "Cuando hablamos del Adress space nos referimos a la abstraccion que provee el kernel del sistema operativo al proceso sobre la memoria de la computadora. Este representa el estado completo de la memoria de un proceso y esta compuesto por cuatro secciones: code, data, heap y stack",
-      tarea1: [
-        {
-          nombre: "Nombre1",
-          descripcion: "Esta es la descripcion de tarea 1",
-          fechaCreacion: "2022-12-12",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Aprobar aninfo",
-      descripcion: "Esta es la descripcion2",
-      tarea2: [
-        {
-          nombre: "Nombre2",
-          descripcion: "Esta es la descripcion de tarea 2",
-          fechaCreacion: "fecha2",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Ejemplo para filtrar",
-      descripcion: "Esta es la descripcion3",
-      tarea3: [
-        {
-          nombre: "Nombre3",
-          descripcion: "Esta es la descripcion de tarea 3",
-          fechaCreacion: "fecha3",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Dividir por dos cifras",
-      descripcion: "Esta es la descripcion4",
-      tarea4: [
-        {
-          nombre: "Nombre4",
-          descripcion: "Esta es la descripcion de tarea 4",
-          fechaCreacion: "fecha4",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Ultimo ejemplo",
-      descripcion: "Esta es la descripcion5",
-      tarea4: [
-        {
-          nombre: "Nombre5",
-          descripcion: "Esta es la descripcion de tarea 5",
-          fechaCreacion: "fecha5",
-        },
-      ],
-    },
-  ];
 
   const Cards = () => {
     return projects
@@ -117,11 +57,28 @@ export const Project = () => {
 
   const handleClose = () => {
     setShowModal(false);
-  } 
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setEmployees(result);
+        })
+        .catch(() => navigate("/error"));
+    }
+  }, [showModal]);
 
   return (
     <PrincipalContainer>
-      <NewProjectModal open={showModal} onClose={handleClose}/>
+      <NewProjectModal
+        open={showModal}
+        onClose={handleClose}
+        listEmployees={employees}
+      />
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>
         <InputContainer>
@@ -144,8 +101,6 @@ export const Project = () => {
       <BodyContainer>
         <Cards />
       </BodyContainer>
-
     </PrincipalContainer>
-    
   );
 };

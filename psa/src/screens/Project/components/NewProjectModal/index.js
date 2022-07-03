@@ -23,13 +23,14 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const NewProjectModal = (props) => {
-  const { open, onClose } = props;
+  const { open, onClose, listEmployees } = props;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [dateStart, setDateStart] = useState("");
   const [dateFinish, setDateFinish] = useState("");
+  const [leaderID, setLeaderID] = useState(-1);
   const [state, setState] = useState("");
 
   const navigate = useNavigate();
@@ -39,21 +40,27 @@ export const NewProjectModal = (props) => {
     fechaFin: "",
     fechaInicio: "",
     id: 0,
-    legajoLider: 0,
+    legajoLider: -1,
     nombre: "",
-    // tareas: [
-    //   {
-    //     descripcion: "",
-    //     empleados: [0],
-    //     estado: "",
-    //     id: 0,
-    //     idProyecto: 0,
-    //     idTicket: 0,
-    //     nombre: "",
-    //   },
-    // ],
   };
 
+  const checkLeaderId = () => {
+    let value = false;
+    
+    
+    console.log(listEmployees);
+    listEmployees.forEach((empleado) => {
+      console.log(empleado.legajo);
+      console.log(leaderID);
+      if (empleado.legajo == leaderID) {
+        console.log(empleado);
+        console.log(leaderID);
+        value = true;
+      }
+    });
+    
+    return value;
+  };
 
   const saveInput = () => {
     if (
@@ -61,14 +68,15 @@ export const NewProjectModal = (props) => {
       description &&
       dateStart &&
       dateFinish &&
-      state
+      state &&
+      checkLeaderId()
     ) {
       newProject = {
         estado: state,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
-        legajoLider: 1,
+        legajoLider: leaderID,
         nombre: name,
       };
 
@@ -81,14 +89,23 @@ export const NewProjectModal = (props) => {
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-      setErrorMessage("Rellene todos los campos");
+      if(name &&
+        description &&
+        dateStart &&
+        dateFinish &&
+        state && leaderID){
+        setErrorMessage("Ingrese un ID valido");
+      }
+      else{
+        setErrorMessage("Rellene todos los campos");
+      }
 
       newProject = {
         estado: state,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
-        legajoLider: 1,
+        legajoLider: leaderID,
         nombre: name,
       };
       if (!name) setName("");
@@ -96,6 +113,7 @@ export const NewProjectModal = (props) => {
       if (!dateFinish) setDateFinish("");
       if (!dateStart) setDateStart("");
       if (!description) setDescription("");
+      if (leaderID == -1) setLeaderID(-1);
     }
   };
 
@@ -106,6 +124,7 @@ export const NewProjectModal = (props) => {
     setDateStart("");
     setDescription("");
     setName("");
+    setLeaderID(-1);
     onClose();
   };
 
@@ -137,6 +156,10 @@ export const NewProjectModal = (props) => {
           <StyledTextInputContainer>
             <Text>Fecha estimada de fin:</Text>
             <Date onChange={(e) => setDateFinish(e.target.value)}></Date>
+          </StyledTextInputContainer>
+          <StyledTextInputContainer>
+            <Text>Legajo lider:</Text>
+            <Input type="text" onChange={(e) => setLeaderID(e.target.value)} />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>

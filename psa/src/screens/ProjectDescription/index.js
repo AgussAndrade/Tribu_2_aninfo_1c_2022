@@ -30,9 +30,10 @@ export const ProjectDescription = (props) => {
   const [showModalAddTask, setshowModalAddTask] = useState(false)
   const [project, setProject] = useState({});
   const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
 
   const url = "https:moduloproyectos.herokuapp.com/proyectos/" + id;
-  console.log(url);
+
   useEffect(() => {
     fetch(url, {
       method: "GET",
@@ -44,7 +45,7 @@ export const ProjectDescription = (props) => {
       .catch(() => navigate("/error"));
   }, []);
 
-  console.log(project);
+
 
   //use effect para ver cuando se elimina el project
   //use effect para ver cuando se elimina tarea
@@ -91,6 +92,19 @@ export const ProjectDescription = (props) => {
     })
     .catch(() => navigate("/error"));
 
+    useEffect(() => {
+      if (showModal) {
+        fetch("https:moduloproyectos.herokuapp.com/empleados", {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            setEmployees(result);
+          })
+          .catch(() => navigate("/error"));
+      }
+    }, [showModal]);
+
   return (
     <PrincipalContainer>
       <NewTaskModal open={showModalAddTask}
@@ -102,6 +116,8 @@ export const ProjectDescription = (props) => {
         onClose={() => setShowModal(false)}
         titulo="Editar Proyecto"
         proyecto={project}
+        listEmployees={employees}
+
       />
       <EditionTaskModal
         open={showModalTask}

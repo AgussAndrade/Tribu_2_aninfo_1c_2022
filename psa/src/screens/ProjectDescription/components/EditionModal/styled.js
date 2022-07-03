@@ -91,7 +91,6 @@ export const FormContainer = styled.form`
 
 export const DescriptionContainer = styled.div`
   display:block;
-  padding-bottom: 40px;
   padding-left:40px;
   width:90%;
   overflow-wrap: break-word;
@@ -163,4 +162,15 @@ export const Buttons = styled.div`
   flex-direction: row;
   align-items: center; 
   margin-left: 80px;
+`
+
+export const ErrorMessageContainer = styled.div`
+  display: flex;
+  height: 20%;
+  width: 100%;
+  font-family: Verdana;
+  font-size: 15px;
+  color: red;
+  justify-content: center;
+  margin-top: 10px;
 `

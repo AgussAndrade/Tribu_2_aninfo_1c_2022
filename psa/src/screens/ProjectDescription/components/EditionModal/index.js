@@ -15,27 +15,117 @@ import {
   Date,
   DescriptionContainer,
   DescriptionInput,
+  ErrorMessageContainer,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
+import { useNavigate } from "react-router-dom";
+import { Project } from "../../../Project";
 
 export const EditionModal = (props) => {
-  const { open, onClose, titulo, proyecto } = props;
-
-  const [name, setName] = useState(proyecto.nombre);
-  const [description, setDescription] = useState(proyecto.descripcion);
-  const [dateStart, setDateStart] = useState(proyecto.fechaCreacion);
+  const { open, onClose, titulo, proyecto, listEmployees } = props;
+  console.log(proyecto);
+  console.log(proyecto.nombre);
+  const nombre = proyecto.nombre;
+  const [name, setName] = useState(nombre);
+  const [description, setDescription] = useState("proyecto.descripcion");
+  const [dateStart, setDateStart] = useState("proyecto.fechaInicio");
   const [dateFinish, setDateFinish] = useState(proyecto.fechaFin);
+  const [leaderID, setLeaderID] = useState(proyecto.leaderID);
   const [state, setState] = useState(proyecto.estado);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+
+
+  console.log(name);
+  console.log(description);
+  console.log(dateStart);
+  console.log(dateFinish);
+  console.log(state);
+  console.log(leaderID);
+
+  let newProject = {
+    estado: proyecto.estado,
+    fechaFin: proyecto.fechaFin,
+    fechaInicio: proyecto.fechaInicio,
+    id: proyecto.id,
+    legajoLider: proyecto.legajoLider,
+    nombre: proyecto.nombre,
+  };
+
+  const checkLeaderId = () => {
+    let value = false;
+    console.log("La lista de empleados es ");
+    
+    listEmployees.forEach((empleado) => {
+      if (empleado.legajo == leaderID) {
+        console.log("entras aca mauqina?");
+        value = true;
+      }
+    });
+    return value;
+  };
 
   const saveInput = () => {
-    let newProject = {
-      nombre: name,
-      descripcion: description,
-      estado: state,
-      fechaCreacion: dateStart,
-      fechaFin: dateFinish,
-    };
-    console.log(newProject);
+    console.log("Print en save");
+    console.log("lider id en save", leaderID);
+    if (
+      name &&
+      description &&
+      dateStart &&
+      dateFinish &&
+      state &&
+      checkLeaderId()
+    ) {
+      newProject = {
+        estado: state,
+        fechaFin: dateFinish,
+        fechaInicio: dateStart,
+        legajoLider: leaderID,
+        nombre: name,
+      };
+      console.log(newProject);
+      console.log("https:moduloproyectos.herokuapp.com/proyectos/" + proyecto.id);
+      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + proyecto.id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newProject),
+      })
+        // .then(() => window.location.reload())
+        .catch(() => navigate("/error"));
+      handleClose();
+    } else {
+      if(name &&
+        description &&
+        dateStart &&
+        dateFinish &&
+        state && leaderID){
+        setErrorMessage("Ingrese un ID valido");
+      }
+      else{
+        setErrorMessage("Rellene todos los campos");
+      }
+      console.log("Esto es ",proyecto.legajoLider);
+
+      
+      if (proyecto.nombre != name) setName(proyecto.nombre);
+      if (proyecto.estado !=state) setState(proyecto.estado);
+      if (proyecto.fechaFin != dateFinish) setDateFinish(proyecto.fechaFin);
+      if (proyecto.fechaInicio != dateStart) setDateStart(proyecto.fechaInicio);
+      if (!description) setDescription(proyecto.descripcion); //cambiar descripcion
+      if (proyecto.legajoLider != leaderID) setLeaderID(proyecto.legajoLider);
+       
+    }
+  };
+
+  const handleClose = () => {
+    setErrorMessage("");
+    setState(proyecto.estado);
+    setDateFinish(proyecto.fechaFin);
+    setDateStart(proyecto.fechaInicio);
+    setDescription(proyecto.descripcion);;
+    setName(proyecto.nombre);
+    setLeaderID(proyecto.legajoLider);
     onClose();
   };
 
@@ -71,7 +161,7 @@ export const EditionModal = (props) => {
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
             <Date
-              defaultValue={proyecto.fechaCreacion}
+              defaultValue={proyecto.fechaInicio}
               onChange={(e) => setDateStart(e.target.value)}
             ></Date>
           </StyledTextInputContainer>
@@ -83,6 +173,10 @@ export const EditionModal = (props) => {
             ></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
+            <Text>Legajo lider:</Text>
+            <Input type="text" onChange={(e) => setLeaderID(e.target.value)} defaultValue={proyecto.legajoLider} />
+          </StyledTextInputContainer>
+          <StyledTextInputContainer>
             <Text>Descripcion:</Text>
           </StyledTextInputContainer>
           <DescriptionContainer>
@@ -92,6 +186,7 @@ export const EditionModal = (props) => {
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>
+          <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
         </FormContainer>
         <Buttons>
           <ButtonContainer>
