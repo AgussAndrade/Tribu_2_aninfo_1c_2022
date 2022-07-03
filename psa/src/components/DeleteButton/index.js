@@ -23,13 +23,18 @@ export const DeleteButton = (props) => {
     );
   };
 
+  const handleAccept = () => {
+    setDelete(true);
+    setShowModal(false);
+  }
+
   return (
     <div>
       <ConfirmationModal
         open={showModal}
         titleText={"Eliminar"}
         actionText={"eliminar " + optionText}
-        onAccept={() => setDelete(true)}
+        onAccept={handleAccept}
         onClose={() => setShowModal(false)}
       />
       <ButtonType/>

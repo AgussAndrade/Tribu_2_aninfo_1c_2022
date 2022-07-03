@@ -79,9 +79,10 @@ export const Input = styled.input`
 export const OptionsContainer = styled.div`
 display: flex;
 align-items:center;
-height: 10%;
+height: 20%;
 width: 100%;
 justify-content: center;
+flex-direction: row;
 ` 
 
 export const ButtonContainer = styled.div`
@@ -92,9 +93,17 @@ export const ButtonContainer = styled.div`
     align-items: flex-end;
 `
 
+export const DeleteButtonContainer = styled.div`
+    width: 80%;
+    height: 50%;
+    display:flex;
+    justify-content: flex-end;
+
+`
+
 export const  BackButtonContainer = styled.div`
   width: 10%;
-  height: 10%;
+  height: 100%;
 `
 
 export const AddTaskButton = styled.button`

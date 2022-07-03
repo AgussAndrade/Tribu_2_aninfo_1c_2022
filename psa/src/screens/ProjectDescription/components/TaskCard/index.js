@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CardContainer,
   CardTextContainer,
@@ -15,9 +16,19 @@ import { EditionTaskModal } from "../EditionTaskModal";
 
 
 export const TaskCard = (props) => {
-  const { tarea, onClick } = props;
+  const { tarea, onClick, id } = props;
   const [deleteTask, setDeleteTask] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
+  const navigate = useNavigate();
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
+
+  useEffect(() => {
+    if (deleteTask) {
+      fetch(url, {
+        method: "DELETE",
+      }).catch(() => navigate("/error"));
+    }
+  }, [deleteTask]);
 
   return (
     <CardContainer>

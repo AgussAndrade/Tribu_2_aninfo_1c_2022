@@ -12,6 +12,7 @@ import {
   OptionsContainer,
   ButtonContainer,
   BarContainer,
+  DeleteButtonContainer,
 } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
@@ -46,7 +47,8 @@ export const ProjectDescription = (props) => {
     }
   }, [deleteProject]);
 
-  console.log(url);
+  
+
   useEffect(() => {
     fetch(url, {
       method: "GET",
@@ -84,6 +86,7 @@ export const ProjectDescription = (props) => {
           <TaskCard
             tarea = {tarea}
             onClick={() => setShowModalTask(true)}
+            id = {id}
           />
         ));
     }
@@ -167,13 +170,13 @@ export const ProjectDescription = (props) => {
           <BackButtonContainer>
             <BackButton />
           </BackButtonContainer>
-          <ButtonContainer>
+          <DeleteButtonContainer>
             <DeleteButton
               setDelete={setDeleteProject}
               optionText={"proyecto"}
               icon={false}
             />
-          </ButtonContainer>
+          </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>
     </PrincipalContainer>
