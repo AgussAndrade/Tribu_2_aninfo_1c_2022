@@ -16,3 +16,13 @@
     background-color:#8291B0;
     border-color: #8291B0;
 }
+
+.crearTareaContainer{
+    display: flex;
+    align-items: center;
+}
+
+.crearTareaContainer>input,.crearTareaContainer>select{
+    width: 50%;
+    margin-left: 20px;
+}
