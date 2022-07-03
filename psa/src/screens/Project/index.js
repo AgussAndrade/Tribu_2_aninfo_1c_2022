@@ -55,9 +55,6 @@ export const Project = () => {
       ));
   };
 
-  const handleClose = () => {
-    setShowModal(false);
-  };
 
   useEffect(() => {
     if (showModal) {
@@ -76,7 +73,7 @@ export const Project = () => {
     <PrincipalContainer>
       <NewProjectModal
         open={showModal}
-        onClose={handleClose}
+        onClose={() => setShowModal(false)}
         listEmployees={employees}
       />
       <TopBar buttonSelected={"Proyectos"} />

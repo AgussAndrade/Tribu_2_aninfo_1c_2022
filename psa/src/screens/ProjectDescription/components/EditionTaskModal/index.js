@@ -19,7 +19,7 @@ import {
 import { colors } from "../../../../utils/colors";
 
 export const EditionTaskModal = (props) => {
-  const { open, onClose } = props;
+  const { open, onClose, tarea } = props;
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

@@ -26,7 +26,9 @@ export const TaskCard = (props) => {
     if (deleteTask) {
       fetch(url, {
         method: "DELETE",
-      }).catch(() => navigate("/error"));
+      })
+      .then(() => window.location.reload())
+      .catch(() => navigate("/error"));
     }
   }, [deleteTask]);
 
@@ -35,6 +37,7 @@ export const TaskCard = (props) => {
       <EditionTaskModal
         open={showModalTask}
         onClose={() => setShowModalTask(false)}
+        tarea= {tarea}
       />
       <CardTextContainer>
         <TitleText>{"Tarea: " + tarea.nombre}</TitleText>

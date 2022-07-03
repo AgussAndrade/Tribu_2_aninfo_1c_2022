@@ -85,7 +85,6 @@ export const ProjectDescription = (props) => {
         .map((tarea) => (
           <TaskCard
             tarea = {tarea}
-            onClick={() => setShowModalTask(true)}
             id = {id}
           />
         ));

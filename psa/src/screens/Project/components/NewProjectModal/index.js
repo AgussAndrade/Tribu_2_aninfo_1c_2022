@@ -47,14 +47,8 @@ export const NewProjectModal = (props) => {
   const checkLeaderId = () => {
     let value = false;
     
-    
-    console.log(listEmployees);
     listEmployees.forEach((empleado) => {
-      console.log(empleado.legajo);
-      console.log(leaderID);
       if (empleado.legajo == leaderID) {
-        console.log(empleado);
-        console.log(leaderID);
         value = true;
       }
     });
@@ -80,6 +74,8 @@ export const NewProjectModal = (props) => {
         legajoLider: leaderID,
         nombre: name,
       };
+
+      console.log(newProject)
 
       fetch("https:moduloproyectos.herokuapp.com/proyectos", {
         method: "POST",
@@ -108,6 +104,7 @@ export const NewProjectModal = (props) => {
         id: 0,
         legajoLider: leaderID,
         nombre: name,
+        description: description
       };
       if (!name) setName("");
       if (!state) setState("");
