@@ -6,34 +6,42 @@ import {
   ProjectInfoText,
   EditProjectContainer,
   DeleteButtonContainer,
+  Buttons,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../../../../components/GenericButton";
 import { DeleteButton } from "../../../../components/DeleteButton";
 
 export const TaskCard = (props) => {
-  const { nombreTarea, descripcionTarea, fechaCreacion, estado, onClick } =
-    props;
+  const { tarea, onClick } = props;
   const [deleteTask, setDeleteTask] = useState(false);
 
   return (
     <CardContainer>
       <CardTextContainer>
-        <TitleText>{nombreTarea}</TitleText>
-        <ProjectInfoText>{descripcionTarea}</ProjectInfoText>
-        <ProjectInfoText>{fechaCreacion}</ProjectInfoText>
-        <ProjectInfoText>{estado}</ProjectInfoText>
+        <TitleText>{"Tarea: " + tarea.nombre}</TitleText>
+        <ProjectInfoText>{"Descripción: " + tarea.descripcion}</ProjectInfoText>
+        <ProjectInfoText>
+          {"Fecha creación: " + tarea.fechaCreacion}
+        </ProjectInfoText>
+        <ProjectInfoText>{"Estado: " + tarea.estado}</ProjectInfoText>
       </CardTextContainer>
-      <EditProjectContainer>
+      <Buttons>
         <DeleteButtonContainer>
-          <DeleteButton setDelete={setDeleteTask} optionText={"tarea"} />
+          <DeleteButton
+            setDelete={setDeleteTask}
+            optionText={"tarea"}
+            icon={true}
+          />
         </DeleteButtonContainer>
-        <GenericButton
-          name={"Editar"}
-          onClick={onClick}
-          color={colors.lightBlue}
-        ></GenericButton>
-      </EditProjectContainer>
+        <EditProjectContainer>
+          <GenericButton
+            name={"Editar"}
+            onClick={onClick}
+            color={colors.lightBlue}
+          ></GenericButton>
+        </EditProjectContainer>
+      </Buttons>
     </CardContainer>
   );
 };

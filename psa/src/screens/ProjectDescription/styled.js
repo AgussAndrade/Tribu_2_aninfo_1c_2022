@@ -19,7 +19,7 @@ export const ProyectOptionsContainer = styled.div`
 
 export const BodyContainer = styled.div`
   width: 100%;
-  height: 570px;
+  height: 650px;
   display: flex;
   background-color: ${colors.backgroundGrey};
   align-items: center;
@@ -48,12 +48,20 @@ export const TaskContainer = styled.div`
   };
 `;
 
-export const InputContainer = styled.div`
+export const BarContainer = styled.div`
   width: 100%;
   height: 12%;
   display: flex;
   background-color: ${colors.lightBlue};
-  padding: 15px;
+  padding: 10px;
+`
+
+export const InputContainer = styled.div`
+   width: 50%;
+  height: 90%;
+  display: flex;
+  background-color: ${colors.lightBlue};
+  padding: 4px;
   align-items: center;
 `;
 
@@ -61,7 +69,7 @@ export const Input = styled.input`
   font-size: 12px;
   border-radius: 10px;
   height: 90%;
-  width: 10%;
+  width: 50%;
   border: none;
   padding: 10px;
   background-color: ${colors.white2};
@@ -70,12 +78,40 @@ export const Input = styled.input`
 
 export const OptionsContainer = styled.div`
 display: flex;
-align-items:flex-start;
+align-items:center;
 height: 10%;
-width: 10%;
+width: 100%;
+justify-content: center;
 ` 
 
-export const DeleteButtonContainer = styled.div`
-    width: 30%;
-    height: 30%;
+export const ButtonContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+`
+
+export const  BackButtonContainer = styled.div`
+  width: 10%;
+  height: 10%;
+`
+
+export const AddTaskButton = styled.button`
+ display: flex;
+  width: 20%;
+  height: 100%;
+  align-items: center;
+  border-radius: 15px;
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  justify-content: center;
+  color: ${colors.blue};
+  background-color: ${colors.lightGrey};
+  font-family: "Verdana";
+  &:hover {
+    cursor: pointer;
+    background-color: ${colors.gre2};
+  }
 `
