@@ -20,6 +20,7 @@ import {EditFormTicket} from "../Support/components/EditFormTicket";
 
 export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
+  const [currentForm, setCurrentForm] = useState("");
   const [modalShow, setModalShow] = useState(false)
   const tickets = [
     {
@@ -116,9 +117,8 @@ export const SupportTicketViews = () => {
           severidadProyecto={ticket.severidad}
           responsableProyecto={ticket.responsable}
           vencimientoProyecto={ticket.vencimiento}
-          derivateOnClick={() => {
-            setModalShow(true);
-          }}
+          openModal={setModalShow}
+          setCurrentForm = {setCurrentForm}
         />
       ));
   };
@@ -152,7 +152,7 @@ export const SupportTicketViews = () => {
         <GenericModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            form = {<EditFormTicket/>}
+            form = {currentForm}
             title = {"Derivar ticket"}
         />
       </BodyContainer>
