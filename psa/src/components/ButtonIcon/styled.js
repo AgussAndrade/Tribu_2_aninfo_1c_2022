@@ -20,7 +20,7 @@ export const ButtonCustom = styled.button`
   border: none;
   font-size: 20px;
   color: ${colors.blue};
-  font-family: "Roboto";
+  font-family: "Verdana";
   font-weight: bold;
   text-transform: uppercase;
   &:hover {

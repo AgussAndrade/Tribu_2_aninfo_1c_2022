@@ -5,7 +5,7 @@ import { ResourcesForm } from "./styled";
 import { FormGroupContainer } from "../../../../components/HFormGroup";
 
 export const ResourcesHoursForm = (props) => {
-    const {date} = props;
+    const {name, date} = props;
     const [proyect,setProyect] = useState("");
     const [task,setTask] = useState("");
     const [hours,setHours] = useState("");
@@ -13,11 +13,12 @@ export const ResourcesHoursForm = (props) => {
 
     return (
         <ResourcesForm>
+            <FormGroupContainer disabled label="Nombre" placeholder={name}/>
             <FormGroupContainer disabled label="Fecha" placeholder={date}/>
             <FormGroupContainer label="Proyecto" type="number" placeholder="codigo de tu proyecto" handleChange={setProyect}/>
             <FormGroupContainer label="Tarea" type="number" placeholder="codigo de tu tarea" handleChange={setTask}/>
             <FormGroupContainer label="Horas Trabajo" type="number" placeholder="2" handleChange={setHours}/>
-            <FormGroupContainer type="textarea" label="Detalle" placeholder="Se agregó el controlador de login" handleChange={setDetail}/>
+            <FormGroupContainer as="textarea" label="Detalle" placeholder="Se agregó el controlador de login" handleChange={setDetail}/>
         </ResourcesForm>
     );
 }
