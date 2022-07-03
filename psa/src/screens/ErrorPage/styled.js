@@ -15,6 +15,7 @@ export const ErrorMessageContainer = styled.div`
   transform: translate(-50%, -50%);
   padding: 10px;
   flex-direction: column;
+  border-radius: 20px;
 `;
 
 export const ErrorMessage = styled.p`

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  AddTaskButton,
   PrincipalContainer,
+  BackButtonContainer,
   ProyectOptionsContainer,
   BodyContainer,
   TaskContainer,
   InputContainer,
   Input,
   OptionsContainer,
-  DeleteButtonContainer,
+  ButtonContainer,
+  BarContainer,
 } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
@@ -20,6 +23,7 @@ import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
+import { BackButton } from "../../components/BackButton";
 
 export const ProjectDescription = (props) => {
   const { id } = useParams();
@@ -27,11 +31,21 @@ export const ProjectDescription = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
-  const [showModalAddTask, setshowModalAddTask] = useState(false)
+  const [showModalAddTask, setshowModalAddTask] = useState(false);
   const [project, setProject] = useState({});
   const navigate = useNavigate();
 
   const url = "https:moduloproyectos.herokuapp.com/proyectos/" + id;
+
+  useEffect(() => {
+    if (deleteProject) {
+      fetch(url, {
+        method: "DELETE",
+      }).catch(() => navigate("/error"));
+      navigate(-1);
+    }
+  }, [deleteProject]);
+
   console.log(url);
   useEffect(() => {
     fetch(url, {
@@ -68,10 +82,7 @@ export const ProjectDescription = (props) => {
         })
         .map((tarea) => (
           <TaskCard
-            nombreTarea={tarea.nombre}
-            descripcionTarea={tarea.descripcion}
-            fechaCreacion={tarea.fechaCreacion}
-            estado={tarea.estado}
+            tarea = {tarea}
             onClick={() => setShowModalTask(true)}
           />
         ));
@@ -87,15 +98,16 @@ export const ProjectDescription = (props) => {
   )
     .then((res) => res.json())
     .then((result) => {
-      setLider(result.Nombre + " " +  result.Apellido);
+      setLider(result.Nombre + " " + result.Apellido);
     })
     .catch(() => navigate("/error"));
 
   return (
     <PrincipalContainer>
-      <NewTaskModal open={showModalAddTask}
+      <NewTaskModal
+        open={showModalAddTask}
         onClose={() => setshowModalAddTask(false)}
-        projectId = {project.id}
+        projectId={project.id}
       />
       <EditionModal
         open={showModal}
@@ -111,13 +123,14 @@ export const ProjectDescription = (props) => {
       <BodyContainer>
         <ProjectCard
           nombreProyecto={"Proyecto: " + project.nombre}
-          descripcionProyecto={"no description"}
+          descripcionProyecto={"Descripcion: " + project.descripcion}
           fechaInicio={"Fecha de inicio: " + project.fechaInicio}
           fechaEstimadaFin={"Fecha de fin estimada: " + project.fechaFin}
           lider={"Lider: " + lider}
           onClick={() => setShowModal(true)}
         />
         <TaskContainer>
+          <BarContainer>
           <InputContainer>
             <Input
               type="text"
@@ -126,12 +139,30 @@ export const ProjectDescription = (props) => {
                 setSerchTerm(event.target.value);
               }}
             />
-          <GenericButton color={colors.lightGrey2} name= {"Agregar tarea"} onClick={() => setshowModalAddTask(true)}/>
-          </InputContainer>
+            </InputContainer>
+            <ButtonContainer>
+              <AddTaskButton
+                color={colors.lightGrey2}
+                name={"Agregar tarea"}
+                onClick={() => setshowModalAddTask(true)}
+              >
+                Agregar tarea
+              </AddTaskButton>
+            </ButtonContainer>
+          </BarContainer>
           <TaskCards />
         </TaskContainer>
         <OptionsContainer>
-        <GenericButton color={colors.red} name= {"Eliminar proyecto"} onClick={() => setshowModalAddTask(true)}/>
+          <BackButtonContainer>
+            <BackButton />
+          </BackButtonContainer>
+          <ButtonContainer>
+            <DeleteButton
+              setDelete={setDeleteProject}
+              optionText={"proyecto"}
+              icon={false}
+            />
+          </ButtonContainer>
         </OptionsContainer>
       </BodyContainer>
     </PrincipalContainer>

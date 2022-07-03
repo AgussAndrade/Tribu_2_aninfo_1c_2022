@@ -31,14 +31,11 @@ export const ProjectInfoText = styled.p`
 `
 
 export const EditProjectContainer = styled.div`
-    height: 45px;
     display: flex;
-    width: 10%;
-    min-width: fit-content;
-    align-self: flex-end;
-    padding-bottom:15px;
-    padding-right: 25px;
+    width: 20%;
+    height: 100%;
     align-items: center;
+    justify-content: center;
 `
 
 export const CardContainer = styled.div`
@@ -51,6 +48,18 @@ export const CardContainer = styled.div`
 `
 
 export const DeleteButtonContainer = styled.div`
-  width: 20%;
-  height: 20%;
+  width:8%;
+  margin-left: 5px;
+  height: 100%;
+`
+
+export const Buttons = styled.div`
+    height: 45px;
+    display: flex;
+    width: 50%;
+    align-self: flex-end;
+    padding-bottom:15px;
+    padding-right: 25px;
+    align-items: center;
+    justify-content: flex-end;
 `
