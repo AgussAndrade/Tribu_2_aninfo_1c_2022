@@ -11,13 +11,20 @@ import {
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../../../../components/GenericButton";
 import { DeleteButton } from "../../../../components/DeleteButton";
+import { EditionTaskModal } from "../EditionTaskModal";
+
 
 export const TaskCard = (props) => {
   const { tarea, onClick } = props;
   const [deleteTask, setDeleteTask] = useState(false);
+  const [showModalTask, setShowModalTask] = useState(false);
 
   return (
     <CardContainer>
+      <EditionTaskModal
+        open={showModalTask}
+        onClose={() => setShowModalTask(false)}
+      />
       <CardTextContainer>
         <TitleText>{"Tarea: " + tarea.nombre}</TitleText>
         <ProjectInfoText>{"Descripción: " + tarea.descripcion}</ProjectInfoText>

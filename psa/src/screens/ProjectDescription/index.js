@@ -30,7 +30,6 @@ export const ProjectDescription = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
-  const [showModalTask, setShowModalTask] = useState(false);
   const [showModalAddTask, setshowModalAddTask] = useState(false);
   const [project, setProject] = useState({});
   const navigate = useNavigate();
@@ -130,10 +129,6 @@ export const ProjectDescription = (props) => {
         proyecto={project}
         listEmployees={employees}
 
-      />
-      <EditionTaskModal
-        open={showModalTask}
-        onClose={() => setShowModalTask(false)}
       />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>

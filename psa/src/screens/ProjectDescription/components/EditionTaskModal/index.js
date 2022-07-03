@@ -21,17 +21,10 @@ import { colors } from "../../../../utils/colors";
 export const EditionTaskModal = (props) => {
   const { open, onClose } = props;
 
-  const tarea =
-    {
-      nombre: "Nombre1",
-      descripcion: "Descripcion de prueba de la tarea 1. Por favor Mariano Mendez entrega las notas de sisop, regalame un ocho y haceme promocionar",
-      fechaCreacion: "2022-12-12",
-    };
-
-  const [name, setName] = useState(tarea.nombre);
-  const [description, setDescription] = useState(tarea.descripcion);
-  const [dateStart, setDateStart] = useState(tarea.fechaCreacion);
-  const [state, setState] = useState(tarea.estado);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [dateStart, setDateStart] = useState("");
+  const [state, setState] = useState("");
 
   const saveInput = () => {
     let newProject = {
@@ -56,14 +49,14 @@ export const EditionTaskModal = (props) => {
             <Text>Nombre:</Text>
             <Input
               type="text"
-              defaultValue={tarea.nombre}
+              placeholder={tarea.nombre}
               onChange={(e) => setName(e.target.value)}
             />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
             <DropDownList
-              defaultValue={tarea.estado}
+              placeholder={tarea.estado}
               onChange={(e) => setState(e.target.value)}
             >
               <option value="En curso">En curso</option>
@@ -74,7 +67,7 @@ export const EditionTaskModal = (props) => {
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
             <Date
-              defaultValue={tarea.fechaCreacion}
+              placeholder={tarea.fechaCreacion}
               onChange={(e) => setDateStart(e.target.value)}
             ></Date>
           </StyledTextInputContainer>
@@ -84,7 +77,7 @@ export const EditionTaskModal = (props) => {
           <DescriptionContainer>
             <DescriptionInput
               type="text"
-              defaultValue={tarea.descripcion}
+              placeholder={tarea.descripcion}
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>

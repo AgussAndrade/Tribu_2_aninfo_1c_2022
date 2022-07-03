@@ -73,6 +73,7 @@ export const NewProjectModal = (props) => {
     ) {
       newProject = {
         estado: state,
+        descripcion:description,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
