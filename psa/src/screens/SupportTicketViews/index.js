@@ -15,6 +15,7 @@ import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import { DerivateTicketForm } from "../Support/components/DerivateTicketForm";
 import { GenericModal } from "../Support/components/GenericModal";
+import {EditFormTicket} from "../Support/components/EditFormTicket";
 
 
 export const SupportTicketViews = () => {
@@ -151,7 +152,7 @@ export const SupportTicketViews = () => {
         <GenericModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            form = {<DerivateTicketForm/>}
+            form = {<EditFormTicket/>}
             title = {"Derivar ticket"}
         />
       </BodyContainer>
