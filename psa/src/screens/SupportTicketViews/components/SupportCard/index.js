@@ -40,6 +40,7 @@ export const SupportCard = (props) => {
                   setCurrentForm(<EditFormTicket readOnly = {false}/>);
                   setCurrentTitleModal("Editar ticket")
                   openModal(true);
+                  setModalSize("lg")
               }}
               color = {colors.lightBlue}
             ></GenericButton>
