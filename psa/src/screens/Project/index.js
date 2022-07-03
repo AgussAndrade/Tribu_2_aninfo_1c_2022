@@ -1,5 +1,5 @@
 import React from "react";
-import { generatePath, useNavigate } from "react-router-dom";
+import { generatePath, Route, useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
@@ -8,7 +8,7 @@ import {
   Input,
   InputContainer,
 } from "./styled";
-import { EditionModal } from "../ProjectDescription/components/EditionModal";
+import { NewProjectModal } from "./components/NewProjectModal"
 import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
@@ -31,6 +31,7 @@ export const Project = () => {
         },
       )
   }, []);
+
 
 
   const proyectos = [
@@ -112,10 +113,14 @@ export const Project = () => {
       ));
   };
 
+  const handleClose = () => {
+    setShowModal(false);
+  } 
+
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Crear Proyecto" defaultVal = {false}/>
+      <NewProjectModal open={showModal} onClose={handleClose}/>
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>
         <InputContainer>
