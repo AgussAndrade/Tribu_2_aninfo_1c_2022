@@ -19,23 +19,7 @@ import {
 import { colors } from "../../../../utils/colors";
 
 export const EditionModal = (props) => {
-  const { open, onClose, titulo, defaultVal } = props;
-
-  const proyecto = {
-    nombre: "Proyecto: Prueba de titulo",
-    descripcion:
-      "Cuando hablamos del Adress space nos referimos a la abstraccion que provee el kernel del sistema operativo al proceso sobre la memoria de la computadora. Este representa el estado completo de la memoria de un proceso y esta compuesto por cuatro secciones: code, data, heap y stack",
-    estado: "En curso",
-    fechaCreacion: "2013-01-08",
-    fechaFin: "2017-02-09",
-    tarea1: [
-      {
-        nombre: "Nombre1",
-        descripcion: "Esta es la descripcion de tarea 1",
-        fechaCreacion: "fecha1",
-      },
-    ],
-  };
+  const { open, onClose, titulo, proyecto } = props;
 
   const [name, setName] = useState(proyecto.nombre);
   const [description, setDescription] = useState(proyecto.descripcion);
@@ -55,13 +39,6 @@ export const EditionModal = (props) => {
     onClose();
   };
 
-  const defaultValue = (aux) => {
-    return defaultVal? aux: null;
-  };
-
-  const defaultValueEstado = (aux) =>{
-    return defaultVal? aux: "Sin empezar";
-  };
 
   if (!open) return null;
   return (
@@ -75,14 +52,14 @@ export const EditionModal = (props) => {
             <Text>Nombre:</Text>
             <Input
               type="text"
-              defaultValue={defaultValue(proyecto.nombre)}
+              defaultValue={proyecto.nombre}
               onChange={(e) => setName(e.target.value)}
             />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
             <DropDownList
-              defaultValue={defaultValueEstado(proyecto.estado)}
+              defaultValue={proyecto.estado}
               onChange={(e) => setState(e.target.value)}
             >
               <option value="En curso">En curso</option>
@@ -94,14 +71,14 @@ export const EditionModal = (props) => {
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
             <Date
-              defaultValue={defaultValue(proyecto.fechaCreacion)}
+              defaultValue={proyecto.fechaCreacion}
               onChange={(e) => setDateStart(e.target.value)}
             ></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Fecha estimada de fin:</Text>
             <Date
-              defaultValue={defaultValue(proyecto.fechaFin)}
+              defaultValue={proyecto.fechaFin}
               onChange={(e) => setDateFinish(e.target.value)}
             ></Date>
           </StyledTextInputContainer>
@@ -111,7 +88,7 @@ export const EditionModal = (props) => {
           <DescriptionContainer>
             <DescriptionInput
               type="text"
-              defaultValue={defaultValue(proyecto.descripcion)}
+              defaultValue={proyecto.descripcion}
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>

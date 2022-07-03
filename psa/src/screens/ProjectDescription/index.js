@@ -19,7 +19,7 @@ import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 
 export const ProjectDescription = (props) => {
-  const { id } = useParams();
+  //const {id} = useParams()
 
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
@@ -27,8 +27,10 @@ export const ProjectDescription = (props) => {
   const [showModalTask, setShowModalTask] = useState(false);
   const [project, setProject] = useState({});
 
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/46";
+  console.log(url);
   useEffect(() => {
-    fetch("https:moduloproyectos.herokuapp.com/proyectos/"+id, {
+    fetch(url, {
       method: "GET",
     })
       .then((res) => res.json())
@@ -37,18 +39,7 @@ export const ProjectDescription = (props) => {
       });
   }, []);
 
-  console.log(project)
-
-  const getLider = () =>{
-    let lider;
-    fetch("https:moduloproyectos.herokuapp.com/empleados/" + project.legajoLider, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((result) => {console.log(result)})
-
-    return (lider.Nombre + lider.Apellido);
-  }
+  console.log(project);
 
   //use effect para ver cuando se elimina el project
   //use effect para ver cuando se elimina tarea
@@ -149,11 +140,13 @@ export const ProjectDescription = (props) => {
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
-          nombreProyecto={project.name}
-          descripcionProyecto={"sin descripcion"}
-          fechaInicio={project.fechaInicio}
-          fechaEstimadaFin={project.fechaFin}
-          lider={getLider()}
+          nombreProyecto={"Proyecto: Prueba"}
+          descripcionProyecto={
+            "Descripcion: El kernel es la capa de software de mas bajo nivel del sistema operativo"
+          }
+          fechaInicio={"Fecha de inicio: 27/7/2022"}
+          fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
+          lider={"Lider: Yo"}
           onClick={() => setShowModal(true)}
         />
         <TaskContainer>
