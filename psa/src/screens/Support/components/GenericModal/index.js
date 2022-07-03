@@ -1,10 +1,11 @@
 import {Modal} from "react-bootstrap";
+import "./style.css"
 
 export const GenericModal = (props) => {
     return (
         <Modal
             {...props}
-            size="lg"
+            size={props.size}
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >

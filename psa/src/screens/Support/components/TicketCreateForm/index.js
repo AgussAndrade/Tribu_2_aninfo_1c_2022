@@ -1,18 +1,19 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useState} from "react";
-import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 export const TicketCreateForm = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState(getCurrentDate("/"));
     const [clientId, setClientId] = useState("");
+
+
+    const handleSubmit = () => {}
 
     const formInputs = () => {
         return (
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Container>
                     <Row>
                         <Col>
@@ -23,7 +24,7 @@ export const TicketCreateForm = () => {
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px' }} placeholder="Descripción del ticket"/>
+                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket"/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId= "severity" >
@@ -61,9 +62,11 @@ export const TicketCreateForm = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <div style={{display: 'flex', "justify-content": 'flex-end'}}>
+                        <Button variant="primary" type="submit">
+                            Guardar
+                        </Button>
+                    </div>
                     </Container>
                 </Form>
         )
