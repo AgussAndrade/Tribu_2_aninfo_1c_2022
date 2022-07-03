@@ -26,7 +26,7 @@ root.render(
       <Route path="/support/pantallaCrearTicket" element={<PantallaCrearTicket />} />
       <Route path="/support/pantallaVerTickets" element={<PantallaVerTickets />} />
       <Route path="/support/pantallaDerivarTicket" element={<PantallaDerivarTicket />} />
-      <Route path="/projects/id" element={<ProjectDescription />} />
+      <Route path="/projects/:id" element={<ProjectDescription />} />
     </Routes>
   </BrowserRouter>
 );

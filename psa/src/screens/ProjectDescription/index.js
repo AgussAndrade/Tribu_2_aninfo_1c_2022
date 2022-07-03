@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   PrincipalContainer,
   ProyectOptionsContainer,
@@ -14,20 +14,39 @@ import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
 import { EditionModal } from "./components/EditionModal";
-import {EditionTaskModal} from "./components/EditionTaskModal"
+import { EditionTaskModal } from "./components/EditionTaskModal";
 import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 
-export const ProjectDescription = () => {
+export const ProjectDescription = (props) => {
+  //const {id} = useParams()
+
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
-  // use effect para ver cuando se elimina el proyecto
+  const [project, setProject] = useState({})
 
-  // use effect para ver cuando se elimina tarea
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/46";
+  console.log(url)
+  useEffect(() => {
+    fetch(url, {
+      method: "GET",
+    } )
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setProject(result);
+        },
+      )
+  }, []);
 
-  const proyecto = {
+  console.log(project)
+
+   //use effect para ver cuando se elimina el project
+   //use effect para ver cuando se elimina tarea
+
+  /*const project = {
     nombre: "Nombre1",
     descripcion: "Esta es la descripcion1",
     tareas: [
@@ -66,44 +85,27 @@ export const ProjectDescription = () => {
   };
 
   const mantequita = {
-    estado: "string",
-    fechaFin: "string",
-    fechaInicio: "string",
+    estado: "un thread es una secuencia atomica de ejecucion que representa una tarea planificable en ejecucion",
+    fechaFin: "hola",
+    fechaInicio: "que te pasa ",
     id: 0,
     legajoLider: 22,
-    nombre: "string"
-  }
+    nombre: "hola krachi krachi",
+  };
 
-  const [items, setItems] = useState({});
+  const [projects, setProjects] = useState({});
   const [error, setError] = useState("");
 
 
-//  useEffect(() => {
-//     fetch("https://moduloproyectos.herokuapp.com/proyectos", {
-//       method: "GET",
-//     } )
-//       .then(res => res.json())
-//       .then(
-//         (result) => {
-//           setItems(result);
-//           console.log( "res" + result)
-//         },
-//         (error) => {
-//           setError(error);
-//         }
-//       )
-//   }, []); //esto parece que anda
-
-  // fetch("https://moduloproyectos.herokuapp.com/proyectos", {  // Enter your IP address here
-
-  //     method: 'POST',
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify(mantequita) // body data type must match "Content-Type" header
-
-  //   }) //esto anda confirmado por el evilar2
+  /*fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+     //Enter your IP address here
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(mantequita), //body data type must match "Content-Type" header
+  }); //esto anda confirmado por el evilar2 */
 
   const TaskCards = () => {
-    return proyecto.tareas
+    return project.tareas
       .filter((val) => {
         if (searchTerm == "") return val;
         else if (
@@ -125,8 +127,16 @@ export const ProjectDescription = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
-      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Editar Proyecto" defaultVal = {true}/>
-      <EditionTaskModal open={showModalTask} onClose={() => setShowModalTask(false)} />
+      <EditionModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        titulo="Editar Proyecto"
+        defaultVal={true}
+      />
+      <EditionTaskModal
+        open={showModalTask}
+        onClose={() => setShowModalTask(false)}
+      />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
@@ -153,7 +163,10 @@ export const ProjectDescription = () => {
         </TaskContainer>
         <OptionsContainer>
           <DeleteButtonContainer>
-          <DeleteButton setDelete= {setDeleteProject} optionText = {"proyecto"}/>
+            <DeleteButton
+              setDelete={setDeleteProject}
+              optionText={"project"}
+            />
           </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
@@ -13,11 +13,26 @@ import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Project = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+      method: "GET",
+    } )
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setProjects(result);
+        },
+      )
+  }, []);
+
+
   const proyectos = [
     {
       nombre: "Proyecto: Prueba de titulo",
@@ -77,7 +92,7 @@ export const Project = () => {
   ];
 
   const Cards = () => {
-    return proyectos
+    return projects
       .filter((val) => {
         if (searchTerm === "") return val;
         else if (
@@ -91,7 +106,7 @@ export const Project = () => {
           nombreProyecto={proyecto.nombre}
           descripcionProyecto={proyecto.descripcion}
           onClick={() => {
-            navigate("/projects/id");
+            navigate("/projects/" + proyecto.id);
           }}
         />
       ));

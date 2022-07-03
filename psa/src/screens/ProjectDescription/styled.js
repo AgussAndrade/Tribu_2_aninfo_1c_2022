@@ -40,7 +40,6 @@ export const TaskContainer = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
    width: 0.7em;
-   margin: 100px;
   };
   &::-webkit-scrollbar-thumb {
     height: 2px;
