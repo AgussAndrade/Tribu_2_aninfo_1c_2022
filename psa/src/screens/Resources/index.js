@@ -6,13 +6,13 @@ import { FormGroupContainer } from "../../components/FormGroup";
 import { useNavigate } from "react-router-dom"
 
 export const Resources = () => {
-  const [name, setName] = useState("");
+  const [id, setId] = useState(0);
   const [date, setDate] = useState("");
   const axios = require ("axios");
   const navigate = useNavigate();
 
   const validateAttributes = () => {
-    if(date === "" || name === "") return true;
+    if(date === "" || id === "") return true;
     const today = new Date();
     const relativeDate = new Date(date)
     console.log(today);
@@ -26,19 +26,16 @@ export const Resources = () => {
       navigate('/resources/error');
       return;
     }
-    axios.get('https://api.kraken.com/0/public/Ticker?pair=xbtusds',(req,response) => {
-      response.setHeader("Access-Control-Allow-Origin", "*");
-      response.setHeader("Access-Control-Allow-Credentials", "true");
-      response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-      response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-    }).then(
+    axios.get(`https://squad5-recursos.herokuapp.com/api/empleados/${id}`).then(
       (repos) => {
         if(repos.status == 200){
+          const name = `${repos.data.Nombre} ${repos.data.Apellido}`
           navigate('/resources/employee',
           {
-            state:{
-              name:name,
-              date:date}
+            state: {
+              id: id,
+              name: name,
+              date: date}
           })
         }else{
           navigate('/resources/error');
@@ -46,17 +43,18 @@ export const Resources = () => {
       }
     );
   };
+
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
       <FormContainer >
         <FormGroupContainer
-          controlId="name"
-          label="Ingrese nombre del Empleado"
-          type="input"
-          name="name"
-          placeholder="Juan Lopez"
-          handleChange={setName}
+          controlId="id"
+          label="Ingrese el legajo"
+          type="number"
+          name="id"
+          placeholder="12345"
+          handleChange={setId}
         />
         <FormGroupContainer
           controlId="date"

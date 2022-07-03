@@ -4,7 +4,7 @@ import { colors } from "../../../../utils/colors"
 
 export const CardTextContainer = styled.div`
     width: 100%;
-    height: 120%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -13,24 +13,20 @@ export const CardTextContainer = styled.div`
     text-overflow: ellipsis;
     min-width: 100px;
     
+`
+export const GenericTextBox = styled.div`
+  font-size: 15px;
+  width: 100%;
+  height: 100%;
+  font-family: "Verdana";
+  color: ${colors.blue};
 
 `
 
 
-export const Container = styled.div`
-    width: 90%;
-    height: 110px;
-    display:flex;
-    background-color: ${colors.lightGrey};
-    flex-direction: row;
-    align-items: center;
-    border-radius: 10px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-`
+
 export const TitleText = styled.p`
-  font-size: 25px;
+  font-size: 35px;
   color: ${colors.blue};
   font-family: "Verdana";
   margin: 0%;
@@ -38,21 +34,32 @@ export const TitleText = styled.p`
 `
 
 export const DescriptionText = styled.p`
-  font-size: 16px;
+  font-size: 25px;
   margin: 0%;
   color: ${colors.blue};
   font-family: "Verdana";
   margin-top: 10px;
 
+`
 
+export const TicketsInfo = styled.div`
+  font-size: 20px;
+  color: ${colors.blue};
+  font-family: "Verdana";
+  margin-top: 17px;
+  margin-bottom: 0px; 
+  margin-left: 0px;
+  margin-right: 500px;
+  padding-bottom: 10px;
+  width: 250px;
 `
 
 export const ButtonContainer = styled.div`
-    height: 35%;
+    height: 45%;
     display: flex;
+    justify-content: space-around;
     width: 10%;
     min-width: fit-content;
-    align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
     margin-left: 30px;
