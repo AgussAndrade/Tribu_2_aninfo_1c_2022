@@ -19,6 +19,7 @@ export const Project = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [projects, setProjects] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https:moduloproyectos.herokuapp.com/proyectos", {
@@ -30,6 +31,7 @@ export const Project = () => {
           setProjects(result);
         },
       )
+      .catch(() => navigate("/error"))
   }, []);
 
 
@@ -117,7 +119,6 @@ export const Project = () => {
     setShowModal(false);
   } 
 
-  const navigate = useNavigate();
   return (
     <PrincipalContainer>
       <NewProjectModal open={showModal} onClose={handleClose}/>

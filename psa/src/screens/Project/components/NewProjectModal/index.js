@@ -19,6 +19,7 @@ import {
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { render } from "@testing-library/react";
+import { useNavigate } from "react-router-dom";
 
 export const NewProjectModal = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,6 +28,8 @@ export const NewProjectModal = (props) => {
   const [dateStart, setDateStart] = useState("");
   const [dateFinish, setDateFinish] = useState("");
   const [state, setState] = useState("");
+  const navigate = useNavigate();
+
   let newProject = {
     estado: "",
     fechaFin: "",
@@ -63,7 +66,8 @@ export const NewProjectModal = (props) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
-      });
+      })
+        .catch(() => navigate("/error"))
       handleClose();
     } else {
       setErrorMessage("Rellene todos los campos");

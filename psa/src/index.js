@@ -12,6 +12,7 @@ import { PantallaCrearTicket } from './screens/Support/PantallaCrearTicket';
 import { PantallaVerTickets } from './screens/Support/PantallaVerTickets';
 import  PantallaDerivarTicket  from './screens/Support/PantallaDerivarTicket';
 import { ProjectDescription } from './screens/ProjectDescription';
+import { ErrorPage } from './screens/ErrorPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,7 @@ root.render(
       <Route path="/support/pantallaVerTickets" element={<PantallaVerTickets />} />
       <Route path="/support/pantallaDerivarTicket" element={<PantallaDerivarTicket />} />
       <Route path="/projects/:id" element={<ProjectDescription />} />
+      <Route path="/error" element={<ErrorPage />} />
     </Routes>
   </BrowserRouter>
 );

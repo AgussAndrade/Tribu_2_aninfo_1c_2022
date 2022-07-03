@@ -19,15 +19,15 @@ import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 
 export const ProjectDescription = (props) => {
-  //const {id} = useParams()
-
+  const {id} = useParams()
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
   const [project, setProject] = useState({});
+  const navigate = useNavigate();
 
-  const url = "https:moduloproyectos.herokuapp.com/proyectos/46";
+  const url = "https:moduloproyectos.herokuapp.com/proyectos"+id;
   console.log(url);
   useEffect(() => {
     fetch(url, {
@@ -36,7 +36,8 @@ export const ProjectDescription = (props) => {
       .then((res) => res.json())
       .then((result) => {
         setProject(result);
-      });
+      })
+      .catch(() => navigate("/error"));
   }, []);
 
   console.log(project);
@@ -124,7 +125,6 @@ export const ProjectDescription = (props) => {
     }
   };
 
-  const navigate = useNavigate();
   return (
     <PrincipalContainer>
       <EditionModal
