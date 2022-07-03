@@ -1,6 +1,6 @@
 import React from "react";
 import { TopBarButton } from "../TopBarButton";
-import { ButtonContainer, Container, Icon, LogoContainer } from "./styled";
+import { ButtonContainer, Container, Icon, LogoButton, LogoContainer } from "./styled";
 import { useNavigate } from "react-router-dom";
 import { UserIconButton } from "../UserIconButton";
 import psa_logo from "../../utils/icons/psa_logo.png";

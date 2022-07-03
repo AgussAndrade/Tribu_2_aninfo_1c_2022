@@ -18,19 +18,19 @@ export const CardTextContainer = styled.div`
 
 
 export const TitleText = styled.p`
-  font-size: 25px;
+  font-size: 21px;
   color: ${colors.blue};
   font-family: "Verdana";
+  font-weight: 600;
   margin: 0%;
-  
 `
 
 export const ProjectInfoText = styled.p`
-  font-size: 16px;
+  font-size: 13px;
   margin: 0%;
+  margin-top: 4px;
   color: ${colors.blue};
   font-family: "Verdana";
-  margin-top: 10px;
 `
 
 export const EditProjectContainer = styled.div`
@@ -38,7 +38,6 @@ export const EditProjectContainer = styled.div`
     display: flex;
     width: 10%;
     min-width: fit-content;
-
     align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
@@ -46,9 +45,7 @@ export const EditProjectContainer = styled.div`
 
 export const CardContainer = styled.div`
     width: 95%;
-    height: 100%;
     display: flex;
     background-color: ${colors.lightGrey2};
     border-radius: 20px;
-    margin-top: 20px;
 `

@@ -1,66 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
-  Container,
   ButtonNewProyect,
   BodyContainer,
   Input,
   InputContainer,
 } from "./styled";
 import { Card } from "./components/Card";
-import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
-import { useState } from "react";
 
 export const TicketsSoporte = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
-  const {titulo} = props
   const tickets = [
     {
-      nombre: "Proyecto: Prueba de titulo",
+      ID: "T001",
+      nombre: "La interfaz se congela",
+      descripcion:"asdfasdf",
+      responsable: "Miguel Suporti",
+      estado: "cerrado",
+      severidad: "S4",
+      fechaDeInicio:"",
+      fechaDeFin:"",
+      vencimiento: "En 10 días",
+      cliente:"ASDF",
+      producto:"",
+      version:"",
       tareas: "10",
       estado: "cerrado",
-      severidad: "Alta",
-      responsable: "Yo",
-      vencimiento: "En 10 días"
-      //seguir agregando datos faltantes
       
     },
     {
-      nombre: "Proyecto: Aprobar aninfo",
-      tareas: "10",
+      ID: "T002",
+      nombre: "El inventario no se actualiza correctamente",
+      descripcion:"asdfasdf",
+      responsable: "Miguel Suporti",
+      tareas: "15",
       estado: "cerrado",
-      severidad: "Alta",
-      responsable: "Yo",
-      vencimiento: "En 10 días"
+      severidad: "S2",
+      fechaDeInicio:"",
+      fechaDeFin:"",
+      vencimiento: "En 10 días",
+      cliente:"ASDF",
+      producto:"",
+      version:"",
+      estado: "Abierto",
     },
     {
-      nombre: "Proyecto: Ejemplo para filtrar",
-      tareas: "10",
+      ID: "T003",
+      nombre: "Falla de seguridad en el producto X",
+      descripcion:"asdfasdf",
+      responsable: "Roberto Problemi",
+      tareas: "15",
       estado: "cerrado",
-      severidad: "Alta",
-      responsable: "Yo",
-      vencimiento: "En 10 días"
+      severidad: "S1",
+      fechaDeInicio:"",
+      fechaDeFin:"",
+      vencimiento: "Vencido",
+      cliente:"ASDF",
+      producto:"",
+      version:"",
+      estado: "Abierto",
     },
     {
-      nombre: "Proyecto: Dividir por dos cifras",
-      tareas: "10",
-      estado: "cerrado",
-      severidad: "Alta",
-      responsable: "Yo",
-      vencimiento: "En 10 días"
+      ID: "T004",
+      nombre: "La aplicación se cierra de manera inesperada",
+      descripcion:"asdfasdf",
+      responsable: "Maria Jose Astrada",
+      tareas: "8",
+      estado: "en progreso",
+      severidad: "S3",
+      fechaDeInicio:"",
+      fechaDeFin:"",
+      vencimiento: "En 15 días",
+      cliente:"ASDF",
+      producto:"",
+      version:"",
+      estado: "Abierto",
     },
-    {
-      nombre: "Proyecto: Ultimo ejemplo",
-      tareas: "10",
-      estado: "cerrado",
-      severidad: "Alta",
-      responsable: "Yo",
-      vencimiento: "En 10 días"
-    },
+    
   ];
 
   const Cards = () => {
@@ -74,7 +94,7 @@ export const TicketsSoporte = (props) => {
       })
       .map((tickets) => (
         <Card
-          nombreProyecto={tickets.nombre}
+          nombreTicket={tickets.nombre}
           tareas={tickets.tareas}
           estado={tickets.estado}
           severidad={tickets.severidad}
@@ -98,12 +118,11 @@ export const TicketsSoporte = (props) => {
             }}
           />
         </InputContainer>
+        
         <ButtonNewProyect>
           <GenericButton
             name={"Volver"}
-            onClick={() => {
-              navigate("/");
-            }}
+            onClick={() => {navigate("/");}}
             color={colors.lightBlue}
           ></GenericButton>
         </ButtonNewProyect>

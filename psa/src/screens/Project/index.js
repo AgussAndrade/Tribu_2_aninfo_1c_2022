@@ -8,6 +8,7 @@ import {
   Input,
   InputContainer,
 } from "./styled";
+import { EditionModal } from "../ProjectDescription/components/EditionModal";
 import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
@@ -15,6 +16,7 @@ import { colors } from "../../utils/colors";
 import { useState } from "react";
 
 export const Project = () => {
+  const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const proyectos = [
     {
@@ -24,7 +26,7 @@ export const Project = () => {
         {
           nombre: "Nombre1",
           descripcion: "Esta es la descripcion de tarea 1",
-          fechaCreacion: "fecha1",
+          fechaCreacion: "2022-12-12",
         },
       ],
     },
@@ -98,6 +100,7 @@ export const Project = () => {
   const navigate = useNavigate();
   return (
     <PrincipalContainer>
+      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Crear Proyecto" defaultVal = {false}/>
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>
         <InputContainer>
@@ -112,9 +115,7 @@ export const Project = () => {
         <ButtonNewProyect>
           <GenericButton
             name={"Nuevo proyecto"}
-            onClick={() => {
-              navigate("/");
-            }}
+            onClick={() => setShowModal(true)}
             color={colors.lightBlue}
           ></GenericButton>
         </ButtonNewProyect>

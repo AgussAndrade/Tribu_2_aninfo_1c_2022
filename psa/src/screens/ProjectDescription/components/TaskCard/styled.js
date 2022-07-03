@@ -4,29 +4,25 @@ import { colors } from "../../../../utils/colors"
 
 export const CardTextContainer = styled.div`
     width: 100%;
-    height: 100%;
-    display: flex;
+    height: auto;
     flex-direction: column;
     padding: 10px;
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 100px;
-    
-
 `
 
 
 export const TitleText = styled.p`
-  font-size: 20px;
+  font-size: 17px;
   color: ${colors.blue};
   font-family: "Verdana";
+  font-weight: 600;
   margin: 0%;
-  
 `
 
 export const ProjectInfoText = styled.p`
-  font-size: 13px;
+  font-size: 12px;
   margin: 0%;
   color: ${colors.blue};
   font-family: "Verdana";
@@ -46,7 +42,7 @@ export const EditProjectContainer = styled.div`
 
 export const CardContainer = styled.div`
     width: 95%;
-    height: 100%;
+    height: auto;
     display: flex;
     background-color: ${colors.white2};
     border-radius: 20px;

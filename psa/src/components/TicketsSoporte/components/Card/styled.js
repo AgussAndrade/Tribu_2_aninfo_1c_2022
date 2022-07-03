@@ -4,7 +4,7 @@ import { colors } from "../../../../utils/colors"
 
 export const CardTextContainer = styled.div`
     width: 100%;
-    height: 100%;
+    height: 120%;
     display: flex;
     flex-direction: column;
     padding: 10px;
