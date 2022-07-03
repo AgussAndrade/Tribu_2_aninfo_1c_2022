@@ -19,32 +19,39 @@ import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
 
 export const ProjectDescription = (props) => {
-  //const {id} = useParams()
+  const { id } = useParams();
 
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
-  const [project, setProject] = useState({})
+  const [project, setProject] = useState({});
 
-  const url = "https:moduloproyectos.herokuapp.com/proyectos/46";
-  console.log(url)
   useEffect(() => {
-    fetch(url, {
+    fetch("https:moduloproyectos.herokuapp.com/proyectos/"+id, {
       method: "GET",
-    } )
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setProject(result);
-        },
-      )
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setProject(result);
+      });
   }, []);
 
   console.log(project)
 
-   //use effect para ver cuando se elimina el project
-   //use effect para ver cuando se elimina tarea
+  const getLider = () =>{
+    let lider;
+    fetch("https:moduloproyectos.herokuapp.com/empleados/" + project.legajoLider, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {console.log(result)})
+
+    return (lider.Nombre + lider.Apellido);
+  }
+
+  //use effect para ver cuando se elimina el project
+  //use effect para ver cuando se elimina tarea
 
   /*const project = {
     nombre: "Nombre1",
@@ -105,23 +112,25 @@ export const ProjectDescription = (props) => {
   }); //esto anda confirmado por el evilar2 */
 
   const TaskCards = () => {
-    return project.tareas
-      .filter((val) => {
-        if (searchTerm == "") return val;
-        else if (
-          val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-        )
-          return val;
-      })
-      .map((tarea) => (
-        <TaskCard
-          nombreTarea={tarea.nombre}
-          descripcionTarea={tarea.descripcion}
-          fechaCreacion={tarea.fechaCreacion}
-          estado={tarea.estado}
-          onClick={() => setShowModalTask(true)}
-        />
-      ));
+    if (project.tareas) {
+      return project.tareas
+        .filter((val) => {
+          if (searchTerm == "") return val;
+          else if (
+            val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+          )
+            return val;
+        })
+        .map((tarea) => (
+          <TaskCard
+            nombreTarea={tarea.nombre}
+            descripcionTarea={tarea.descripcion}
+            fechaCreacion={tarea.fechaCreacion}
+            estado={tarea.estado}
+            onClick={() => setShowModalTask(true)}
+          />
+        ));
+    }
   };
 
   const navigate = useNavigate();
@@ -140,13 +149,11 @@ export const ProjectDescription = (props) => {
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
-          nombreProyecto={"Proyecto: Prueba"}
-          descripcionProyecto={
-            "Descripcion: El kernel es la capa de software de mas bajo nivel del sistema operativo"
-          }
-          fechaInicio={"Fecha de inicio: 27/7/2022"}
-          fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
-          lider={"Lider: Yo"}
+          nombreProyecto={project.name}
+          descripcionProyecto={"sin descripcion"}
+          fechaInicio={project.fechaInicio}
+          fechaEstimadaFin={project.fechaFin}
+          lider={getLider()}
           onClick={() => setShowModal(true)}
         />
         <TaskContainer>
@@ -163,10 +170,7 @@ export const ProjectDescription = (props) => {
         </TaskContainer>
         <OptionsContainer>
           <DeleteButtonContainer>
-            <DeleteButton
-              setDelete={setDeleteProject}
-              optionText={"project"}
-            />
+            <DeleteButton setDelete={setDeleteProject} optionText={"project"} />
           </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>
