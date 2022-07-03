@@ -12,8 +12,9 @@ export const TicketCreateForm = () => {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
+        event.preventDefault();
+        console.log(form)
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
         }
         setValidated(true);
@@ -21,7 +22,7 @@ export const TicketCreateForm = () => {
 
     const formInputs = () => {
         return (
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} noValidate validated={validated}>
                     <Container>
                     <Row>
                         <Col>
@@ -32,6 +33,7 @@ export const TicketCreateForm = () => {
                                     placeholder="Titulo del ticket"
                                     name = "title"
                                     value={title}
+                                    required
                                 />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
