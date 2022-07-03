@@ -6,10 +6,18 @@ export const TicketCreateForm = () => {
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
+    const [endDate, setEndDate] = useState("");
     const [clientId, setClientId] = useState("");
+    const [validated, setValidated] = useState(false);
 
-
-    const handleSubmit = () => {}
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
+    };
 
     const formInputs = () => {
         return (
@@ -19,17 +27,23 @@ export const TicketCreateForm = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Titulo</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name = "title"/>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Titulo del ticket"
+                                    name = "title"
+                                    value={title}
+                                />
+                                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket"/>
+                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket" value={description}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId= "severity" >
                                 <Form.Label>Severidad</Form.Label>
-                                <Form.Select>
+                                <Form.Select value={severity}>
                                     <option value="3">Mayor</option>
                                     <option value="2">Medio</option>
                                     <option value="1">Baja</option>
@@ -39,7 +53,7 @@ export const TicketCreateForm = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId= "responsible" >
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control as={"input"} list = "employers" ></Form.Control>
+                                <Form.Control as={"input"} list = "employers" value={responsible}></Form.Control>
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer = "3"></option>
                                     <option value="Juan" data-id-employer = "2"></option>
@@ -48,12 +62,12 @@ export const TicketCreateForm = () => {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId= "end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
-                                <Form.Control type="date" name='end_time' />
+                                <Form.Control type="date" name='end_time' value={endDate}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId= "client_id" >
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control as={"input"} list ="clientes" name ="id_client"></Form.Control>
+                                <Form.Control as={"input"} list ="clientes" name ="id_client" value={clientId}></Form.Control>
                                 <datalist id={"clientes"}>
                                     <option value="Julian" data-id-client = "3"></option>
                                     <option value="Juan" data-id-client = "2"></option>
