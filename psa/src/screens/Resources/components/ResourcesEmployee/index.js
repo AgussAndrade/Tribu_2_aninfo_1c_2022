@@ -13,6 +13,11 @@ export const ResourcesEmployee = (props) => {
   const location = useLocation();
   const date = location.state?.date;
   const id = location.state?.id;
+  const name = location.state?.name;
+  const [proyect,setProyect] = useState("");
+  const [task,setTask] = useState("");
+  const [hours,setHours] = useState("");
+  const [detail,setDetail] = useState("");
   const axios = require ("axios");
 
   const handleSubmit = ()=>{
@@ -28,15 +33,7 @@ export const ResourcesEmployee = (props) => {
       <Container>
         Administracion Horas
       </Container>
-      <ResourcesHoursForm date={date}></ResourcesHoursForm>
-      {/* <Form >
-            <label>Fecha:{date}{proyect}</label>
-
-            <FormControl placeholder="FNPC-121" onChange={e=>setTask(e.target.value)} />
-            <FormControl placeholder="2" onChange={e=>setHours(e.target.value)} />
-            <FormControl placeholder="Se agregó el controlador de login" onChange={e=>setDetail(e.target.value)} />
-            <Button onClick={handleSubmit}>Enviar</Button>
-      </Form> */}
+      <ResourcesHoursForm name={name} date={date}></ResourcesHoursForm>
       <ResourcesHoursTable></ResourcesHoursTable>
     </PrincipalContainer>
   );
