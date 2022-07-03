@@ -13,7 +13,7 @@ import {DerivateTicketForm} from "../../../Support/components/DerivateTicketForm
 
 export const SupportCard = (props) => {
     const {nombreProyecto, tareasProyecto, estadoProyecto,
-        severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, setCurrentTitleModal} = props;
+        severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, setCurrentTitleModal, setModalSize} = props;
     return(
         <CardContainer>
           <CardTextContainer>
@@ -47,7 +47,8 @@ export const SupportCard = (props) => {
               name={"Derivar Ticket"}
               onClick={() => {
                   setCurrentForm(<DerivateTicketForm/>)
-                  setCurrentTitleModal("Derivar ticket")
+                  setCurrentTitleModal("Derivar ticket");
+                  setModalSize("md")
                   openModal(true)
               }}
               color = {colors.lightBlue}

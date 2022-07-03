@@ -1,13 +1,11 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useState} from "react";
-import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 export const TicketCreateForm = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState(getCurrentDate("/"));
     const [clientId, setClientId] = useState("");
 
 

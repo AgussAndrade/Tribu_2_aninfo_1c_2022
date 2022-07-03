@@ -1,13 +1,11 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
-import { getCurrentDate } from "../../../../utils/getCurrentDate";
 
 export const CreateTaskForm = (props) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState(getCurrentDate("/"));
     const [clientId, setClientId] = useState("");
     const { closeModal } = props; 
 
@@ -56,7 +54,7 @@ export const CreateTaskForm = (props) => {
                             </Form.Group>
                             <Form.Group className="mb-3 " controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none", width:"500px" }} placeholder="Descripción del ticket"/>
+                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción del ticket"/>
                             </Form.Group>
                         </Col>
 

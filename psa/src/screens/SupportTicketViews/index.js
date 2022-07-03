@@ -14,6 +14,7 @@ import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import { GenericModal } from "../Support/components/GenericModal";
+import {getDiffDate} from "../../utils/getCurrentDate";
 
 
 export const SupportTicketViews = () => {
@@ -21,6 +22,7 @@ export const SupportTicketViews = () => {
   const [currentForm, setCurrentForm] = useState("");
   const [currentTitleModal, setCurrentTitleModal] = useState("");
   const [modalShow, setModalShow] = useState(false)
+  const [modalSize, setModalSize] = useState("lg")
   const tickets = [
     {
       nombre: "El inventario no se actualiza correctamente",
@@ -28,7 +30,7 @@ export const SupportTicketViews = () => {
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
-      vencimiento: "10 dias",
+      vencimiento: "21/12/2022",
       tarea1: [
         {
           nombre: "Nombre1",
@@ -43,7 +45,7 @@ export const SupportTicketViews = () => {
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
-      vencimiento: "10 dias",
+      vencimiento: "03/09/2022",
       tarea2: [
         {
           nombre: "Nombre2",
@@ -58,7 +60,7 @@ export const SupportTicketViews = () => {
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
-      vencimiento: "10 dias",
+      vencimiento: "21/10/2022",
       tarea3: [
         {
           nombre: "Nombre3",
@@ -73,7 +75,7 @@ export const SupportTicketViews = () => {
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
-      vencimiento: "10 dias",
+      vencimiento: "21/10/2022",
       tarea4: [
         {
           nombre: "Nombre4",
@@ -88,7 +90,7 @@ export const SupportTicketViews = () => {
       estado: "Desarrollo",
       severidad: "CRITICO",
       responsable: "Yo",
-      vencimiento: "10 dias",
+      vencimiento: "21/10/2022",
       tarea5: [
         {
           nombre: "Nombre5",
@@ -113,12 +115,13 @@ export const SupportTicketViews = () => {
           nombreProyecto={ticket.nombre}
           tareasProyecto={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
           estadoProyecto={ticket.estado}
-          severidadProyecto={ticket.severidad}
+          severidadProyecto={getDiffDate(new Date(), ticket.vencimiento) + " Dias"}
           responsableProyecto={ticket.responsable}
           vencimientoProyecto={ticket.vencimiento}
           openModal={setModalShow}
           setCurrentForm = {setCurrentForm}
           setCurrentTitleModal = {setCurrentTitleModal}
+          setModalSize = {setModalSize}
         />
       ));
   };
@@ -137,15 +140,6 @@ export const SupportTicketViews = () => {
             }}
           />
         </InputContainer>
-        <ButtonNewProyect>
-          <GenericButton
-            name={"Nuevo proyecto"}
-            onClick={() => {
-              navigate("/");
-            }}
-            color={colors.lightBlue}
-          ></GenericButton>
-        </ButtonNewProyect>
       </OptionsContainer>
       <BodyContainer>
         <Cards />
@@ -154,6 +148,7 @@ export const SupportTicketViews = () => {
             onHide={() => setModalShow(false)}
             form = {currentForm}
             title = {currentTitleModal}
+            size = {modalSize}
         />
       </BodyContainer>
     </PrincipalContainer>

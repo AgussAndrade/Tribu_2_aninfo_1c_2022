@@ -1,6 +1,5 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
-import { getCurrentDate } from "../../../../utils/getCurrentDate";
 import { CreateTaskForm } from "../CreateTaskForm";
 import { GenericModal } from "../GenericModal";
 
@@ -9,7 +8,6 @@ export const DerivateTicketForm = () => {
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState(getCurrentDate("/"));
     const [clientId, setClientId] = useState("");
     const [modalShow, setModalShow] = useState(false)
 
@@ -26,6 +24,7 @@ export const DerivateTicketForm = () => {
                         onHide={() => setModalShow(false)}
                         form={<CreateTaskForm closeModal={setModalShow}/>}
                         title={"Crear tarea"}
+                        size = {"md"}
                     />
                     <Row>
                         <Col>
