@@ -8,7 +8,7 @@ export const FormGroupContainer = (props) => {
         <GroupContainer>
             <FormGroup controlId={controlId}>
                 <FormLabel>{label}</FormLabel>
-                <FormControl disabled={disabled} as={type} name={name} placeholder={placeholder} onChange={e=>handleChange(e.target.value)} />
+                <FormControl disabled={disabled} type={type} name={name} placeholder={placeholder} onChange={e=>handleChange(e.target.value)} />
             </FormGroup>
         </GroupContainer>
     );

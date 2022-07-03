@@ -6,13 +6,13 @@ import { FormGroupContainer } from "../../components/FormGroup";
 import { useNavigate } from "react-router-dom"
 
 export const Resources = () => {
-  const [name, setName] = useState("");
+  const [id, setId] = useState(0);
   const [date, setDate] = useState("");
   const axios = require ("axios");
   const navigate = useNavigate();
 
   const validateAttributes = () => {
-    if(date === "" || name === "") return true;
+    if(date === "" || id === "") return true;
     const today = new Date();
     const relativeDate = new Date(date)
     console.log(today);
@@ -37,7 +37,7 @@ export const Resources = () => {
           navigate('/resources/employee',
           {
             state:{
-              name:name,
+              id:id,
               date:date}
           })
         }else{
@@ -46,17 +46,18 @@ export const Resources = () => {
       }
     );
   };
+
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
       <FormContainer >
         <FormGroupContainer
-          controlId="name"
-          label="Ingrese nombre del Empleado"
-          type="input"
-          name="name"
-          placeholder="Juan Lopez"
-          handleChange={setName}
+          controlId="id"
+          label="Ingrese el legajo"
+          type="number"
+          name="id"
+          placeholder="12345"
+          handleChange={setId}
         />
         <FormGroupContainer
           controlId="date"
