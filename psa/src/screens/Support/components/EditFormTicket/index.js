@@ -17,7 +17,7 @@ export const EditFormTicket = (props) => {
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control readOnly={readOnly} as={"textarea"} style={{ height: '100%', resize: "none" }} placeholder="Descripción del ticket"/>
+                                <Form.Control readOnly={readOnly} as={"textarea"} style={{ height: '400px', resize: "none" }} placeholder="Descripción del ticket"/>
                             </Form.Group>
                         </Col>
                         <Col>

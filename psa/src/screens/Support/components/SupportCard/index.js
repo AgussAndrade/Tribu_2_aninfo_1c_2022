@@ -36,7 +36,7 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Ver Tickets"}
               onClick={() => {
-                navigate("/supportticketviews");
+                navigate("/support/ticketViews");
               }}
               color = {colors.lightBlue}
             ></GenericButton>
