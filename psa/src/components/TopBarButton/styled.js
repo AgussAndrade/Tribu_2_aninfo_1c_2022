@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
     }
     background-color: ${props => props.selected ? colors.strongGrey : colors.lightGrey};
     border: none;
-    font-family: "Roboto";
+    font-family: "Verdana";
     font-weight: bold;
     color: ${colors.blue};
     border-radius: 5px;
