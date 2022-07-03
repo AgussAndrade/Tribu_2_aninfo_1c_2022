@@ -12,11 +12,7 @@ export const ResourcesEmployee = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const date = location.state?.date;
-  const name = location.state?.name;
-  const [proyect,setProyect] = useState("");
-  const [task,setTask] = useState("");
-  const [hours,setHours] = useState("");
-  const [detail,setDetail] = useState("");
+  const id = location.state?.id;
   const axios = require ("axios");
 
   const handleSubmit = ()=>{
