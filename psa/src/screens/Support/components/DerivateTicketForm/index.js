@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { getCurrentDate } from "../../../../utils/getCurrentDate";
-import { TicketCreateForm } from "../TicketCreateForm/index"
+import { CreateTaskForm } from "../CreateTaskForm";
 import { GenericModal } from "../GenericModal";
 
 export const DerivateTicketForm = () => {
@@ -24,8 +24,8 @@ export const DerivateTicketForm = () => {
                     <GenericModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        form={<TicketCreateForm/>}
-                        title={"AAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+                        form={<CreateTaskForm closeModal={setModalShow}/>}
+                        title={"Crear tarea"}
                     />
                     <Row>
                         <Col>
@@ -41,12 +41,12 @@ export const DerivateTicketForm = () => {
                                 <Form.Label>Seleccione una o más tareas para asignar al ticket</Form.Label>
                                 <div style={{ display: 'flex', "justify-content": 'flex-start' }}>
                                     <div>
-                                        <Button variant="primary" type="submit" >
+                                        <Button variant="primary"  >
                                             Seleccionar tareas
                                         </Button>
                                     </div>
                                     <div style={{ "margin-left": "10px" }}>
-                                        <Button variant="primary" type="submit" onClick={() => {setModalShow(true)}}>
+                                        <Button variant="primary" onClick={() => {setModalShow(true)}}>
                                             Crear tarea
                                         </Button>
                                     </div>
