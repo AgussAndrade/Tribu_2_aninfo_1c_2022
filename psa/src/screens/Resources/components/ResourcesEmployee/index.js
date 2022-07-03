@@ -34,7 +34,7 @@ export const ResourcesEmployee = (props) => {
         Administracion Horas
       </Container>
       <ResourcesHoursForm name={name} date={date}></ResourcesHoursForm>
-      <ResourcesHoursTable></ResourcesHoursTable>
+      <ResourcesHoursTable date={date}></ResourcesHoursTable>
     </PrincipalContainer>
   );
 };

@@ -1,4 +1,6 @@
 import React from "react";
+import { TableRowIcons } from "../../screens/Resources/components/TableRowIcons";
+
 
 export const TableBody = (props) => {
     const {rows} = props
@@ -12,6 +14,9 @@ export const TableBody = (props) => {
             const rowValue = row[key]
             rowElement.push(<td>{rowValue}</td>)
         }
+        rowElement.push(
+            <TableRowIcons />
+        )
         rowsElements.push(<tr>{rowElement}</tr>)
     }
     
