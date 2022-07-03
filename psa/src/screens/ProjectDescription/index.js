@@ -15,19 +15,23 @@ import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
 import { EditionModal } from "./components/EditionModal";
 import { EditionTaskModal } from "./components/EditionTaskModal";
+import { NewTaskModal } from "./components/NewTaskModal";
 import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
+import { GenericButton } from "../../components/GenericButton";
+import { colors } from "../../utils/colors";
 
 export const ProjectDescription = (props) => {
-  const {id} = useParams()
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
+  const [showModalAddTask, setshowModalAddTask] = useState(false)
   const [project, setProject] = useState({});
   const navigate = useNavigate();
 
-  const url = "https:moduloproyectos.herokuapp.com/proyectos"+id;
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/" + id;
   console.log(url);
   useEffect(() => {
     fetch(url, {
@@ -44,57 +48,6 @@ export const ProjectDescription = (props) => {
 
   //use effect para ver cuando se elimina el project
   //use effect para ver cuando se elimina tarea
-
-  /*const project = {
-    nombre: "Nombre1",
-    descripcion: "Esta es la descripcion1",
-    tareas: [
-      {
-        nombre: "Tarea: Nombre1",
-        descripcion:
-          "Descripcion: Esta es la descripcion de tarea 1, es una descripcion larga para probar el overflow de la caja de texto a ver si funciona bien o si no funciona bien por eso es larga. Aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre2",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 2",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre3",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 3",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre4",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 4",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre5",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 5",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-    ],
-  };
-
-  const mantequita = {
-    estado: "un thread es una secuencia atomica de ejecucion que representa una tarea planificable en ejecucion",
-    fechaFin: "hola",
-    fechaInicio: "que te pasa ",
-    id: 0,
-    legajoLider: 22,
-    nombre: "hola krachi krachi",
-  };
-
-  const [projects, setProjects] = useState({});
-  const [error, setError] = useState("");
-
 
   /*fetch("https:moduloproyectos.herokuapp.com/proyectos", {
      //Enter your IP address here
@@ -125,13 +78,30 @@ export const ProjectDescription = (props) => {
     }
   };
 
+  const [lider, setLider] = useState("");
+  fetch(
+    "https:moduloproyectos.herokuapp.com/empleados/" + project.legajoLider,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      setLider(result.Nombre + " " +  result.Apellido);
+    })
+    .catch(() => navigate("/error"));
+
   return (
     <PrincipalContainer>
+      <NewTaskModal open={showModalAddTask}
+        onClose={() => setshowModalAddTask(false)}
+        projectId = {project.id}
+      />
       <EditionModal
         open={showModal}
         onClose={() => setShowModal(false)}
         titulo="Editar Proyecto"
-        defaultVal={true}
+        proyecto={project}
       />
       <EditionTaskModal
         open={showModalTask}
@@ -140,13 +110,11 @@ export const ProjectDescription = (props) => {
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
-          nombreProyecto={"Proyecto: Prueba"}
-          descripcionProyecto={
-            "Descripcion: El kernel es la capa de software de mas bajo nivel del sistema operativo"
-          }
-          fechaInicio={"Fecha de inicio: 27/7/2022"}
-          fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
-          lider={"Lider: Yo"}
+          nombreProyecto={"Proyecto: " + project.nombre}
+          descripcionProyecto={"no description"}
+          fechaInicio={"Fecha de inicio: " + project.fechaInicio}
+          fechaEstimadaFin={"Fecha de fin estimada: " + project.fechaFin}
+          lider={"Lider: " + lider}
           onClick={() => setShowModal(true)}
         />
         <TaskContainer>
@@ -158,13 +126,12 @@ export const ProjectDescription = (props) => {
                 setSerchTerm(event.target.value);
               }}
             />
+          <GenericButton color={colors.lightGrey2} name= {"Agregar tarea"} onClick={() => setshowModalAddTask(true)}/>
           </InputContainer>
           <TaskCards />
         </TaskContainer>
         <OptionsContainer>
-          <DeleteButtonContainer>
-            <DeleteButton setDelete={setDeleteProject} optionText={"project"} />
-          </DeleteButtonContainer>
+        <GenericButton color={colors.red} name= {"Eliminar proyecto"} onClick={() => setshowModalAddTask(true)}/>
         </OptionsContainer>
       </BodyContainer>
     </PrincipalContainer>

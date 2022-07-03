@@ -22,25 +22,22 @@ import { render } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-export const NewProjectModal = (props) => {
-  const { open, onClose } = props;
+export const NewTaskModal = (props) => {
+  const { open, onClose, projectId } = props;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [dateStart, setDateStart] = useState("");
-  const [dateFinish, setDateFinish] = useState("");
   const [state, setState] = useState("");
 
   const navigate = useNavigate();
 
-  let newProject = {
+  let newTask = {
     estado: "",
-    fechaFin: "",
     fechaInicio: "",
-    id: 0,
-    legajoLider: 0,
     nombre: "",
+    description: "",
     // tareas: [
     //   {
     //     descripcion: "",
@@ -60,22 +57,19 @@ export const NewProjectModal = (props) => {
       name &&
       description &&
       dateStart &&
-      dateFinish &&
       state
     ) {
-      newProject = {
+      newTask = {
         estado: state,
-        fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
-        legajoLider: 1,
         nombre: name,
       };
 
-      fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+      fetch("https:moduloproyectos.herokuapp.com/proyectos/"+projectId+"/tareas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newProject),
+        body: JSON.stringify(newTask),
       })
         .then(() => window.location.reload())
         .catch(() => navigate("/error"));
@@ -83,17 +77,14 @@ export const NewProjectModal = (props) => {
     } else {
       setErrorMessage("Rellene todos los campos");
 
-      newProject = {
+      newTask = {
         estado: state,
-        fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
-        legajoLider: 1,
         nombre: name,
       };
       if (!name) setName("");
       if (!state) setState("");
-      if (!dateFinish) setDateFinish("");
       if (!dateStart) setDateStart("");
       if (!description) setDescription("");
     }
@@ -102,7 +93,6 @@ export const NewProjectModal = (props) => {
   const handleClose = () => {
     setErrorMessage("");
     setState("");
-    setDateFinish("");
     setDateStart("");
     setDescription("");
     setName("");
@@ -114,7 +104,7 @@ export const NewProjectModal = (props) => {
     <Overlay>
       <ModalContainer>
         <TitleContainer>
-          <Title>Crear proyecto</Title>
+          <Title>Crear tarea</Title>
         </TitleContainer>
         <FormContainer autoComplete="off">
           <StyledTextInputContainer>
@@ -133,10 +123,6 @@ export const NewProjectModal = (props) => {
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
             <Date onChange={(e) => setDateStart(e.target.value)}></Date>
-          </StyledTextInputContainer>
-          <StyledTextInputContainer>
-            <Text>Fecha estimada de fin:</Text>
-            <Date onChange={(e) => setDateFinish(e.target.value)}></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>

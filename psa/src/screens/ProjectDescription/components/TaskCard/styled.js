@@ -38,6 +38,7 @@ export const EditProjectContainer = styled.div`
     align-self: flex-end;
     padding-bottom:15px;
     padding-right: 25px;
+    align-items: center;
 `
 
 export const CardContainer = styled.div`
@@ -47,4 +48,9 @@ export const CardContainer = styled.div`
     background-color: ${colors.white2};
     border-radius: 20px;
     margin-top: 20px;
+`
+
+export const DeleteButtonContainer = styled.div`
+  width: 20%;
+  height: 20%;
 `
