@@ -13,14 +13,13 @@ import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
-import { DerivateTicketForm } from "../Support/components/DerivateTicketForm";
 import { GenericModal } from "../Support/components/GenericModal";
-import {EditFormTicket} from "../Support/components/EditFormTicket";
 
 
 export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [currentForm, setCurrentForm] = useState("");
+  const [currentTitleModal, setCurrentTitleModal] = useState("");
   const [modalShow, setModalShow] = useState(false)
   const tickets = [
     {
@@ -103,7 +102,7 @@ export const SupportTicketViews = () => {
   const Cards = () => {
     return tickets
       .filter((val) => {
-        if (searchTerm == "") return val;
+        if (searchTerm === "") return val;
         else if (
           val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
         )
@@ -119,6 +118,7 @@ export const SupportTicketViews = () => {
           vencimientoProyecto={ticket.vencimiento}
           openModal={setModalShow}
           setCurrentForm = {setCurrentForm}
+          setCurrentTitleModal = {setCurrentTitleModal}
         />
       ));
   };
@@ -153,7 +153,7 @@ export const SupportTicketViews = () => {
             show={modalShow}
             onHide={() => setModalShow(false)}
             form = {currentForm}
-            title = {"Derivar ticket"}
+            title = {currentTitleModal}
         />
       </BodyContainer>
     </PrincipalContainer>

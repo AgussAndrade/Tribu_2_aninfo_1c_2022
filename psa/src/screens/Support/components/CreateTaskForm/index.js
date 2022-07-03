@@ -61,7 +61,7 @@ export const CreateTaskForm = (props) => {
                         </Col>
 
                     </Row>
-                    <div style={{ display: 'flex', "justify-content": 'flex-end' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Button variant="primary" type="submit">
                             Guardar
                         </Button>

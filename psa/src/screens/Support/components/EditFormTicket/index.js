@@ -1,8 +1,7 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useState} from "react";
-import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
-export const EditFormTicket = () => {
+export const EditFormTicket = (props) => {
+    const {readOnly} = props
     const handleSubmit = () => {}
 
     const formInputs = () => {
@@ -13,18 +12,18 @@ export const EditFormTicket = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Código</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name = "code" disabled={true}/>
+                                <Form.Control type="text" placeholder="Titulo del ticket" name = "code" disabled={true} readOnly={readOnly}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '100%', resize: "none" }} placeholder="Descripción del ticket"/>
+                                <Form.Control readOnly={readOnly} as={"textarea"} style={{ height: '100%', resize: "none" }} placeholder="Descripción del ticket"/>
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group className="mb-3" controlId= "responsible" >
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control as={"input"} list = "employers" ></Form.Control>
+                                <Form.Control as={"input"} list = "employers" readOnly={readOnly}></Form.Control>
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer = "3"></option>
                                     <option value="Juan" data-id-employer = "2"></option>
@@ -33,7 +32,7 @@ export const EditFormTicket = () => {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId= "state" >
                                 <Form.Label>Estado</Form.Label>
-                                <Form.Control as={"input"} list = "employers" ></Form.Control>
+                                <Form.Control as={"input"} list = "employers" readOnly={readOnly} ></Form.Control>
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer = "3"></option>
                                     <option value="Juan" data-id-employer = "2"></option>
@@ -43,7 +42,7 @@ export const EditFormTicket = () => {
 
                             <Form.Group className="mb-3" controlId= "severity" >
                                 <Form.Label>Severidad</Form.Label>
-                                <Form.Select>
+                                <Form.Select readOnly={readOnly}>
                                     <option value="3">Mayor</option>
                                     <option value="2">Medio</option>
                                     <option value="1">Baja</option>
@@ -52,12 +51,12 @@ export const EditFormTicket = () => {
 
                             <Form.Group className="mb-3" controlId= "end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
-                                <Form.Control type="date" name='end_time' />
+                                <Form.Control type="date" name='end_time' readOnly={readOnly} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId= "client_id" >
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control as={"input"} list ="clientes" name ="id_client"></Form.Control>
+                                <Form.Control as={"input"} list ="clientes" name ="id_client" readOnly={readOnly}></Form.Control>
                                 <datalist id={"clientes"}>
                                     <option value="Julian" data-id-client = "3"></option>
                                     <option value="Juan" data-id-client = "2"></option>
@@ -86,7 +85,7 @@ export const EditFormTicket = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{display: 'flex', "justify-content": 'flex-end'}}>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Button variant="primary" type="submit">
                             Guardar
                         </Button>

@@ -39,13 +39,13 @@ export const DerivateTicketForm = () => {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Seleccione una o más tareas para asignar al ticket</Form.Label>
-                                <div style={{ display: 'flex', "justify-content": 'flex-start' }}>
+                                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     <div>
                                         <Button variant="primary"  >
                                             Seleccionar tareas
                                         </Button>
                                     </div>
-                                    <div style={{ "margin-left": "10px" }}>
+                                    <div style={{ marginLeft: "10px" }}>
                                         <Button variant="primary" onClick={() => {setModalShow(true)}}>
                                             Crear tarea
                                         </Button>
@@ -54,13 +54,13 @@ export const DerivateTicketForm = () => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{ display: 'flex', "justify-content": 'flex-end' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <div>
                             <Button variant="primary" type="submit">
                                 Guardar
                             </Button>
                         </div>
-                        <div style={{ "margin-left": "10px" }}>
+                        <div style={{ marginLeft: "10px" }}>
                             <Button variant="primary" type="submit">
                                 Cancelar
                             </Button>

@@ -5,8 +5,6 @@ import {
   TitleText,
   DescriptionText,
   ButtonContainer,
-  TicketsInfo,
-  GenericTextBox
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
@@ -15,7 +13,7 @@ import {DerivateTicketForm} from "../../../Support/components/DerivateTicketForm
 
 export const SupportCard = (props) => {
     const {nombreProyecto, tareasProyecto, estadoProyecto,
-        severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm} = props;
+        severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, setCurrentTitleModal} = props;
     return(
         <CardContainer>
           <CardTextContainer>
@@ -39,7 +37,8 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Editar Ticket"}
               onClick={ () => {
-                  setCurrentForm(<EditFormTicket />);
+                  setCurrentForm(<EditFormTicket readOnly = {false}/>);
+                  setCurrentTitleModal("Editar ticket")
                   openModal(true);
               }}
               color = {colors.lightBlue}
@@ -48,6 +47,7 @@ export const SupportCard = (props) => {
               name={"Derivar Ticket"}
               onClick={() => {
                   setCurrentForm(<DerivateTicketForm/>)
+                  setCurrentTitleModal("Derivar ticket")
                   openModal(true)
               }}
               color = {colors.lightBlue}
@@ -55,7 +55,8 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Info Ampliada"}
               onClick={() => {
-                  setCurrentForm(<EditFormTicket/>)
+                  setCurrentForm(<EditFormTicket readOnly = {true}/>)
+                  setCurrentTitleModal("Info ampliada")
                   openModal(true)
               }}
               color = {colors.lightBlue}
