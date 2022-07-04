@@ -30,6 +30,7 @@ export const TitleText = styled.p`
   color: ${colors.blue};
   font-family: "Verdana";
   margin: 0%;
+  font-weight: 700;
   
 `
 

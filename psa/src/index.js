@@ -24,7 +24,7 @@ root.render(
       <Route path="/support" element={<Support />} />
       <Route path="/projects/:id" element={<ProjectDescription />} />
       <Route path="/error" element={<ErrorPage />} />
-      <Route path="/support/ticketViews" element={<SupportTicketViews />} />
+      <Route path="/support/ticketViews/:id" element={<SupportTicketViews />} />
       <Route path="/projects/id" element={<ProjectDescription />} />
     </Routes>
   </BrowserRouter>

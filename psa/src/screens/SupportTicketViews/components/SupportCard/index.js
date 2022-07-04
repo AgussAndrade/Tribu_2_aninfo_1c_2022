@@ -15,7 +15,7 @@ import { SOPORTE_URL } from "../../../../utils/apiUrls";
 
 
 export const SupportCard = (props) => {
-    const {nombreProyecto, tareasProyecto, estadoProyecto, severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize} = props;
+    const {nombreTicket, tareasTicket, estadoTicket, severidadTicket,responsableTicket, vencimientoTicket,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize} = props;
     const closeTicket = () => {
       
       const body = { 
@@ -44,19 +44,19 @@ export const SupportCard = (props) => {
         <CardContainer>
           <CardTextContainer>
             <TitleText>
-            	{nombreProyecto}
+            	{nombreTicket}
             </TitleText>
             <DescriptionText>
-            	Tareas: {tareasProyecto} | 
+            	Tareas: {tareasTicket} | 
               
-            	Estado: {estadoProyecto} | 
+            	Estado: {estadoTicket} | 
               
-            	Severidad {severidadProyecto} | 
+            	Severidad {severidadTicket} | 
             
-            	Responsable: {responsableProyecto} 
+            	Responsable: {responsableTicket} 
             </DescriptionText>
             <DescriptionText>
-            	Vencimiento: {vencimientoProyecto} 
+            	Vencimiento: {vencimientoTicket} 
             </DescriptionText>
           </CardTextContainer>
           <ButtonContainer>

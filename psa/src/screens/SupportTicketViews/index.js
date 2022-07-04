@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
@@ -12,18 +12,42 @@ import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { useState } from "react";
-import { SupportCard} from "./components/SupportCard";
+import { SupportCard } from "./components/SupportCard";
 import { GenericModal } from "../Support/components/GenericModal";
+import { useParams } from 'react-router';
+import { SOPORTE_URL } from "../../utils/apiUrls";
 
 
 export const SupportTicketViews = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [currentForm, setCurrentForm] = useState("");
   const [currentTitleModal, setCurrentTitleModal] = useState("");
-  const [modalShow, setModalShow] = useState(false)
-  const [modalSize, setModalSize] = useState("lg")
+  const [modalShow, setModalShow] = useState(false);
+  const [modalSize, setModalSize] = useState("lg");
+  const { id } = useParams();
+  const [tickets, setTickets] = useState([]);
+
   //get para buscar los tickets asociados a un producto
-  const tickets = [
+  const config = {
+    url: SOPORTE_URL + "soporte/tickets/" + id, config: {
+      headers: { "Content-Type": "application/json" },
+      method: "GET"
+    }
+  }
+
+  useEffect(() => {
+    fetch(config.url, config.config)
+      .then((res) => res.json())
+      .then((result) => {
+        setTickets(result);
+      })
+      .catch(() => navigate("/error"))
+  }, [])
+
+  
+
+
+  const ticketss = [
     {
       nombre: "El inventario no se actualiza correctamente",
       tareas: "10",
@@ -101,8 +125,9 @@ export const SupportTicketViews = () => {
     },
   ];
 
+  console.log(tickets)
   const Cards = () => {
-    return tickets
+    return ticketss
       .filter((val) => {
         if (searchTerm === "") return val;
         else if (
@@ -112,16 +137,17 @@ export const SupportTicketViews = () => {
       })
       .map((ticket) => (
         <SupportCard
-          nombreProyecto={ticket.nombre}
-          tareasProyecto={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
-          estadoProyecto={ticket.estado}
-          severidadProyecto={"10 Dias"}
-          responsableProyecto={ticket.responsable}
-          vencimientoProyecto={ticket.vencimiento}
+          nombreTicket={ticket.nombre}
+          tareasTicket={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
+          estadoTicket={ticket.estado}
+          severidadTicket={ticket.severidad}
+          responsableTicket={ticket.responsable}
+          vencimientoTicket={ticket.vencimiento}
+          cuitClienteTicket={ticket.cuit}
           openModal={setModalShow}
-          setCurrentForm = {setCurrentForm}
-          setCurrentTitleModal = {setCurrentTitleModal}
-          setModalSize = {setModalSize}
+          setCurrentForm={setCurrentForm}
+          setCurrentTitleModal={setCurrentTitleModal}
+          setModalSize={setModalSize}
         />
       ));
   };
@@ -144,11 +170,11 @@ export const SupportTicketViews = () => {
       <BodyContainer>
         <Cards />
         <GenericModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            form = {currentForm}
-            title = {currentTitleModal}
-            size = {modalSize}
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          form={currentForm}
+          title={currentTitleModal}
+          size={modalSize}
         />
       </BodyContainer>
     </PrincipalContainer>
