@@ -151,7 +151,7 @@ export const SupportTicketViews = () => {
           cuitClienteTicket={ticket.cuit}
           idTicket={ticket.id}
           versionId={ticket.version_id}
-          descriptionId={ticket.descripcion}
+          descriptionTicket={ticket.descripcion}
           openModal={setModalShow}
           setCurrentForm={setCurrentForm}
           setCurrentTitleModal={setCurrentTitleModal}
