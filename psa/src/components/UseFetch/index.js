@@ -4,14 +4,6 @@ export const UseFetch = (props) => {
   const [data, setData] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState(null)
-  if (props.config.header) {
-    props.config.header["Access-Control-Allow-Origin"] = "*"
-    props.config.header["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
-  } else {
-    props.config.header = {}
-    props.config.header["Access-Control-Allow-Origin"] = "*"
-    props.config.header["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
-  }
 
   useEffect(() => {
     const fetchData = async () => {
