@@ -1,11 +1,14 @@
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useState} from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useState } from "react";
 
 
 export const TicketCreateForm = () => {
     const [validated, setValidated] = useState(false);
-    const [title, setTitle] = useState("Montoto");
+    const [title, setTitle] = useState("");
     const [severity, setSeverity] = useState("3");
+    const [description, setDescription] = useState("");
+    const [date, setDate] = useState("");
+
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -19,8 +22,8 @@ export const TicketCreateForm = () => {
 
     const formInputs = () => {
         return (
-                <Form onSubmit={handleSubmit} noValidate validated={validated}>
-                    <Container>
+            <Form onSubmit={handleSubmit} noValidate validated={validated}>
+                <Container>
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
@@ -28,7 +31,7 @@ export const TicketCreateForm = () => {
                                 <Form.Control
                                     type="text"
                                     placeholder="Titulo del ticket"
-                                    name = "title"
+                                    name="title"
                                     required
                                     value={title}
                                     onChange={(event) => {
@@ -41,53 +44,74 @@ export const TicketCreateForm = () => {
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket" />
+                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket"
+                                    type="text"
+                                    value={description}
+                                    onChange={(event) => {
+                                        setDescription(event.currentTarget.value)
+                                        console.log("Descripcion cambiada: " + description);
+                                    }}
+                                />
+
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId= "severity" >
+                            <Form.Group className="mb-3" controlId="severity" >
                                 <Form.Label>Severidad</Form.Label>
-                                <Form.Select>
-                                    <option value="3" selected={severity === "3"}>Mayor</option>
-                                    <option value="2" selected={severity === "2"}>Medio</option>
-                                    <option value="1" selected={severity === "1"}>Baja</option>
+                                <Form.Select
+                                    onChange={(event) => {
+                                        setSeverity(event.currentTarget.value)
+                                        console.log("Severidad seleccionada: " + severity);
+                                    }}
+                                >
+                                    <option value="3" >Mayor</option>
+                                    <option value="2" >Medio</option>
+                                    <option value="1" >Baja</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group className="mb-3" controlId= "responsible" >
+                            <Form.Group className="mb-3" controlId="responsible" >
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control as={"input"} list = "employers" ></Form.Control>
+                                <Form.Control as={"input"} list="employers" ></Form.Control>
                                 <datalist id={"employers"}>
-                                    <option value="Julian" data-id-employer = "3"></option>
-                                    <option value="Juan" data-id-employer = "2"></option>
-                                    <option value="Lucia" data-id-employer = "1"></option>
+                                    <option value="Julian" data-id-employer="3"></option>
+                                    <option value="Juan" data-id-employer="2"></option>
+                                    <option value="Lucia" data-id-employer="1"></option>
                                 </datalist>
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId= "end_time" >
+
+                            <Form.Group className="mb-3" controlId="end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
-                                <Form.Control type="date" name='end_time'/>
+                                <Form.Control type="date" name='end_time'
+                                    required
+                                    value={date}
+                                    onChange={(event) => {
+                                        setDate(event.currentTarget.date)
+                                        console.log("Fecha cambiada: " + date);
+                                    }}
+                                />
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId= "client_id" >
+                            <Form.Group className="mb-3" controlId="client_id" >
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control as={"input"} list ="clientes" name ="id_client"></Form.Control>
+                                <Form.Control as={"input"} list="clientes" name="id_client"></Form.Control>
                                 <datalist id={"clientes"}>
-                                    <option value="Julian" data-id-client = "3"></option>
-                                    <option value="Juan" data-id-client = "2"></option>
-                                    <option value="Lucia" data-id-client = "1"></option>
+                                    <option value="Julian" data-id-client="3"></option>
+                                    <option value="Juan" data-id-client="2"></option>
+                                    <option value="Lucia" data-id-client="1"></option>
                                 </datalist>
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Button variant="primary" type="submit">
                             Guardar
                         </Button>
                     </div>
-                    </Container>
-                </Form>
+                </Container>
+            </Form>
         )
     }
 
-    return ( formInputs() );
+    return (formInputs());
 }

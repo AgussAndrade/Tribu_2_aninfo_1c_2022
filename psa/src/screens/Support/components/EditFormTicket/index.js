@@ -1,8 +1,12 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import { useState } from "react";
 
 export const EditFormTicket = (props) => {
     const {readOnly} = props
     const handleSubmit = () => {}
+    const [description, setDescription] = useState("");
+    const [end_time, setEndTime] = useState("");
+
 
     const formInputs = () => {
         return (
@@ -17,7 +21,16 @@ export const EditFormTicket = (props) => {
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control readOnly={readOnly} as={"textarea"} style={{ height: '400px', resize: "none" }} placeholder="Descripción del ticket"/>
+                                <Form.Control 
+                                readOnly={readOnly} 
+                                as={"textarea"} 
+                                style={{ height: '400px', resize: "none" }} 
+                                placeholder="Descripción del ticket"
+                                onChange={(event) => {
+                                    setDescription(event.currentTarget.value)
+                                    console.log("Titulo cambiado: " + description);
+                                }}
+                                />
                             </Form.Group>
                         </Col>
                         <Col>
@@ -30,6 +43,7 @@ export const EditFormTicket = (props) => {
                                     <option value="Lucia" data-id-employer = "1"></option>
                                 </datalist>
                             </Form.Group>
+
                             <Form.Group className="mb-3" controlId= "state" >
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Control as={"input"} list = "employers" readOnly={readOnly} ></Form.Control>
@@ -51,7 +65,15 @@ export const EditFormTicket = (props) => {
 
                             <Form.Group className="mb-3" controlId= "end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
-                                <Form.Control type="date" name='end_time' readOnly={readOnly} />
+                                <Form.Control 
+                                type="date" 
+                                name='end_time' 
+                                readOnly={readOnly} 
+                                onChange={(event) => {
+                                    setEndTime(event.currentTarget.value)
+                                    console.log("Fecha de vencimiento cambiada: " + end_time);
+                                }}
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId= "client_id" >
