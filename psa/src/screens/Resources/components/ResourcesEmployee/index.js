@@ -7,6 +7,9 @@ import { ResourcesHoursTable } from "../ResourcesHoursTable";
 import { Container, FormControl } from "./styled";
 
 export const ResourcesEmployee = (props) => {
+  const [reload,setReload] = useState(0);
+  const [boolReload, setBoolReload] = useState(true) 
+
   const navigate = useNavigate();
   const location = useLocation();
   const date = location.state?.date;
@@ -19,8 +22,8 @@ export const ResourcesEmployee = (props) => {
       <Container>
         Administracion Horas
       </Container>
-      <ResourcesHoursForm legajo={id} name={name} date={date}></ResourcesHoursForm>
-      <ResourcesHoursTable legajo={id} date={date}></ResourcesHoursTable>
+      <ResourcesHoursForm reload={reload} setReload={setReload} legajo={id} name={name} date={date}></ResourcesHoursForm>
+      <ResourcesHoursTable reload={reload} setReload={setReload} toggleReload={() => setBoolReload(!boolReload)} legajo={id} date={date}></ResourcesHoursTable>
     </PrincipalContainer>
   );
 };

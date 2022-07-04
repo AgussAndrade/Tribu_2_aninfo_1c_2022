@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export const ResourcesHoursForm = (props) => {
     const navigate = useNavigate()
 
-    const {legajo, name, date} = props;
+    const {reload, setReload, legajo, name, date} = props;
     const [proyect, setProyect] = useState(0);
     const [task, setTask] = useState(0);
     const [hours, setHours] = useState(0);
@@ -31,14 +31,7 @@ export const ResourcesHoursForm = (props) => {
           (repos) => {
             console.log(repos.status)
             if (repos.status == 200) {
-                // navigate('/resources/employee',
-                // {
-                //     state: {
-                //         id: legajo,
-                //         name: name,
-                //         date: date
-                //     }
-                // })
+                setReload(reload + 1)
             }
           }
         );

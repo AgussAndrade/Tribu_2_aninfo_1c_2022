@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { TableIcon } from "./styled";
 import { ConfirmationModal } from "../../../../components/ConfirmationModal";
 import { EditHoursModal } from "../EditHoursModal";
@@ -9,7 +9,7 @@ function deleteHours() {
 }
 
 export const TableRowIcons = (props) => {
-    const {id, setHours} = props
+    const {id, setHours, reload, setReload, toggleReload} = props
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -18,7 +18,7 @@ export const TableRowIcons = (props) => {
         console.log(res.status)
         if (res.status == 200) {
             setShowDeleteModal(false)
-            console.log("Update Resources table")
+            setReload(reload +1)
         }
     }
 

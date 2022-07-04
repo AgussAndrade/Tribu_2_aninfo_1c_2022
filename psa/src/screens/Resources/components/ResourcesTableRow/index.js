@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TableRowIcons } from "../TableRowIcons";
 
 export const ResourcesTableRow = (props) => {
-    const {row} = props;
+    const {reload, setReload, row, toggleReload} = props;
 
     const [hours, setHours] = useState(row[5])
 
@@ -13,7 +13,7 @@ export const ResourcesTableRow = (props) => {
             <td>{row[3]}</td>
             <td>{row[4]}</td>
             <td>{hours}</td>
-            <TableRowIcons id={row[0]} setHours={setHours}/>
+            <TableRowIcons id={row[0]} setHours={setHours} reload={reload} setReload={setReload} toggleReload={toggleReload}/>
         </tr>
     );
 }
