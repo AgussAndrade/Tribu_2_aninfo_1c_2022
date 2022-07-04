@@ -1,5 +1,5 @@
 import React from "react";
-import { generatePath, Route, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
@@ -20,6 +20,7 @@ export const Project = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [projects, setProjects] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [update, setUpdate] = useState(true)
 
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export const Project = () => {
         setProjects(result);
       })
       .catch(() => navigate("/error"));
-  }, []);
+  }, [update]);
 
   const Cards = () => {
     return projects
@@ -75,6 +76,7 @@ export const Project = () => {
         open={showModal}
         onClose={() => setShowModal(false)}
         listEmployees={employees}
+        setUpdate={() => setUpdate(!update)}
       />
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>

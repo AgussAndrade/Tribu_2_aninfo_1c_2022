@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const NewProjectModal = (props) => {
-  const { open, onClose, listEmployees } = props;
+  const { open, onClose, listEmployees, setUpdate } = props;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
@@ -32,11 +32,11 @@ export const NewProjectModal = (props) => {
   const [dateFinish, setDateFinish] = useState("");
   const [leaderID, setLeaderID] = useState(-1);
   const [state, setState] = useState("");
-
   const navigate = useNavigate();
 
   let newProject = {
     estado: "",
+    descripcion: "",
     fechaFin: "",
     fechaInicio: "",
     id: 0,
@@ -46,28 +46,22 @@ export const NewProjectModal = (props) => {
 
   const checkLeaderId = () => {
     let value = false;
-    
+
+    console.log(listEmployees);
     listEmployees.forEach((empleado) => {
       if (empleado.legajo == leaderID) {
         value = true;
       }
     });
-    
+
     return value;
   };
 
   const saveInput = () => {
-    if (
-      name &&
-      description &&
-      dateStart &&
-      dateFinish &&
-      state &&
-      checkLeaderId()
-    ) {
+    if (name && description && dateStart && dateFinish && checkLeaderId()) {
       newProject = {
         estado: state,
-        descripcion:description,
+        descripcion: description,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
         id: 0,
@@ -75,25 +69,18 @@ export const NewProjectModal = (props) => {
         nombre: name,
       };
 
-      console.log(newProject)
-
       fetch("https:moduloproyectos.herokuapp.com/proyectos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
       })
-        .then(() => window.location.reload())
+        .then(() => setUpdate())
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-      if(name &&
-        description &&
-        dateStart &&
-        dateFinish &&
-        state && leaderID){
+      if (name && description && dateStart && dateFinish && state && leaderID) {
         setErrorMessage("Ingrese un ID valido");
-      }
-      else{
+      } else {
         setErrorMessage("Rellene todos los campos");
       }
 
@@ -104,7 +91,6 @@ export const NewProjectModal = (props) => {
         id: 0,
         legajoLider: leaderID,
         nombre: name,
-        description: description
       };
       if (!name) setName("");
       if (!state) setState("");
@@ -141,10 +127,11 @@ export const NewProjectModal = (props) => {
           <StyledTextInputContainer>
             <Text>Estado:</Text>
             <DropDownList onChange={(e) => setState(e.target.value)}>
+              <option disabled hidden selected>Seleccionar...</option>
+              <option value="Sin empezar">Sin empezar</option>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>
-              <option value="Sin empezar">Sin empezar</option>
             </DropDownList>
           </StyledTextInputContainer>
           <StyledTextInputContainer>

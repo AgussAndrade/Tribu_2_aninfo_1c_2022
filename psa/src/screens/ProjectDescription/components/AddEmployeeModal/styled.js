@@ -1,6 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { colors } from "../../../../utils/colors";
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const BodyContainer = styled.div`
   width: 100%;
@@ -46,6 +54,7 @@ export const ModalContainer = styled.div`
   padding-bottom: 15px;
   justify-content: center;
   align-items: center;
+  animation: 0.7s ${fadeIn} forwards;
 `;
 
 export const TitleContainer = styled.div`
@@ -132,3 +141,14 @@ export const Buttons = styled.div`
   align-items: center;
   display: flex;
 `;
+
+export const AddEmployeeMessageContainer = styled.div`
+  display: flex;
+  height: 1%;
+  width: 100%;
+  font-family: Verdana;
+  font-size: 15px;
+  color: red;
+  justify-content: center;
+  margin-top: 10px;
+`

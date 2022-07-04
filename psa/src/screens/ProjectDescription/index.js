@@ -34,6 +34,7 @@ export const ProjectDescription = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalAddTask, setshowModalAddTask] = useState(false);
+  const [update, setUpdate] = useState(false)
  
   const [project, setProject] = useState({});
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ export const ProjectDescription = (props) => {
         method: "DELETE",
       }).catch(() => navigate("/error"))
       .then(() => window.location.reload());
-      navigate(-1);
+      navigate("/projects");
     }
   }, [deleteProject]);
 
@@ -62,19 +63,7 @@ export const ProjectDescription = (props) => {
         setProject(result);
       })
       .catch(() => navigate("/error"));
-  }, []);
-
-
-
-  //use effect para ver cuando se elimina el project
-  //use effect para ver cuando se elimina tarea
-
-  /*fetch("https:moduloproyectos.herokuapp.com/proyectos", {
-     //Enter your IP address here
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(mantequita), //body data type must match "Content-Type" header
-  }); //esto anda confirmado por el evilar2 */
+  }, [update]);
 
   const TaskCards = () => {
     if (project.tareas) {
@@ -129,6 +118,7 @@ export const ProjectDescription = (props) => {
         open={showModalAddTask}
         onClose={() => setshowModalAddTask(false)}
         projectId={id}
+        setUpdate= {() => setUpdate(!update)}
       />
       <EditionModal
         open={showModal}
@@ -137,12 +127,13 @@ export const ProjectDescription = (props) => {
         proyecto={project}
         listEmployees={employees}
         projectId={id}
-      />
-      
+        setUpdate= {() => setUpdate(!update)}
+      />      
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
           nombreProyecto={"Proyecto: " + project.nombre}
+          estadoProyecto={"Estado: "+ project.estado}
           descripcionProyecto={"Descripcion: " + project.descripcion}
           fechaInicio={"Fecha de inicio: " + project.fechaInicio}
           fechaEstimadaFin={"Fecha de fin estimada: " + project.fechaFin}
