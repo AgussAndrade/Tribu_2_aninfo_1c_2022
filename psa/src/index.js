@@ -22,9 +22,6 @@ root.render(
       <Route path="/resources/employee" element={<ResourcesEmployee />} />
       <Route path="/resources/error" element={<ResourcesError/>}/>
       <Route path="/support" element={<Support />} />
-      <Route path="/support/pantallaCrearTicket" element={<PantallaCrearTicket />} />
-      <Route path="/support/pantallaVerTickets" element={<PantallaVerTickets />} />
-      <Route path="/support/pantallaDerivarTicket" element={<PantallaDerivarTicket />} />
       <Route path="/projects/:id" element={<ProjectDescription />} />
       <Route path="/error" element={<ErrorPage />} />
       <Route path="/support/ticketViews" element={<SupportTicketViews />} />

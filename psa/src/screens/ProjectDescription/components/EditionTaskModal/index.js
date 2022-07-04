@@ -17,6 +17,8 @@ import {
   DescriptionInput,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
+import { useNavigate } from "react-router-dom";
+import { ErrorMessageContainer } from "../EditionModal/styled";
 
 export const EditionTaskModal = (props) => {
   const { open, onClose, tarea } = props;
@@ -25,16 +27,33 @@ export const EditionTaskModal = (props) => {
   const [description, setDescription] = useState("");
   const [dateStart, setDateStart] = useState("");
   const [state, setState] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const saveInput = () => {
-    let newProject = {
+    let newTask = {
       nombre: name,
       descripcion: description,
       estado: state,
       fechaCreacion: dateStart,
     };
-    console.log(newProject);
-    onClose();
+
+    if (
+      name &&
+      description &&
+      dateStart
+    ) {     
+      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + tarea.idProyecto + "/tareas/"+ tarea.id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTask),
+      })
+        .then(() => window.location.reload())
+        .catch(() => navigate("/error"));
+      onClose();
+    } else {
+        setErrorMessage("Rellene todos los campos");
+      }
   };
 
   if (!open) return null;
@@ -81,6 +100,7 @@ export const EditionTaskModal = (props) => {
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>
+          <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
         </FormContainer>
         <Buttons>
           <ButtonContainer>
