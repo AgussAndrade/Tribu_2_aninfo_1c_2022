@@ -1,8 +1,5 @@
 export function getDiffDate(firstDate, secondDate){
-
-    console.log(secondDate)
     secondDate = new Date(secondDate);
-    console.log(secondDate);
     let date = secondDate.getDate();
     let month = secondDate.getMonth() + 1;
     let year = secondDate.getFullYear();

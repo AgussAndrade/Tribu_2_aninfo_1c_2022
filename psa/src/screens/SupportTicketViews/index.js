@@ -14,7 +14,6 @@ import { colors } from "../../utils/colors";
 import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import { GenericModal } from "../Support/components/GenericModal";
-import {getDiffDate} from "../../utils/getCurrentDate";
 
 
 export const SupportTicketViews = () => {
@@ -116,7 +115,7 @@ export const SupportTicketViews = () => {
           nombreProyecto={ticket.nombre}
           tareasProyecto={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
           estadoProyecto={ticket.estado}
-          severidadProyecto={getDiffDate(new Date(), ticket.vencimiento) + " Dias"}
+          severidadProyecto={"10 Dias"}
           responsableProyecto={ticket.responsable}
           vencimientoProyecto={ticket.vencimiento}
           openModal={setModalShow}

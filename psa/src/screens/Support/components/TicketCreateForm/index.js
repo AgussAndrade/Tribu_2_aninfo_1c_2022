@@ -1,29 +1,39 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
-import {useFetch} from "../../../../components/CustomUseEffect";
+import {UseFetch} from "../../../../components/UseFetch";
 
 
-export const TicketCreateForm = () => {
+export const TicketCreateForm = (props) => {
     const [validated, setValidated] = useState(false);
     const [title, setTitle] = useState("");
-    const [severity, setSeverity] = useState("3");
+    const [severity, setSeverity] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [client, setClient] = useState("");
-    const {data:clientes} = useFetch(SOPORTE_URL + "/clientes")
-
+    const [cuit, setCuit] = useState("");
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
-        console.log(form)
         if (form.checkValidity() === false) {
             event.stopPropagation();
+        } else {
+            setValidated(true)
+            const _date = (new Date(date)).getTime()
+            const body = {
+                "title": title,
+                "description": description,
+                "fechaDeFinalizacion" : _date,
+                "fechaDeCreacion" : (new Date()).getTime(),
+                "cuit": parseInt(cuit),
+                "estado" : "abierto",
+                "versionId": props.versionId,
+                "severidad": parseInt(severity)
+            }
         }
-        setValidated(true)
+
+
     };
 
     const formInputs = () => {
@@ -66,12 +76,11 @@ export const TicketCreateForm = () => {
                                 <Form.Select
                                     onChange={(event) => {
                                         setSeverity(event.currentTarget.value)
-                                        console.log("Severidad seleccionada: " + severity);
                                     }}
                                 >
-                                    <option value="3" >Mayor</option>
-                                    <option value="2" >Medio</option>
-                                    <option value="1" >Baja</option>
+                                    <option value="2" >Mayor</option>
+                                    <option value="1" >Medio</option>
+                                    <option value="0" >Baja</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -84,7 +93,6 @@ export const TicketCreateForm = () => {
                                 value={responsible}
                                 onChange={(event) => {
                                     setResponsible(event.currentTarget.value)
-                                    console.log("Responsable seleccionado: " + responsible);
                                 }} />
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer="3"></option>
@@ -111,16 +119,15 @@ export const TicketCreateForm = () => {
                                 as={"input"} 
                                 list="clientes" 
                                 name="id_client"
-                                value={client}
+                                value={cuit}
                                 onChange={(event) => {
-                                    setClient(event.currentTarget.value)
-                                    console.log("Cliente cambiado: " + client);
+                                    setCuit(event.target.dataset.cuit)
                                 }}
                                 />
                                 <datalist id={"clientes"}>
-                                    <option value="Julian" data-id-client="3"></option>
-                                    <option value="Juan" data-id-client="2"></option>
-                                    <option value="Lucia" data-id-client="1"></option>
+                                    <option value="Julian" data-cuit="3"></option>
+                                    <option value="Juan" data-cuit="2"></option>
+                                    <option value="Lucia" data-cuit="1"></option>
                                 </datalist>
                             </Form.Group>
                         </Col>

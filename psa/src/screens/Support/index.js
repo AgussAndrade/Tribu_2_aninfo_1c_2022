@@ -14,11 +14,12 @@ import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
 import {SOPORTE_URL} from "../../utils/apiUrls";
-import {useFetch} from "../../components/CustomUseEffect";
+import {UseFetch} from "../../components/UseFetch";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [modalShow, setModalShow] = useState(false)
+  const {data: clientes} = UseFetch( {url: SOPORTE_URL + "servicio_externo/clientes", config: {}});
 
   const proyectos = [
     {
