@@ -31,13 +31,20 @@ export const ProjectInfoText = styled.p`
 `
 
 export const EditProjectContainer = styled.div`
-    height: 45px;
     display: flex;
-    width: 10%;
-    min-width: fit-content;
-    align-self: flex-end;
-    padding-bottom:15px;
-    padding-right: 25px;
+    width: 20%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+`
+
+export const AddEmployeeContainer = styled.div`
+    display: flex;
+    width: 35%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
 `
 
 export const CardContainer = styled.div`
@@ -47,4 +54,21 @@ export const CardContainer = styled.div`
     background-color: ${colors.white2};
     border-radius: 20px;
     margin-top: 20px;
+`
+
+export const DeleteButtonContainer = styled.div`
+  width:8%;
+  margin-left: 5px;
+  height: 100%;
+`
+
+export const Buttons = styled.div`
+    height: 45px;
+    display: flex;
+    width: 50%;
+    align-self: flex-end;
+    padding-bottom:15px;
+    padding-right: 25px;
+    align-items: center;
+    justify-content: flex-end;
 `

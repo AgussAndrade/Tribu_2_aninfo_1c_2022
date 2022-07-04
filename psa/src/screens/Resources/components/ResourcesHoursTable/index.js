@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { TableHeader } from "../../../../components/TableHeader";
 import { TableBody } from "../../../../components/TableBody";
+import axios from "axios";
 
-export const ResourcesHoursTable = () => {
-    const headers = ["Proyecto", "Tarea", "Detalle", "Horas"]
+export const ResourcesHoursTable = (props) => {
+    const headers = ["Proyecto", "Tarea", "Fecha", "Detalle", "Horas", "Acciones"]
     
-    // Las rows estan hardcodeadas, pero llegan de API calls al backend
-    const rows = [
-        ["FNPC", "FNPC-119", "Se agregó el controlador de register", "4hs"],
-        ["FNPC", "FNPC-120", "Se agregó el controlador de usuario", "2hs"],
-        ["FNPC", "FNPC-121", "Se agregó el controlador de login", "2hs"]
-    ]
+    const {legajo, date} = props
+
+    const mapRows = (rowsData) => {
+        return rowsData.map((row) => {
+            return [
+                row.id,
+                row.codigoProyecto,
+                row.codigoTarea,
+                row.fecha,
+                row.detalle,
+                row.horasTrabajadas
+            ]
+        });
+    }
+
+    const getRows = async () => {
+        const {data} = await axios.get(`https://squad5-recursos.herokuapp.com/api/horas/${legajo}`)
+        setRows(mapRows(data))
+    }
+
+    const [rows, setRows] = useState([])
+    useEffect(() => {
+        getRows()
+    }, [])
+
     return (
         <Table striped bordered hover>
             <TableHeader headers={headers}/>

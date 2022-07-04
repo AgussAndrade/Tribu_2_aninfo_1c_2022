@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { generatePath, Route, useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
@@ -8,76 +8,34 @@ import {
   Input,
   InputContainer,
 } from "./styled";
-import { EditionModal } from "../ProjectDescription/components/EditionModal";
+import { NewProjectModal } from "./components/NewProjectModal";
 import { Card } from "./components/Card";
 import { TopBar } from "../../components/TopBar";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Project = () => {
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
-  const proyectos = [
-    {
-      nombre: "Proyecto: Prueba de titulo",
-      descripcion: "Cuando hablamos del Adress space nos referimos a la abstraccion que provee el kernel del sistema operativo al proceso sobre la memoria de la computadora. Este representa el estado completo de la memoria de un proceso y esta compuesto por cuatro secciones: code, data, heap y stack",
-      tarea1: [
-        {
-          nombre: "Nombre1",
-          descripcion: "Esta es la descripcion de tarea 1",
-          fechaCreacion: "2022-12-12",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Aprobar aninfo",
-      descripcion: "Esta es la descripcion2",
-      tarea2: [
-        {
-          nombre: "Nombre2",
-          descripcion: "Esta es la descripcion de tarea 2",
-          fechaCreacion: "fecha2",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Ejemplo para filtrar",
-      descripcion: "Esta es la descripcion3",
-      tarea3: [
-        {
-          nombre: "Nombre3",
-          descripcion: "Esta es la descripcion de tarea 3",
-          fechaCreacion: "fecha3",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Dividir por dos cifras",
-      descripcion: "Esta es la descripcion4",
-      tarea4: [
-        {
-          nombre: "Nombre4",
-          descripcion: "Esta es la descripcion de tarea 4",
-          fechaCreacion: "fecha4",
-        },
-      ],
-    },
-    {
-      nombre: "Proyecto: Ultimo ejemplo",
-      descripcion: "Esta es la descripcion5",
-      tarea4: [
-        {
-          nombre: "Nombre5",
-          descripcion: "Esta es la descripcion de tarea 5",
-          fechaCreacion: "fecha5",
-        },
-      ],
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [employees, setEmployees] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setProjects(result);
+      })
+      .catch(() => navigate("/error"));
+  }, []);
 
   const Cards = () => {
-    return proyectos
+    return projects
       .filter((val) => {
         if (searchTerm === "") return val;
         else if (
@@ -91,16 +49,33 @@ export const Project = () => {
           nombreProyecto={proyecto.nombre}
           descripcionProyecto={proyecto.descripcion}
           onClick={() => {
-            navigate("/projects/id");
+            navigate("/projects/" + proyecto.id);
           }}
         />
       ));
   };
 
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (showModal) {
+      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setEmployees(result);
+        })
+        .catch(() => navigate("/error"));
+    }
+  }, [showModal]);
+
   return (
     <PrincipalContainer>
-      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Crear Proyecto" defaultVal = {false}/>
+      <NewProjectModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        listEmployees={employees}
+      />
       <TopBar buttonSelected={"Proyectos"} />
       <OptionsContainer>
         <InputContainer>
@@ -123,8 +98,6 @@ export const Project = () => {
       <BodyContainer>
         <Cards />
       </BodyContainer>
-
     </PrincipalContainer>
-    
   );
 };

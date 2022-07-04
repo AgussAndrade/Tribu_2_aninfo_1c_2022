@@ -15,7 +15,8 @@ export const CardTextContainer = styled.div`
 `
 
 export const TitleText = styled.p`
-  font-size: 25px;
+  font-size: 22px;
+  font-weight: bold;
   color: ${colors.blue};
   font-family: "Verdana";
   margin: 0%;
@@ -23,11 +24,11 @@ export const TitleText = styled.p`
 `
 
 export const DescriptionText = styled.p`
-  font-size: 16px;
+  font-size: 15px;
   margin: 0%;
   color: ${colors.blue};
   font-family: "Verdana";
-  margin-top: 10px;
+  margin-top: 5px;
 
 
 `

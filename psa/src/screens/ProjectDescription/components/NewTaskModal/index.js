@@ -15,54 +15,79 @@ import {
   Date,
   DescriptionContainer,
   DescriptionInput,
+  ErrorMessageContainer,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
+import { render } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
-import { ErrorMessageContainer } from "../EditionModal/styled";
+import { useEffect } from "react";
 
-export const EditionTaskModal = (props) => {
-  const { open, onClose, tarea, id } = props;
+export const NewTaskModal = (props) => {
+  const { open, onClose, projectId } = props;
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [dateStart, setDateStart] = useState("");
   const [state, setState] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
+  let newTask = {
+    estado: "",
+    fechaCreacion: "",
+    nombre: "",
+    description: "",
+    idProyecto: projectId
+  };
+
+
   const saveInput = () => {
-    let newTask = {
-      nombre: name,
-      descripcion: description,
-      estado: state,
-      fechaCreacion: dateStart,
-    };
-
-    console.log("https:moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/"+ tarea.id)
-
     if (
       name &&
       description &&
-      dateStart
-    ) {     
-      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/"+ tarea.id, {
-        method: "PUT",
+      dateStart &&
+      state
+    ) {
+      newTask = {
+        estado: state,
+        fechaCreacion: dateStart,
+        idProyecto: projectId,
+        descripcion: description,
+        nombre: name,
+      };
+
+      fetch("https:moduloproyectos.herokuapp.com/proyectos/"+projectId+"/tareas", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTask),
       })
-      .then(() => window.location.reload())
+        .then(() => window.location.reload())
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-        setErrorMessage("Rellene todos los campos");
-      }
+      setErrorMessage("Rellene todos los campos");
+
+      newTask = {
+        estado: state,
+        fechaCreacion: dateStart,
+        idProyecto: projectId,
+        descripcion: description,
+        id: 0,
+        nombre: name,
+      };
+      if (!name) setName("");
+      if (!state) setState("");
+      if (!dateStart) setDateStart("");
+      if (!description) setDescription("");
+    }
   };
 
   const handleClose = () => {
     setErrorMessage("");
     setState("");
     setDateStart("");
-    setDescription("");;
+    setDescription("");
     setName("");
     onClose();
   };
@@ -72,34 +97,25 @@ export const EditionTaskModal = (props) => {
     <Overlay>
       <ModalContainer>
         <TitleContainer>
-          <Title>Editar tarea</Title>
+          <Title>Crear tarea</Title>
         </TitleContainer>
         <FormContainer autoComplete="off">
           <StyledTextInputContainer>
             <Text>Nombre:</Text>
-            <Input
-              type="text"
-              placeholder={tarea.nombre}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Input type="text" onChange={(e) => setName(e.target.value)} />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
-            <DropDownList
-              placeholder={tarea.estado}
-              onChange={(e) => setState(e.target.value)}
-            >
+            <DropDownList onChange={(e) => setState(e.target.value)}>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>
+              <option value="Sin empezar">Sin empezar</option>
             </DropDownList>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
-            <Date
-              placeholder={tarea.fechaCreacion}
-              onChange={(e) => setDateStart(e.target.value)}
-            ></Date>
+            <Date onChange={(e) => setDateStart(e.target.value)}></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>
@@ -107,7 +123,6 @@ export const EditionTaskModal = (props) => {
           <DescriptionContainer>
             <DescriptionInput
               type="text"
-              placeholder={tarea.descripcion}
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>
@@ -115,13 +130,13 @@ export const EditionTaskModal = (props) => {
         </FormContainer>
         <Buttons>
           <ButtonContainer>
-            <ModalButton onClick={saveInput} color={colors.lightBlue}>
-              Guardar
+            <ModalButton onClick={handleClose} color={colors.lightBlue}>
+              Cancelar
             </ModalButton>
           </ButtonContainer>
           <ButtonContainer>
-            <ModalButton onClick={onClose} color={colors.lightBlue}>
-              Cancelar
+            <ModalButton onClick={saveInput} color={colors.lightBlue}>
+              Guardar
             </ModalButton>
           </ButtonContainer>
         </Buttons>

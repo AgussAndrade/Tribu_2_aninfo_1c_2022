@@ -1,4 +1,6 @@
 import React from "react";
+import { TableRowIcons } from "../../screens/Resources/components/TableRowIcons";
+import { ResourcesTableRow } from "../../screens/Resources/components/ResourcesTableRow";
 
 export const TableBody = (props) => {
     const {rows} = props
@@ -6,13 +8,7 @@ export const TableBody = (props) => {
     let rowsElements = []
     for (const key in rows) {
         const row = rows[key]
-
-        let rowElement = []
-        for (const key in row) {
-            const rowValue = row[key]
-            rowElement.push(<td>{rowValue}</td>)
-        }
-        rowsElements.push(<tr>{rowElement}</tr>)
+        rowsElements.push(<ResourcesTableRow row={row} />)
     }
     
     return (

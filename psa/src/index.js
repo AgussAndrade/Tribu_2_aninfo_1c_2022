@@ -9,6 +9,7 @@ import { ResourcesEmployee } from './screens/Resources/components/ResourcesEmplo
 import { ResourcesError } from './screens/Resources/components/Error';
 import { Support } from './screens/Support';
 import { ProjectDescription } from './screens/ProjectDescription';
+import { ErrorPage } from './screens/ErrorPage';
 import { SupportTicketViews } from './screens/SupportTicketViews';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +22,8 @@ root.render(
       <Route path="/resources/employee" element={<ResourcesEmployee />} />
       <Route path="/resources/error" element={<ResourcesError/>}/>
       <Route path="/support" element={<Support />} />
+      <Route path="/projects/:id" element={<ProjectDescription />} />
+      <Route path="/error" element={<ErrorPage />} />
       <Route path="/support/ticketViews" element={<SupportTicketViews />} />
       <Route path="/projects/id" element={<ProjectDescription />} />
     </Routes>

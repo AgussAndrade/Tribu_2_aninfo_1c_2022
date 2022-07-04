@@ -1,39 +1,113 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CardContainer,
   CardTextContainer,
   TitleText,
   ProjectInfoText,
-  EditProjectContainer
+  EditProjectContainer,
+  DeleteButtonContainer,
+  Buttons,
+  AddEmployeeContainer,
 } from "./styled";
-import { colors } from "../../../../utils/colors"
-import { GenericButton } from "../../../../components/GenericButton"
+import { colors } from "../../../../utils/colors";
+import { GenericButton } from "../../../../components/GenericButton";
+import { DeleteButton } from "../../../../components/DeleteButton";
+import { EditionTaskModal } from "../EditionTaskModal";
+import { AddEmployeeModal } from "../AddEmployeeModal";
+
 
 export const TaskCard = (props) => {
-    const {nombreTarea, descripcionTarea, fechaCreacion, estado, onClick} = props;
-    return(
-        <CardContainer>
-          <CardTextContainer>
-            <TitleText>
-            	{nombreTarea}
-            </TitleText>
-            <ProjectInfoText>
-            	{descripcionTarea}
-            </ProjectInfoText>
-            <ProjectInfoText>
-            	{fechaCreacion}
-            </ProjectInfoText>
-            <ProjectInfoText>
-            	{estado}
-            </ProjectInfoText>
-          </CardTextContainer>
-          <EditProjectContainer>
-            <GenericButton
-              name={"Editar"}
-              onClick={onClick}
-              color = {colors.lightBlue}
-            ></GenericButton>
-          </EditProjectContainer>
-        </CardContainer>
-    );
-}
+  const { tarea, id} = props;
+  const [deleteTask, setDeleteTask] = useState(false);
+  const [showModalTask, setShowModalTask] = useState(false);
+  const [showModalAddEmployee, setShowModalAddEmployee] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const [empleado, setEmpleado] = useState("");
+
+  let nombreEmpleados = [];
+
+  const navigate = useNavigate();
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
+
+  useEffect(() => {
+    if (deleteTask) {
+      fetch(url, {
+        method: "DELETE",
+      })
+      .then(() => window.location.reload())
+      .catch(() => navigate("/error"));
+    }
+  }, [deleteTask]);
+
+  useEffect(() => {
+    if (showModalAddEmployee) {
+      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setEmployees(result);
+        })
+        .catch(() => navigate("/error"));
+    }
+  }, [showModalAddEmployee]);
+
+  const empleados = () => {
+    if(tarea.empleados.length == 0 )
+      return "-";
+    else return tarea.empleados;
+  }
+
+
+  return (
+    <CardContainer>
+      <AddEmployeeModal
+        open={showModalAddEmployee}
+        onClose={() => setShowModalAddEmployee(false)}
+        listEmployees = {employees}
+        tarea = {tarea}
+      />
+      <EditionTaskModal
+        open={showModalTask}
+        onClose={() => setShowModalTask(false)}
+        tarea= {tarea}
+        id={id}
+      />
+      <CardTextContainer>
+        <TitleText>{"Tarea: " + tarea.nombre}</TitleText>
+        <ProjectInfoText>{"Descripción: " + tarea.descripcion}</ProjectInfoText>
+        <ProjectInfoText>
+          {"Fecha creación: " + tarea.fechaCreacion}
+        </ProjectInfoText>
+        <ProjectInfoText>{"Estado: " + tarea.estado}</ProjectInfoText>
+        <ProjectInfoText>
+          {"Legajo de los empleados asignados: " + empleados()}
+        </ProjectInfoText>
+      </CardTextContainer>
+      <Buttons>
+        <DeleteButtonContainer>
+          <DeleteButton
+            setDelete={setDeleteTask}
+            optionText={"tarea"}
+            icon={true}
+          />
+        </DeleteButtonContainer>
+        <AddEmployeeContainer>
+          <GenericButton
+            name={"Editar empleados"}
+            onClick={() => setShowModalAddEmployee(true)}
+            color={colors.lightBlue}
+          ></GenericButton>
+        </AddEmployeeContainer>
+        <EditProjectContainer>
+          <GenericButton
+            name={"Editar"}
+            onClick={() => setShowModalTask(true)}
+            color={colors.lightBlue}
+          ></GenericButton>
+        </EditProjectContainer>
+      </Buttons>
+    </CardContainer>
+  );
+};
