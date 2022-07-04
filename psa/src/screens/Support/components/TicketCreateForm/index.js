@@ -1,12 +1,14 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
 import { useState } from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
+import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 
 export const TicketCreateForm = (props) => {
     const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [title, setTitle] = useState("");
     const [severity, setSeverity] = useState("");
     const [description, setDescription] = useState("");
@@ -16,19 +18,21 @@ export const TicketCreateForm = (props) => {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
+
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            const _date = (new Date(date)).getTime()
+            const date_formatted = getCurrentDate(new Date(date), "-");
+
             const body = {
-                "title": title,
-                "description": description,
-                "fechaDeFinalizacion": _date,
-                "fechaDeCreacion": (new Date()).getTime(),
+                "titulo": title,
+                "descripicion": description,
+                "fechaDeFinalizacion": date_formatted,
+                "fechaDeCreacion": date_formatted,
                 "cuit": 23,
                 "estado": "abierto",
-                "versionId": props.versionId,
+                "versionId": 10,
                 "severidad": parseInt(severity),
                 "legajo_cliente": 10
             }
@@ -41,9 +45,12 @@ export const TicketCreateForm = (props) => {
                 },
                 url: SOPORTE_URL + "soporte/ticket"
             }
-            fetch(config.url, config.config)
-                .then((result) => console.log(result))
-                .catch(() => navigate("/error"));
+                fetch(config.url, config.config)
+                    .then((res) => res.json())
+                    .then((result) => {
+                        setShowSuccessMessage(true)
+                    })
+                    .catch(() => navigate("/error"))
         }
         setValidated(true)
     };
@@ -113,7 +120,7 @@ export const TicketCreateForm = (props) => {
 
                             <Form.Group className="mb-3" controlId="end_time" >
                                 <Form.Label>Fecha de vencimiento</Form.Label>
-                                <Form.Control type="date" name='end_time'
+                                <Form.Control type="date" name='end_time' min="1997-01-01"
                                     required
                                     value={date}
                                     onChange={(event) => {
@@ -146,6 +153,17 @@ export const TicketCreateForm = (props) => {
                         </Button>
                     </div>
                 </Container>
+                <Alert show={showSuccessMessage} variant="success">
+                    <p>
+                        El ticket se creo correctamente
+                    </p>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
+                            Close me y'all!
+                        </Button>
+                    </div>
+                </Alert>
             </Form>
         )
     }
