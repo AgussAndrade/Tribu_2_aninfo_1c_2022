@@ -28,7 +28,7 @@ export const TaskCard = (props) => {
   let nombreEmpleados = [];
 
   const navigate = useNavigate();
-  const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
+  const url = "https://moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
 
   useEffect(() => {
     if (deleteTask) {
