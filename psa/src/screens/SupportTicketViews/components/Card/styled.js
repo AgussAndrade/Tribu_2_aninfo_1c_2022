@@ -4,7 +4,7 @@ import { colors } from "../../../../utils/colors"
 
 export const CardTextContainer = styled.div`
     width: 100%;
-    height: 120%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -17,18 +17,6 @@ export const CardTextContainer = styled.div`
 `
 
 
-export const Container = styled.div`
-    width: 90%;
-    height: 110px;
-    display:flex;
-    background-color: ${colors.lightGrey};
-    flex-direction: row;
-    align-items: center;
-    border-radius: 10px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-`
 export const TitleText = styled.p`
   font-size: 25px;
   color: ${colors.blue};

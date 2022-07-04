@@ -1,0 +1,28 @@
+.modal-content > .modal-header {
+    background: #3c5a9c;
+}
+.modal-content > .modal-header > .modal-title {
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.btn-primary{
+    background-color: #3c5a9c;
+    border-color: #3c5a9c;
+}
+
+.btn-primary:hover{
+    background-color:#8291B0;
+    border-color: #8291B0;
+}
+
+.crearTareaContainer{
+    display: flex;
+    align-items: center;
+}
+
+.crearTareaContainer>input,.crearTareaContainer>select{
+    width: 50%;
+    margin-left: 20px;
+}

@@ -17,9 +17,10 @@ import { EditionTaskModal } from "../EditionTaskModal";
 
 
 export const TaskCard = (props) => {
-  const { tarea, onClick, id } = props;
+  const { tarea, id } = props;
   const [deleteTask, setDeleteTask] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
+
   const navigate = useNavigate();
   const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
 
@@ -66,7 +67,7 @@ export const TaskCard = (props) => {
         <EditProjectContainer>
           <GenericButton
             name={"Editar"}
-            onClick={onClick}
+            onClick={() => setShowModalTask(true)}
             color={colors.lightBlue}
           ></GenericButton>
         </EditProjectContainer>

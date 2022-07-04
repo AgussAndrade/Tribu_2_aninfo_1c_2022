@@ -1,0 +1,22 @@
+{
+  "proyectos" : [
+    {
+      "title": "Sistema de inventarios versión 1.1.0",
+      "tickets_abiertos": 2,
+      "tickets_cerrados": 0,
+      "id": 1
+    },
+    {
+      "title": "Sistema de inventarios versión 1.1.2",
+      "tickets_abiertos": 1,
+      "tickets_cerrados": 5,
+      "id": 2
+    },
+    {
+      "title": "Sistema de inventarios versión 1.1.9",
+      "tickets_abiertos": 5,
+      "tickets_cerrados": 10,
+      "id": 4
+    }
+  ]
+}
