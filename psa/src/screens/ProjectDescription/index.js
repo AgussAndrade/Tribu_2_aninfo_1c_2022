@@ -33,7 +33,7 @@ export const ProjectDescription = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalAddTask, setshowModalAddTask] = useState(false);
-  const [showModalAddEmployee, setShowModalAddEmployee] = useState(false);
+ 
   const [project, setProject] = useState({});
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
@@ -120,6 +120,8 @@ export const ProjectDescription = (props) => {
       }
     }, [showModal]);
 
+
+
   return (
     <PrincipalContainer>
       <NewTaskModal
@@ -135,11 +137,7 @@ export const ProjectDescription = (props) => {
         listEmployees={employees}
 
       />
-      <AddEmployeeModal
-        open={showModalAddEmployee}
-        onClose={() => setShowModalAddEmployee(false)}
-        listEmployees={employees}
-      />
+      
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
@@ -186,7 +184,6 @@ export const ProjectDescription = (props) => {
           </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>
-      <AddEmployeeModal></AddEmployeeModal>
     </PrincipalContainer>
   );
 };

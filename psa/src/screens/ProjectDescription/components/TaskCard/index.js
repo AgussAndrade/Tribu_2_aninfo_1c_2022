@@ -14,12 +14,15 @@ import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../../../../components/GenericButton";
 import { DeleteButton } from "../../../../components/DeleteButton";
 import { EditionTaskModal } from "../EditionTaskModal";
+import { AddEmployeeModal } from "../AddEmployeeModal";
 
 
 export const TaskCard = (props) => {
-  const { tarea, id } = props;
+  const { tarea, id, listEmployees } = props;
   const [deleteTask, setDeleteTask] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
+  const [showModalAddEmployee, setShowModalAddEmployee] = useState(false);
+  const [employees, setEmployees] = useState([]);
 
   const navigate = useNavigate();
   const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
@@ -34,8 +37,28 @@ export const TaskCard = (props) => {
     }
   }, [deleteTask]);
 
+  useEffect(() => {
+    if (showModalAddEmployee) {
+      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          setEmployees(result);
+        })
+        .catch(() => navigate("/error"));
+    }
+  }, [showModalAddEmployee]);
+
+  console.log(tarea.empleados);
   return (
     <CardContainer>
+      <AddEmployeeModal
+        open={showModalAddEmployee}
+        onClose={() => setShowModalAddEmployee(false)}
+        listEmployees = {employees}
+        tarea = {tarea}
+      />
       <EditionTaskModal
         open={showModalTask}
         onClose={() => setShowModalTask(false)}
@@ -60,7 +83,7 @@ export const TaskCard = (props) => {
         <AddEmployeeContainer>
           <GenericButton
             name={"Agregar Empleado"}
-            onClick={onClick}
+            onClick={() => setShowModalAddEmployee(true)}
             color={colors.lightBlue}
           ></GenericButton>
         </AddEmployeeContainer>
