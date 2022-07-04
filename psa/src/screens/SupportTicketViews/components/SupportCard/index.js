@@ -93,7 +93,19 @@ export const SupportCard = (props) => {
         <GenericButton
           name={"Info Ampliada"}
           onClick={() => {
-            setCurrentForm(<EditFormTicket readOnly={true} />)
+            setCurrentForm(<EditFormTicket
+                readOnly={true}
+                nombreTicket={nombreTicket}
+                tareasTicket={tareasTicket}
+                estadoTicket={estadoTicket}
+                severidadTicket={severidadTicket}
+                responsableTicket={responsableTicket}
+                vencimientoTicket={vencimientoTicket}
+                idTicket={idTicket}
+                cuitCienteTicket={cuitCienteTicket}
+                versionId={versionId}
+                descriptionId={descriptionTicket}
+            />)
             setCurrentTitleModal("Info ampliada")
             openModal(true)
           }}

@@ -1,6 +1,10 @@
 .modal-content > .modal-header {
     background: #3c5a9c;
 }
+
+.modal-body {
+    background-color: #CED4DB;
+}
 .modal-content > .modal-header > .modal-title {
     color: white;
     text-align: center;
