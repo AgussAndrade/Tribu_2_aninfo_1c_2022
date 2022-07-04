@@ -10,6 +10,8 @@ export const DerivateTicketForm = () => {
     const [responsible, setResponsible] = useState("");
     const [clientId, setClientId] = useState("");
     const [modalShow, setModalShow] = useState(false)
+    const [area, setArea] = useState("");
+
 
     const handleSubmit = () => { }
 
@@ -18,24 +20,30 @@ export const DerivateTicketForm = () => {
 
             <Form onSubmit={handleSubmit}>
                 <Container>
-                    
+
                     <GenericModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        form={<CreateTaskForm closeModal={setModalShow}/>}
+                        form={<CreateTaskForm closeModal={setModalShow} />}
                         title={"Crear tarea"}
-                        size = {"md"}
+                        size={"md"}
                     />
                     <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="severity" >
                                 <Form.Label>Seleccione el área correspondiente</Form.Label>
-                                <Form.Select>
+                                <Form.Select
+                                    onChange={(event) => {
+                                        setArea(event.currentTarget.value)
+                                        console.log("Fecha de vencimiento cambiada: " + area);
+                                    }}
+                                >
                                     <option value="3">Infraestructura</option>
                                     <option value="2">Proyectos</option>
                                     <option value="1">Soporte</option>
                                 </Form.Select>
                             </Form.Group>
+
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Seleccione una o más tareas para asignar al ticket</Form.Label>
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
@@ -45,7 +53,7 @@ export const DerivateTicketForm = () => {
                                         </Button>
                                     </div>
                                     <div style={{ marginLeft: "10px" }}>
-                                        <Button variant="primary" onClick={() => {setModalShow(true)}}>
+                                        <Button variant="primary" onClick={() => { setModalShow(true) }}>
                                             Crear tarea
                                         </Button>
                                     </div>

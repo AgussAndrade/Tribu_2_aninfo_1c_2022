@@ -8,6 +8,10 @@ export const TicketCreateForm = () => {
     const [severity, setSeverity] = useState("3");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
+    const [responsible, setResponsible] = useState("");
+    const [client, setClient] = useState("");
+
+
 
 
     const handleSubmit = (event) => {
@@ -72,7 +76,14 @@ export const TicketCreateForm = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="responsible" >
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control as={"input"} list="employers" ></Form.Control>
+                                <Form.Control 
+                                as={"input"} 
+                                list="employers"
+                                value={responsible}
+                                onChange={(event) => {
+                                    setResponsible(event.currentTarget.value)
+                                    console.log("Responsable seleccionado: " + responsible);
+                                }} />
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer="3"></option>
                                     <option value="Juan" data-id-employer="2"></option>
@@ -86,7 +97,7 @@ export const TicketCreateForm = () => {
                                     required
                                     value={date}
                                     onChange={(event) => {
-                                        setDate(event.currentTarget.date)
+                                        setDate(event.currentTarget.value)
                                         console.log("Fecha cambiada: " + date);
                                     }}
                                 />
@@ -94,7 +105,16 @@ export const TicketCreateForm = () => {
 
                             <Form.Group className="mb-3" controlId="client_id" >
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control as={"input"} list="clientes" name="id_client"></Form.Control>
+                                <Form.Control 
+                                as={"input"} 
+                                list="clientes" 
+                                name="id_client"
+                                value={client}
+                                onChange={(event) => {
+                                    setClient(event.currentTarget.value)
+                                    console.log("Cliente cambiado: " + client);
+                                }}
+                                />
                                 <datalist id={"clientes"}>
                                     <option value="Julian" data-id-client="3"></option>
                                     <option value="Juan" data-id-client="2"></option>
