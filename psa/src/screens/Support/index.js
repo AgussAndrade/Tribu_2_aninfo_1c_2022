@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
@@ -9,17 +9,18 @@ import {
   InputContainer,
 } from "./styled";
 import { TopBar } from "../../components/TopBar";
-import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
+
 import {SOPORTE_URL} from "../../utils/apiUrls";
 import {UseFetch} from "../../components/UseFetch";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [modalShow, setModalShow] = useState(false)
-  const {data: clientes} = UseFetch( {url: SOPORTE_URL + "servicio_externo/clientes", config: {}});
+  const { data: clientes } = UseFetch( {url: SOPORTE_URL + "servicio_externo/clientes", config: {}});
+  const { data: productos } = UseFetch( {url: SOPORTE_URL + "soporte/productos", config: {}});
 
   const proyectos = [
     {
@@ -88,10 +89,17 @@ export const Support = () => {
       ],
     },
   ];
+  
+  
+  //sessionStorage.setItem("idProducto", "HOLA JAJ")
+  
+  
   //get a nuestra api en la cual vamos a pedir los productos
 
+  
   const Cards = () => {
-    return proyectos
+    if (productos){
+      return productos
       .filter((val) => {
         if (searchTerm == "") return val;
         else if (
@@ -99,15 +107,20 @@ export const Support = () => {
         )
           return val;
       })
-      .map((proyecto) => (
+      .map((producto) => (
         <SupportCard
-          nombreProyecto={proyecto.nombre}
-          descripcionProyecto={proyecto.descripcion}
-          ticketsAbiertos={proyecto.ticketsAbiertos}
-          ticketsCerrados={proyecto.ticketsCerrados}
+          nombreProducto={producto.nombre ?? "TITULO TEMPORAL"}  
+          descripcionProducto={producto.fase ?? "DESCRIPCION TEMPORAL"} 
+          idProducto={producto.id ?? "ID TEMPORAL"}
+          ticketsAbiertos={producto.ticketsAbiertos}
+          ticketsCerrados={producto.ticketsCerrados}
+          key={producto.id}
           onClick={() => setModalShow(true)}
         />
       ));
+
+    }
+    
   };
 
   const navigate = useNavigate();
