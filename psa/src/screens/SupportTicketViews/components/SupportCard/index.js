@@ -47,8 +47,6 @@ export const SupportCard = (props) => {
           {nombreTicket}
         </TitleText>
         <DescriptionText>
-          Tareas: {tareasTicket} |
-
           Estado: {estadoTicket} |
 
           Severidad {severidadTicket} |
