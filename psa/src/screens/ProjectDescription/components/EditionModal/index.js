@@ -23,7 +23,7 @@ import { Project } from "../../../Project";
 import { useEffect } from "react";
 
 export const EditionModal = (props) => {
-  const { open, onClose, titulo, proyecto, listEmployees } = props;
+  const { open, onClose, titulo, proyecto, listEmployees, setUpdate} = props;
   const nombre = proyecto.nombre;
 
   const [name, setName] = useState("");
@@ -46,7 +46,7 @@ export const EditionModal = (props) => {
   };
 
   const checkLeaderId = () => {
-    let value = false;    
+    let value = false;
     listEmployees.forEach((empleado) => {
       if (empleado.legajo == leaderID) {
         value = true;
@@ -56,43 +56,30 @@ export const EditionModal = (props) => {
   };
 
   const saveInput = () => {
-    if (
-      name &&
-      description &&
-      dateStart &&
-      dateFinish &&
-      checkLeaderId()
-    ) {
+    if (name && description && dateStart && dateFinish && checkLeaderId()) {
       newProject = {
         estado: state,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
         legajoLider: leaderID,
-        descripcion:description,
+        descripcion: description,
         nombre: name,
       };
-     
+
       fetch("https:moduloproyectos.herokuapp.com/proyectos/" + proyecto.id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
       })
-        .then(() => window.location.reload())
+        .then(() => setUpdate())
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-      if(name &&
-        description &&
-        dateStart &&
-        dateFinish &&
-        state && leaderID){
+      if (name && description && dateStart && dateFinish && state && leaderID) {
         setErrorMessage("Ingrese un ID valido");
-      }
-      else{
+      } else {
         setErrorMessage("Rellene todos los campos");
       }
-
-       
     }
   };
 
@@ -101,12 +88,11 @@ export const EditionModal = (props) => {
     setState("");
     setDateFinish("");
     setDateStart("");
-    setDescription("");;
+    setDescription("");
     setName("");
     setLeaderID("");
     onClose();
   };
-
 
   if (!open) return null;
   return (
@@ -126,14 +112,14 @@ export const EditionModal = (props) => {
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
-            <DropDownList
-              defaultValue={proyecto.estado}
-              onChange={(e) => setState(e.target.value)}
-            >
+            <DropDownList onChange={(e) => setState(e.target.value)}>
+              <option disabled hidden selected>
+                Seleccionar...
+              </option>
+              <option value="Sin empezar">Sin empezar</option>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>
-              <option value="Sin empezar">Sin empezar</option>
             </DropDownList>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
@@ -152,7 +138,11 @@ export const EditionModal = (props) => {
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Legajo lider:</Text>
-            <Input type="text" placeholder={proyecto.legajoLider}  onChange={(e) => setLeaderID(e.target.value)} />
+            <Input
+              type="text"
+              placeholder={proyecto.legajoLider}
+              onChange={(e) => setLeaderID(e.target.value)}
+            />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>

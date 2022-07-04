@@ -1,5 +1,15 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import { colors } from "../../../../utils/colors";
+
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
 
 export const ModalContainer = styled.div`
   align-self: center;
@@ -15,6 +25,7 @@ export const ModalContainer = styled.div`
   border-radius: 15px;
   overflow: hidden;
   padding-bottom: 10px;
+  animation: 0.7s ${fadeIn} forwards;
 `;
 
 export const TitleContainer = styled.div`

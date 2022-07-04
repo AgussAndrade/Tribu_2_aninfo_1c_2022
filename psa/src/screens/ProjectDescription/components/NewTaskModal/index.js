@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 export const NewTaskModal = (props) => {
-  const { open, onClose, projectId } = props;
+  const { open, onClose, projectId, setUpdate } = props;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
@@ -38,17 +38,11 @@ export const NewTaskModal = (props) => {
     fechaCreacion: "",
     nombre: "",
     description: "",
-    idProyecto: projectId
+    idProyecto: projectId,
   };
 
-
   const saveInput = () => {
-    if (
-      name &&
-      description &&
-      dateStart &&
-      state
-    ) {
+    if (name && description && dateStart && state) {
       newTask = {
         estado: state,
         fechaCreacion: dateStart,
@@ -57,12 +51,17 @@ export const NewTaskModal = (props) => {
         nombre: name,
       };
 
-      fetch("https:moduloproyectos.herokuapp.com/proyectos/"+projectId+"/tareas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newTask),
-      })
-        .then(() => window.location.reload())
+      fetch(
+        "https:moduloproyectos.herokuapp.com/proyectos/" +
+          projectId +
+          "/tareas",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newTask),
+        }
+      )
+        .then(() => setUpdate())
         .catch(() => navigate("/error"));
       handleClose();
     } else {
@@ -107,6 +106,9 @@ export const NewTaskModal = (props) => {
           <StyledTextInputContainer>
             <Text>Estado:</Text>
             <DropDownList onChange={(e) => setState(e.target.value)}>
+              <option disabled hidden selected>
+                Seleccionar...
+              </option>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>

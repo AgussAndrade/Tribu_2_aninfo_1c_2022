@@ -89,9 +89,11 @@ export const EditionTaskModal = (props) => {
               placeholder={tarea.estado}
               onChange={(e) => setState(e.target.value)}
             >
+              <option disabled hidden selected>Seleccionar...</option>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>
+              <option value="Sin empezar">Sin empezar</option>
             </DropDownList>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
