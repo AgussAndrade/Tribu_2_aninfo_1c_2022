@@ -2,18 +2,16 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 
 export const EditFormTicket = (props) => {
-    const { readOnly } = props
+    const { readOnly, nombreTicket, tareasTicket, estadoTicket, severidadTicket, responsableTicket, vencimientoTicket, cuitClienteTicket} = props
     const handleSubmit = () => { }
     const [description, setDescription] = useState("");
-    const [end_time, setEndTime] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [state, setState] = useState("");
-    const [severity, setSeverity] = useState("3");
-    const [client, setClient] = useState("3");
+    const [end_time, setEndTime] = useState(vencimientoTicket);
+    const [responsible, setResponsible] = useState(responsableTicket);
+    const [state, setState] = useState(estadoTicket);
+    const [severity, setSeverity] = useState(severidadTicket);
+    const [client, setClient] = useState(cuitClienteTicket);
 
-
-
-
+    
 
     const formInputs = () => {
         return (
@@ -23,7 +21,7 @@ export const EditFormTicket = (props) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Código</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name="code" disabled={true} readOnly={readOnly} />
+                                <Form.Control type="text" placeholder="Código del ticket" name="code" disabled={true} readOnly={readOnly} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">

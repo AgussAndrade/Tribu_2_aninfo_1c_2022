@@ -112,12 +112,13 @@ export const SupportTicketViews = () => {
       })
       .map((ticket) => (
         <SupportCard
-          nombreProyecto={ticket.nombre}
-          tareasProyecto={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
-          estadoProyecto={ticket.estado}
-          severidadProyecto={"10 Dias"}
-          responsableProyecto={ticket.responsable}
-          vencimientoProyecto={ticket.vencimiento}
+          nombreTicket={ticket.nombre}
+          tareasTicket={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
+          estadoTicket={ticket.estado}
+          severidadTicket={ticket.severidad}
+          responsableTicket={ticket.responsable}
+          vencimientoTicket={ticket.vencimiento}
+          cuitClienteTicket={ticket.cuit}
           openModal={setModalShow}
           setCurrentForm = {setCurrentForm}
           setCurrentTitleModal = {setCurrentTitleModal}

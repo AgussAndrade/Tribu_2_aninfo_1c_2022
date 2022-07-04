@@ -107,17 +107,21 @@ export const Support = () => {
         )
           return val;
       })
-      .map((producto) => (
-        <SupportCard
-          nombreProducto={producto.nombre ?? "TITULO TEMPORAL"}  
-          descripcionProducto={producto.fase ?? "DESCRIPCION TEMPORAL"} 
-          idProducto={producto.id ?? "ID TEMPORAL"}
-          ticketsAbiertos={producto.ticketsAbiertos}
-          ticketsCerrados={producto.ticketsCerrados}
-          key={producto.id}
-          onClick={() => setModalShow(true)}
-        />
-      ));
+      .map((producto) => {
+        sessionStorage.setItem("tickets-" + producto.id, producto.tickets)
+        return (
+          <SupportCard
+            nombreProducto={producto.nombre ?? "TITULO TEMPORAL"}  
+            descripcionProducto={producto.fase ?? "DESCRIPCION TEMPORAL"} 
+            idProducto={producto.id ?? "ID TEMPORAL"}
+            ticketsAbiertos={producto.ticketsAbiertos}
+            ticketsCerrados={producto.ticketsCerrados}
+            key={producto.id}
+            
+            onClick={() => setModalShow(true)}
+          />
+        )
+      });
 
     }
     

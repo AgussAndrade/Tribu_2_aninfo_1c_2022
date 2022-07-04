@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CardContainer,
@@ -12,10 +12,10 @@ import {
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
 
-
 export const SupportCard = (props) => {
     const navigate = useNavigate();
     const {nombreProducto, descripcionProducto, idProducto, ticketsAbiertos,ticketsCerrados, onClick} = props;
+    
     return(
         <CardContainer>
           <CardTextContainer>
@@ -23,7 +23,7 @@ export const SupportCard = (props) => {
             	{nombreProducto}
             </TitleText>
             <DescriptionText>
-            	{descripcionProducto} | {idProducto}
+            	{descripcionProducto} | id: {idProducto}
             </DescriptionText>
           </CardTextContainer>
           <TicketsInfo>
@@ -36,6 +36,7 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Ver Tickets"}
               onClick={() => {
+                
                 navigate("/support/ticketViews");
               }}
               color = {colors.lightBlue}
@@ -45,9 +46,7 @@ export const SupportCard = (props) => {
               onClick={onClick}
               color = {colors.lightBlue}
             ></GenericButton>
-          </ButtonContainer>  
-
-
+          </ButtonContainer>
         </CardContainer>
     );
 }
