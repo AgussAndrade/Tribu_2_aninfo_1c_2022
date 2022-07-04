@@ -23,27 +23,13 @@ export const SupportCard = (props) => {
 
   const closeTicket = () => {
 
-    const date_formatted = getCurrentDate(new Date(vencimientoTicket), "-");
-
-
-    const body = {
-      "titulo": nombreTicket,
-      "descripicion": descriptionTicket,
-      "fechaDeFinalizacion": date_formatted,
-      "fechaDeCreacion": date_formatted,
-      "cuit": cuitCienteTicket,
-      estado: "cerrado",
-      "versionId": versionId,
-      "severidad": severidadTicket,
-      "legajo_cliente": 1237
-  }
+    //const date_formatted = getCurrentDate(new Date(vencimientoTicket), "-");
     const config = {
       config: {
-        body: JSON.stringify(body),
         headers: { "Content-Type": "application/json" },
         method: "PUT"
       },
-      url: SOPORTE_URL + "soporte/ticket/" + idTicket
+      url: SOPORTE_URL + "soporte/ticket/" + idTicket + "?estado=cerrado"
     }
     fetch(config.url, config.config)
       .then((res) => res.json())
