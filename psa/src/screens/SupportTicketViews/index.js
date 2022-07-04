@@ -29,7 +29,7 @@ export const SupportTicketViews = () => {
 
   //get para buscar los tickets asociados a un producto
   const config = {
-    url: SOPORTE_URL + "soporte/tickets/" + id, config: {
+    url: SOPORTE_URL + "soporte/tickets?versionId=" + id, config: {
       headers: { "Content-Type": "application/json" },
       method: "GET"
     }
