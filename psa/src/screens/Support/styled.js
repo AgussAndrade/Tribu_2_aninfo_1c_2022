@@ -15,7 +15,7 @@ export const OptionsContainer = styled.div`
     width: 100%;
     height: 80px;
     display: flex;
-    background-color: ${colors.lightBlue2};
+    background-color: ${colors.lightBlue3};
     justify-content: center;
     flex-direction: row;
 		align-items: center;

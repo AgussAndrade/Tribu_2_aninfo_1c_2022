@@ -53,7 +53,7 @@ export const TicketsInfo = styled.div`
 `
 
 export const ButtonContainer = styled.div`
-    height: 45%;
+    height: 70px;
     display: flex;
     justify-content: space-around;
     width: 10%;
