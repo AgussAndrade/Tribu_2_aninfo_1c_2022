@@ -19,7 +19,8 @@ import {UseFetch} from "../../components/UseFetch";
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [productos, setProductos] = useState([])
+  const [productos, setProductos] = useState([]);
+  const [versionId, setVersionId] = useState(1)
   const config = {url: SOPORTE_URL + "soporte/productos", config: {
       headers: {"Content-Type": "application/json"},
       method: "GET"
@@ -34,9 +35,6 @@ export const Support = () => {
         .catch(() => navigate("/error"))
   }, [])
 
-  //get a nuestra api en la cual vamos a pedir los productos
-  console.log(productos)
-
   const Cards = () => {
     return productos
       .filter((val) => {
@@ -47,7 +45,6 @@ export const Support = () => {
           return val;
       })
       .map((producto) => {
-        //sessionStorage.setItem("tickets-" + producto.id, producto.tickets)
         return producto.versiones.map((dataVersion) => {
           return (
             <SupportCard
@@ -59,7 +56,10 @@ export const Support = () => {
               versionProducto = {dataVersion.numero_version}
               versionId = {dataVersion.id}
               key={producto.id}
-              onClick={() => setModalShow(true)}
+              onClick={() => {
+                  setVersionId(dataVersion.id)
+                  setModalShow(true);
+              }}
             />
           )
         })
@@ -87,7 +87,8 @@ export const Support = () => {
         <GenericModal
             show={modalShow}
             onHide={() => setModalShow(false)}
-            form = {<TicketCreateForm/>}
+            form = {<TicketCreateForm versionId = {versionId}/>}
+
             title = {"Crear ticket"}
         />
       </BodyContainer>

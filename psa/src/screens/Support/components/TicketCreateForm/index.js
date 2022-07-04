@@ -27,14 +27,14 @@ export const TicketCreateForm = (props) => {
 
             const body = {
                 "titulo": title,
-                "descripicion": description,
+                "descripcion": description,
                 "fechaDeFinalizacion": date_formatted,
                 "fechaDeCreacion": date_formatted,
                 "cuit": 23,
                 "estado": "abierto",
-                "versionId": 10,
+                "versionId": props.versionId,
                 "severidad": parseInt(severity),
-                "legajo_cliente": 10
+                "legajoResponsable": 10
             }
 
             const config = {

@@ -132,7 +132,7 @@ export const SupportTicketViews = () => {
 
   console.log(tickets)
   const Cards = () => {
-    return ticketss
+    return tickets
       .filter((val) => {
         if (searchTerm === "") return val;
         else if (
