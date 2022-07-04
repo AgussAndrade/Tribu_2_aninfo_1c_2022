@@ -18,11 +18,14 @@ import { AddEmployeeModal } from "../AddEmployeeModal";
 
 
 export const TaskCard = (props) => {
-  const { tarea, id, listEmployees } = props;
+  const { tarea, id} = props;
   const [deleteTask, setDeleteTask] = useState(false);
   const [showModalTask, setShowModalTask] = useState(false);
   const [showModalAddEmployee, setShowModalAddEmployee] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [empleado, setEmpleado] = useState("");
+
+  let nombreEmpleados = [];
 
   const navigate = useNavigate();
   const url = "https:moduloproyectos.herokuapp.com/proyectos/"+ id + "/tareas/" + tarea.id;
@@ -50,7 +53,9 @@ export const TaskCard = (props) => {
     }
   }, [showModalAddEmployee]);
 
-  console.log(tarea.empleados);
+
+
+
   return (
     <CardContainer>
       <AddEmployeeModal
@@ -72,6 +77,9 @@ export const TaskCard = (props) => {
           {"Fecha creación: " + tarea.fechaCreacion}
         </ProjectInfoText>
         <ProjectInfoText>{"Estado: " + tarea.estado}</ProjectInfoText>
+        <ProjectInfoText>
+          {"Legajo de los empleados asignados: " + tarea.empleados}
+        </ProjectInfoText>
       </CardTextContainer>
       <Buttons>
         <DeleteButtonContainer>
