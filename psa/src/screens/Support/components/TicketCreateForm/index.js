@@ -162,7 +162,7 @@ export const TicketCreateForm = (props) => {
                     <hr />
                     <div className="d-flex justify-content-end">
                         <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
-                            Close me y'all!
+                            Cerrar
                         </Button>
                     </div>
                 </Alert>
