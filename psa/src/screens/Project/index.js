@@ -33,7 +33,7 @@ export const Project = () => {
       })
       .catch(() => navigate("/error"));
   }, []);
-
+    console.log(projects)
   const Cards = () => {
     return projects
       .filter((val) => {

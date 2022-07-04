@@ -1,10 +1,11 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
-import {UseFetch} from "../../../../components/UseFetch";
+import {useNavigate} from "react-router-dom";
 
 
 export const TicketCreateForm = (props) => {
+    const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
     const [title, setTitle] = useState("");
     const [severity, setSeverity] = useState("");
@@ -19,21 +20,32 @@ export const TicketCreateForm = (props) => {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            setValidated(true)
             const _date = (new Date(date)).getTime()
             const body = {
                 "title": title,
                 "description": description,
-                "fechaDeFinalizacion" : _date,
-                "fechaDeCreacion" : (new Date()).getTime(),
-                "cuit": parseInt(cuit),
-                "estado" : "abierto",
+                "fechaDeFinalizacion": _date,
+                "fechaDeCreacion": (new Date()).getTime(),
+                "cuit": 23,
+                "estado": "abierto",
                 "versionId": props.versionId,
-                "severidad": parseInt(severity)
+                "severidad": parseInt(severity),
+                "legajo_cliente": 10
             }
+
+            const config = {
+                config: {
+                    body: JSON.stringify(body),
+                    headers: {"Content-Type": "application/json"},
+                    method: "POST"
+                },
+                url: SOPORTE_URL + "soporte/ticket"
+            }
+            fetch(config.url, config.config)
+                .then((result) => console.log(result))
+                .catch(() => navigate("/error"));
         }
-
-
+        setValidated(true)
     };
 
     const formInputs = () => {
@@ -52,7 +64,6 @@ export const TicketCreateForm = (props) => {
                                     value={title}
                                     onChange={(event) => {
                                         setTitle(event.currentTarget.value)
-                                        console.log("Titulo cambiado: " + title);
                                     }}
                                 />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -65,7 +76,6 @@ export const TicketCreateForm = (props) => {
                                     value={description}
                                     onChange={(event) => {
                                         setDescription(event.currentTarget.value)
-                                        console.log("Descripcion cambiada: " + description);
                                     }}
                                 />
 
@@ -108,7 +118,6 @@ export const TicketCreateForm = (props) => {
                                     value={date}
                                     onChange={(event) => {
                                         setDate(event.currentTarget.value)
-                                        console.log("Fecha cambiada: " + date);
                                     }}
                                 />
                             </Form.Group>
@@ -119,9 +128,8 @@ export const TicketCreateForm = (props) => {
                                 as={"input"} 
                                 list="clientes" 
                                 name="id_client"
-                                value={cuit}
                                 onChange={(event) => {
-                                    setCuit(event.target.dataset.cuit)
+                                    setCuit(parseInt(event.target.dataset.cuit))
                                 }}
                                 />
                                 <datalist id={"clientes"}>

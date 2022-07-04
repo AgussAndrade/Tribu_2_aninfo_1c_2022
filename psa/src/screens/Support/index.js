@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
@@ -9,18 +9,30 @@ import {
   InputContainer,
 } from "./styled";
 import { TopBar } from "../../components/TopBar";
+import { useState } from "react";
 import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
-
 import {SOPORTE_URL} from "../../utils/apiUrls";
 import {UseFetch} from "../../components/UseFetch";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
-  const [modalShow, setModalShow] = useState(false)
-  const { data: clientes } = UseFetch( {url: SOPORTE_URL + "servicio_externo/clientes", config: {}});
-  const { data: productos } = UseFetch( {url: SOPORTE_URL + "soporte/productos", config: {}});
+  const [modalShow, setModalShow] = useState(false);
+  const [clients, setClients] = useState([])
+  const config = {url: SOPORTE_URL + "servicio_externo/clientes", config: {
+      headers: {"Content-Type": "application/json"},
+      method: "GET"
+    }}
+
+  useEffect(() => {
+    fetch(config.url, config.config)
+        .then((res) => res.json())
+        .then((result) => {
+          setClients(result);
+        })
+        .catch(() => navigate("/error"))
+  }, [])
 
   const proyectos = [
     {
@@ -89,17 +101,10 @@ export const Support = () => {
       ],
     },
   ];
-  
-  
-  //sessionStorage.setItem("idProducto", "HOLA JAJ")
-  
-  
   //get a nuestra api en la cual vamos a pedir los productos
 
-  
   const Cards = () => {
-    if (productos){
-      return productos
+    return proyectos
       .filter((val) => {
         if (searchTerm == "") return val;
         else if (
@@ -123,9 +128,7 @@ export const Support = () => {
         )
       });
 
-    }
-    
-  };
+    };
 
   const navigate = useNavigate();
   return (
