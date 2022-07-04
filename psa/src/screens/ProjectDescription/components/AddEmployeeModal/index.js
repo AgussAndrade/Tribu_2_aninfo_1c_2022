@@ -25,22 +25,30 @@ const [employee, setEmployee] = useState("");
 const navigate = useNavigate();
   
 const handleConfirm = () => {
-    
+    if(!(tarea.empleados.includes(employee.value))){
      fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleado/" + employee.value, {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
        }).then(() => window.location.reload())
          .catch(() => navigate("/error"));
-      onClose();
+    }
+      else{
+        console.log("Anda bien");
+    }
+    onClose();
 }
 
 const handleDelete = () => {
-    
+    if((tarea.empleados.includes(employee.value))){
     fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       }).then(() => window.location.reload())
         .catch(() => navigate("/error"));
+    }
+    else{
+        console.log("Anda bien");
+    }
      onClose();
 }
 
