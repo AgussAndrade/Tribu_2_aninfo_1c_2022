@@ -4,6 +4,8 @@ import {useState} from "react";
 
 export const TicketCreateForm = () => {
     const [validated, setValidated] = useState(false);
+    const [title, setTitle] = useState("Montoto");
+    const [severity, setSeverity] = useState("3");
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -28,6 +30,11 @@ export const TicketCreateForm = () => {
                                     placeholder="Titulo del ticket"
                                     name = "title"
                                     required
+                                    value={title}
+                                    onChange={(event) => {
+                                        setTitle(event.currentTarget.value)
+                                        console.log("Titulo cambiado: " + title);
+                                    }}
                                 />
                                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             </Form.Group>
@@ -40,9 +47,9 @@ export const TicketCreateForm = () => {
                             <Form.Group className="mb-3" controlId= "severity" >
                                 <Form.Label>Severidad</Form.Label>
                                 <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
+                                    <option value="3" selected={severity === "3"}>Mayor</option>
+                                    <option value="2" selected={severity === "2"}>Medio</option>
+                                    <option value="1" selected={severity === "1"}>Baja</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
