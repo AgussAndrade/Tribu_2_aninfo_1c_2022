@@ -108,6 +108,7 @@ export const TicketCreateForm = (props) => {
                                 as={"input"} 
                                 list="employers"
                                 value={responsible}
+                                autocomplete="off"
                                 onChange={(event) => {
                                     setResponsible(event.currentTarget.value)
                                 }} />
@@ -135,6 +136,7 @@ export const TicketCreateForm = (props) => {
                                 as={"input"} 
                                 list="clientes" 
                                 name="id_client"
+                                autocomplete="off"
                                 onChange={(event) => {
                                     setCuit(parseInt(event.target.dataset.cuit))
                                 }}

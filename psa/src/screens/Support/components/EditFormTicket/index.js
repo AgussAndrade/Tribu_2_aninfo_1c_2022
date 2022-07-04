@@ -99,6 +99,7 @@ export const EditFormTicket = (props) => {
                                     list="employers"
                                     readOnly={readOnly}
                                     value={responsableTicket}
+                                    autocomplete="off"
                                     onChange={(event) => {
                                         setResponsible(event.currentTarget.responsible)
                                         console.log("Responsable cambiado: " + responsible);
@@ -162,6 +163,7 @@ export const EditFormTicket = (props) => {
                                         setClient(event.currentTarget.value)
                                         console.log("Fecha de vencimiento cambiada: " + client);
                                     }}
+                                    autocomplete="off"
                                 />
                                 <datalist id={"clientes"}>
                                     <option value="Julian" data-id-client="3"></option>
