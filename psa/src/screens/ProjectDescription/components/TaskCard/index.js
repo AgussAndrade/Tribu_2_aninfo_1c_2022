@@ -83,7 +83,7 @@ export const TaskCard = (props) => {
         </DeleteButtonContainer>
         <AddEmployeeContainer>
           <GenericButton
-            name={"Agregar Empleado"}
+            name={"Editar empleados"}
             onClick={() => setShowModalAddEmployee(true)}
             color={colors.lightBlue}
           ></GenericButton>

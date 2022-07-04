@@ -40,7 +40,7 @@ export const EditProjectContainer = styled.div`
 
 export const AddEmployeeContainer = styled.div`
     display: flex;
-    width: 30%;
+    width: 35%;
     height: 100%;
     align-items: center;
     justify-content: center;

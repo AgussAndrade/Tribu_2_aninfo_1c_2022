@@ -12,6 +12,8 @@ import {
   ButtonContainer,
   ModalButton,
   Buttons,
+  CloseContainer,
+  Close
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import Select from "react-select";
@@ -52,6 +54,11 @@ if (!open) return null;
             <Title>
                 Editar empleado
             </Title>
+            <CloseContainer>
+              <Close onClick={onClose}>
+                x
+              </Close>
+            </CloseContainer>
         </TitleContainer>
         <SelectContainer>
         <Select
@@ -67,11 +74,12 @@ if (!open) return null;
             <ModalButton onClick={handleDelete} color={colors.lightBlue}> 
                 Eliminar
             </ModalButton>
+            </ButtonContainer>
+            <ButtonContainer>
             <ModalButton onClick={handleConfirm} color={colors.lightBlue}> 
                 Confirmar
             </ModalButton>
-
-        </ButtonContainer>
+            </ButtonContainer>
         </Buttons>
       </ModalContainer>
     </Overlay>
