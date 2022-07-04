@@ -23,6 +23,7 @@ export const SupportTicketViews = () => {
   const [currentTitleModal, setCurrentTitleModal] = useState("");
   const [modalShow, setModalShow] = useState(false)
   const [modalSize, setModalSize] = useState("lg")
+  //get para buscar los tickets asociados a un producto
   const tickets = [
     {
       nombre: "El inventario no se actualiza correctamente",
