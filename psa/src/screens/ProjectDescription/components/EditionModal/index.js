@@ -173,7 +173,7 @@ export const EditionModal = (props) => {
             </ModalButton>
           </ButtonContainer>
           <ButtonContainer>
-            <ModalButton onClick={onClose} color={colors.lightBlue}>
+            <ModalButton onClick={handleClose} color={colors.lightBlue}>
               Cancelar
             </ModalButton>
           </ButtonContainer>

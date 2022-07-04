@@ -15,7 +15,7 @@ export const Card = (props) => {
         <CardContainer>
           <CardTextContainer>
             <TitleText>
-            	{nombreProyecto}
+            	{"Proyecto: " + nombreProyecto}
             </TitleText>
             <DescriptionText>
             	{descripcionProyecto}

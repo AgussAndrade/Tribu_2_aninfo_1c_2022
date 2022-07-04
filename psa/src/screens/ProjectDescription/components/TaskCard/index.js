@@ -53,7 +53,11 @@ export const TaskCard = (props) => {
     }
   }, [showModalAddEmployee]);
 
-
+  const empleados = () => {
+    if(tarea.empleados.length == 0 )
+      return "-";
+    else return tarea.empleados;
+  }
 
 
   return (
@@ -78,7 +82,7 @@ export const TaskCard = (props) => {
         </ProjectInfoText>
         <ProjectInfoText>{"Estado: " + tarea.estado}</ProjectInfoText>
         <ProjectInfoText>
-          {"Legajo de los empleados asignados: " + tarea.empleados}
+          {"Legajo de los empleados asignados: " + empleados()}
         </ProjectInfoText>
       </CardTextContainer>
       <Buttons>
