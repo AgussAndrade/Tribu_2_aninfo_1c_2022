@@ -1,7 +1,8 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
+import {useFetch} from "../../../../components/CustomUseEffect";
 
 
 export const TicketCreateForm = () => {
@@ -12,23 +13,7 @@ export const TicketCreateForm = () => {
     const [date, setDate] = useState("");
     const [responsible, setResponsible] = useState("");
     const [client, setClient] = useState("");
-
-    axios.post(SOPORTE_URL + "/ticket").then(
-        (repos) => {
-            if(repos.status == 200){
-                const name = `${repos.data.Nombre} ${repos.data.Apellido}`
-                navigate('/resources/employee',
-                    {
-                        state: {
-                            id: id,
-                            name: name,
-                            date: date}
-                    })
-            }else{
-                navigate('/resources/error');
-            };
-        }
-    )
+    const {data:clientes} = useFetch(SOPORTE_URL + "/clientes")
 
 
     const handleSubmit = (event) => {

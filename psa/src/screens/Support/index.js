@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
@@ -14,12 +14,12 @@ import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
 import {SOPORTE_URL} from "../../utils/apiUrls";
-import axios from "axios";
+import {useFetch} from "../../components/CustomUseEffect";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
   const [modalShow, setModalShow] = useState(false)
-  const [productos, setProductos] = useState([])
+
   const proyectos = [
     {
       nombre: "Sistema de inventarios",
@@ -88,15 +88,7 @@ export const Support = () => {
     },
   ];
   //get a nuestra api en la cual vamos a pedir los productos
-  axios.get(SOPORTE_URL + "/productos").then(
-      (repos) => {
-        if(repos.status == 200){
-          setProductos(repos.data);
-        }else{
-          navigate('/resources/error');
-        };
-      }
-  )
+
   const Cards = () => {
     return proyectos
       .filter((val) => {
