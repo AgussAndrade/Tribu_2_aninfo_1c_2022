@@ -1,15 +1,31 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useState} from "react";
+import {useFormik} from "formik";
+import * as Yup from 'yup';
+
 
 export const TicketCreateForm = () => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [clientId, setClientId] = useState("");
-    const [validated, setValidated] = useState(false);
-
+    const formik = useFormik({
+        initialValues: {
+            title: '',
+            description: '',
+            severity: '',
+            responsible: '',
+            id_client: '',
+        },
+        validationSchema: Yup.object({
+            firstName: Yup.string()
+                .max(15, 'Must be 15 characters or less')
+                .required('Required'),
+            lastName: Yup.string()
+                .max(20, 'Must be 20 characters or less')
+                .required('Required'),
+            email: Yup.string().email('Invalid email address').required('Required'),
+        }),
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
