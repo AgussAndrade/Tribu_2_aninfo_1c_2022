@@ -15,15 +15,15 @@ import { GenericButton } from "../GenericButton/index";
 
 export const SupportCard = (props) => {
     const navigate = useNavigate();
-    const {nombreProyecto, descripcionProyecto, ticketsAbiertos,ticketsCerrados, onClick} = props;
+    const {nombreProducto, descripcionProducto, idProducto, ticketsAbiertos,ticketsCerrados, onClick} = props;
     return(
         <CardContainer>
           <CardTextContainer>
             <TitleText>
-            	{nombreProyecto}
+            	{nombreProducto}
             </TitleText>
             <DescriptionText>
-            	{descripcionProyecto}
+            	{descripcionProducto} | {idProducto}
             </DescriptionText>
           </CardTextContainer>
           <TicketsInfo>

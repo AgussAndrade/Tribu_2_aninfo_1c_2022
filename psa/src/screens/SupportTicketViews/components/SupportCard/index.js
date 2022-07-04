@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CardContainer,
   CardTextContainer,
@@ -10,10 +10,36 @@ import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../GenericButton/index";
 import {EditFormTicket} from "../../../Support/components/EditFormTicket";
 import {DerivateTicketForm} from "../../../Support/components/DerivateTicketForm";
+import { UseFetch } from "../../../../components/UseFetch";
+import { SOPORTE_URL } from "../../../../utils/apiUrls";
+
 
 export const SupportCard = (props) => {
-    const {nombreProyecto, tareasProyecto, estadoProyecto,
-        severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, setCurrentTitleModal, setModalSize} = props;
+    const {nombreProyecto, tareasProyecto, estadoProyecto, severidadProyecto,responsableProyecto, vencimientoProyecto,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize} = props;
+    const closeTicket = () => {
+      
+      const body = { 
+        estado: "cerrado"
+      }
+      const config = {
+        body: body, 
+        method: "PUT", 
+        headers: { "Content-Type": "application/json" },
+      } 
+      const propsConfig = {
+        url: SOPORTE_URL + "soporte/ticket/" + ticketId,
+        config: config
+      }
+
+      const {data: ticket, isPending, error} = UseFetch(propsConfig)
+
+      if (error){
+        console.log(error)
+      } else {
+        window.location.reload()
+      }
+    }
+
     return(
         <CardContainer>
           <CardTextContainer>
@@ -66,8 +92,7 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Cerrar Ticket"}
               onClick={() => {
-                setCurrentForm(<EditFormTicket/>)
-                openModal(true)
+                closeTicket()
             }}
               color = {colors.red}
             ></GenericButton>

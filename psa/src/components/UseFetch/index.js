@@ -19,7 +19,7 @@ export const UseFetch = (props) => {
         setError(null)
       } catch (err) {
         if (err.name === "AbortError") {
-          console.log("the fetch was aborted")
+          console.log("The fetch was aborted")
         } else {
           setIsPending(false)
           setError(error)
