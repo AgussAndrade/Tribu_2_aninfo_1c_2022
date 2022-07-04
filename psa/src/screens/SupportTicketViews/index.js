@@ -142,15 +142,16 @@ export const SupportTicketViews = () => {
       })
       .map((ticket) => (
         <SupportCard
-          nombreTicket={ticket.nombre}
+          nombreTicket={ticket.titulo}
           tareasTicket={ticket.tareas} // FIJARSE, PORQUE ACÁ PUEDO HACER UN COUNT DE TAREAS
           estadoTicket={ticket.estado}
           severidadTicket={ticket.severidad}
-          responsableTicket={ticket.responsable}
-          vencimientoTicket={ticket.vencimiento}
+          responsableTicket={ticket.legajoResponsable}
+          vencimientoTicket={ticket.fechaDeFinalizacion}
           cuitClienteTicket={ticket.cuit}
           idTicket={ticket.id}
           versionId={ticket.version_id}
+          descriptionId={ticket.descripcion}
           openModal={setModalShow}
           setCurrentForm={setCurrentForm}
           setCurrentTitleModal={setCurrentTitleModal}

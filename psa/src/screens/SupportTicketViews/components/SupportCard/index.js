@@ -15,7 +15,7 @@ import { SOPORTE_URL } from "../../../../utils/apiUrls";
 
 
 export const SupportCard = (props) => {
-    const {nombreTicket, tareasTicket, estadoTicket, severidadTicket,responsableTicket, vencimientoTicket,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize, versionId, idTicket, cuitCienteTicket} = props;
+    const {nombreTicket, tareasTicket, estadoTicket, severidadTicket,responsableTicket, vencimientoTicket,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize, versionId, idTicket, cuitCienteTicket, descriptionId} = props;
     const closeTicket = () => {
       
       const body = { 
@@ -73,6 +73,7 @@ export const SupportCard = (props) => {
                     idTicket = {idTicket}
                     cuitCienteTicket = {cuitCienteTicket}
                     versionId = {versionId}
+                    descriptionId = {descriptionId}
                     />);
 
                   setCurrentTitleModal("Editar ticket")
