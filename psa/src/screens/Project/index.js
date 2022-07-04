@@ -25,14 +25,14 @@ export const Project = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+    fetch("https://moduloproyectos.herokuapp.com/proyectos", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((result) => {
         setProjects(result);
       })
-      //.catch(() => navigate("/error"));
+      .catch(() => navigate("/error"));
   }, [update]);
 
   const Cards = () => {
