@@ -38,6 +38,15 @@ export const EditProjectContainer = styled.div`
     justify-content: center;
 `
 
+export const AddEmployeeContainer = styled.div`
+    display: flex;
+    width: 30%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+`
+
 export const CardContainer = styled.div`
     width: 95%;
     height: auto;

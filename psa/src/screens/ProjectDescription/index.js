@@ -25,6 +25,7 @@ import { DeleteButton } from "../../components/DeleteButton";
 import { GenericButton } from "../../components/GenericButton";
 import { colors } from "../../utils/colors";
 import { BackButton } from "../../components/BackButton";
+import { AddEmployeeModal } from "./components/AddEmployeeModal";
 
 export const ProjectDescription = (props) => {
   const { id } = useParams();
@@ -32,6 +33,7 @@ export const ProjectDescription = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalAddTask, setshowModalAddTask] = useState(false);
+  const [showModalAddEmployee, setShowModalAddEmployee] = useState(false);
   const [project, setProject] = useState({});
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
@@ -42,7 +44,8 @@ export const ProjectDescription = (props) => {
     if (deleteProject) {
       fetch(url, {
         method: "DELETE",
-      }).catch(() => navigate("/error"));
+      }).catch(() => navigate("/error"))
+      .then(() => window.location.reload());
       navigate(-1);
     }
   }, [deleteProject]);
@@ -132,6 +135,11 @@ export const ProjectDescription = (props) => {
         listEmployees={employees}
 
       />
+      <AddEmployeeModal
+        open={showModalAddEmployee}
+        onClose={() => setShowModalAddEmployee(false)}
+        listEmployees={employees}
+      />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
@@ -178,6 +186,7 @@ export const ProjectDescription = (props) => {
           </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>
+      <AddEmployeeModal></AddEmployeeModal>
     </PrincipalContainer>
   );
 };

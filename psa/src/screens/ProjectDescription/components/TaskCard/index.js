@@ -8,6 +8,7 @@ import {
   EditProjectContainer,
   DeleteButtonContainer,
   Buttons,
+  AddEmployeeContainer,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { GenericButton } from "../../../../components/GenericButton";
@@ -55,6 +56,13 @@ export const TaskCard = (props) => {
             icon={true}
           />
         </DeleteButtonContainer>
+        <AddEmployeeContainer>
+          <GenericButton
+            name={"Agregar Empleado"}
+            onClick={onClick}
+            color={colors.lightBlue}
+          ></GenericButton>
+        </AddEmployeeContainer>
         <EditProjectContainer>
           <GenericButton
             name={"Editar"}
