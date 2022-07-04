@@ -1,15 +1,20 @@
+import axios from "axios";
 import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { FormGroupContainer } from "../../../../components/FormGroup";
 
 export const EditHoursModal = (props) => {
-    const {show, setShow} = props
+    const {id, show, setShow, setHours} = props
 
     const [newHours, setNewHours] = useState(0)
 
     const handleClose = () => setShow(false);
-    const handleSave= () => {
-        console.log(newHours)
+    const handleSave = async () => {
+        const res = await axios.put(`https://squad5-recursos.herokuapp.com/api/horas/${id}`,{
+            horasTrabajadas: newHours
+        })
+        setHours(newHours)
+        setShow(false)
     };
 
     return (
