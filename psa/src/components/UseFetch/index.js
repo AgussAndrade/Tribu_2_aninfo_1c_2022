@@ -1,34 +1,17 @@
-import { useState, useEffect } from "react"
+import {useEffect, useState} from "react"
 
 export const UseFetch = (props) => {
-  const [data, setData] = useState(null)
-  const [isPending, setIsPending] = useState(false)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsPending(true)
-      try {
-        const res = await fetch(props.url, props.config)
-        if(!res.ok) {
-          throw new Error(res.statusText)
-        }
-        const data = await res.json()
-        setIsPending(false)
-        setData(data)
-        setError(null)
-      } catch (err) {
-        if (err.name === "AbortError") {
-          console.log("The fetch was aborted")
-        } else {
-          setIsPending(false)
-          setError(error)
-        }
-      }
-    }
-
-    fetchData()
-  }, [props.url])
-
-  return { data, isPending, error }
+    const[data, setData] = useState([]);
+    const [error, setError] = useState(false);
+    useEffect(() => {
+        fetch(props.url, props.config)
+            .then((res) => res.json())
+            .then((result) => {
+                setData(result);
+            })
+            .catch((error) => {
+                setError(error)
+            });
+    }, [props.url]);
+    return {data, error};
 }
