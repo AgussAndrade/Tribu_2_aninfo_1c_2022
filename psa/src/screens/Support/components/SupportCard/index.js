@@ -26,12 +26,6 @@ export const SupportCard = (props) => {
             	{descripcionProducto} | id: {versionId} | version: {versionProducto}
             </DescriptionText>
           </CardTextContainer>
-          <TicketsInfo>
-            <TicketsInfo>
-              Tickets Abiertos:{ticketsAbiertos}
-            </TicketsInfo>
-            Tickets Cerrados:{ticketsCerrados}
-          </TicketsInfo>
           <ButtonContainer>
             <GenericButton
               name={"Ver Tickets"}
