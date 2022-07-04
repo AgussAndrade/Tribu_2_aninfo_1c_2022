@@ -13,7 +13,9 @@ import {
   ModalButton,
   Buttons,
   CloseContainer,
-  Close
+  Close,
+  DeleteEmployeeMessageContainer,
+  AddEmployeeMessageContainer
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import Select from "react-select";
@@ -21,23 +23,29 @@ import { useNavigate } from "react-router-dom";
 
 export const AddEmployeeModal = (props) => {
   const { open, onClose, listEmployees, tarea } = props;
-  
+  const [errorEmployeeMessage, setErrorEmployeeMessage] = useState("");
 
 const [employee, setEmployee] = useState("");
 const navigate = useNavigate();
   
 const handleConfirm = () => {
-    if(!(tarea.empleados.includes(employee.value))){
-     fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleado/" + employee.value, {
+    console.log("El vlaor es ", employee.value);
+    if(!(tarea.empleados.includes(employee.value)) && (employee.value != undefined)){
+     fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
        }).then(() => window.location.reload())
          .catch(() => navigate("/error"));
+         setErrorEmployeeMessage("");
+         onClose();
     }
+        else if(employee.value == undefined){
+            setErrorEmployeeMessage("Ingrese un empleado");
+        }
       else{
-        console.log("Anda bien");
+        setErrorEmployeeMessage("El empleado ya esta en la tarea");
     }
-    onClose();
+    
 }
 
 const handleDelete = () => {
@@ -47,11 +55,22 @@ const handleDelete = () => {
         headers: { "Content-Type": "application/json" },
       }).then(() => window.location.reload())
         .catch(() => navigate("/error"));
+        setErrorEmployeeMessage("");
+        onClose();
+    }
+    else if(employee.value == undefined){
+        setErrorEmployeeMessage("Ingrese un empleado");
     }
     else{
-        console.log("Anda bien");
+
+        setErrorEmployeeMessage("El empleado no esta en la tarea");
     }
-     onClose();
+
+}
+
+const handleCancelar = () => {
+    setErrorEmployeeMessage("");
+    onClose();
 }
 
 if (!open) return null;
@@ -63,7 +82,7 @@ if (!open) return null;
                 Editar empleado
             </Title>
             <CloseContainer>
-              <Close onClick={onClose}>
+              <Close onClick={handleCancelar}>
                 x
               </Close>
             </CloseContainer>
@@ -77,6 +96,7 @@ if (!open) return null;
           onChange={(empleado) => setEmployee(empleado)}
         />
         </SelectContainer>
+        <AddEmployeeMessageContainer> {errorEmployeeMessage}</AddEmployeeMessageContainer>
         <Buttons>
         <ButtonContainer>
             <ModalButton onClick={handleDelete} color={colors.lightBlue}> 

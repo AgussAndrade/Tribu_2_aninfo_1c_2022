@@ -114,6 +114,7 @@ export const AddTaskButton = styled.button`
  display: flex;
   width: 20%;
   height: 100%;
+  min-width: 150px;
   align-items: center;
   border-radius: 15px;
   border: none;

@@ -132,3 +132,14 @@ export const Buttons = styled.div`
   align-items: center;
   display: flex;
 `;
+
+export const AddEmployeeMessageContainer = styled.div`
+  display: flex;
+  height: 1%;
+  width: 100%;
+  font-family: Verdana;
+  font-size: 15px;
+  color: red;
+  justify-content: center;
+  margin-top: 10px;
+`

@@ -36,6 +36,7 @@ export const EditProjectContainer = styled.div`
     height: 100%;
     align-items: center;
     justify-content: center;
+    min-width: 70px;
 `
 
 export const AddEmployeeContainer = styled.div`
@@ -45,6 +46,7 @@ export const AddEmployeeContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-right: 10px;
+    min-width: 150px;
 `
 
 export const CardContainer = styled.div`
@@ -60,6 +62,7 @@ export const DeleteButtonContainer = styled.div`
   width:8%;
   margin-left: 5px;
   height: 100%;
+  min-width: 30px;
 `
 
 export const Buttons = styled.div`

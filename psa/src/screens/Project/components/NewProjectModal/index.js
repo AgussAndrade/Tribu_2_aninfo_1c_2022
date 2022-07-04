@@ -32,11 +32,11 @@ export const NewProjectModal = (props) => {
   const [dateFinish, setDateFinish] = useState("");
   const [leaderID, setLeaderID] = useState(-1);
   const [state, setState] = useState("");
-
   const navigate = useNavigate();
 
   let newProject = {
     estado: "",
+    descripcion: "",
     fechaFin: "",
     fechaInicio: "",
     id: 0,
@@ -47,6 +47,8 @@ export const NewProjectModal = (props) => {
   const checkLeaderId = () => {
     let value = false;
     
+    
+    console.log(listEmployees);
     listEmployees.forEach((empleado) => {
       if (empleado.legajo == leaderID) {
         value = true;
@@ -75,14 +77,12 @@ export const NewProjectModal = (props) => {
         nombre: name,
       };
 
-      console.log(newProject)
-
       fetch("https:moduloproyectos.herokuapp.com/proyectos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
       })
-        .then(() => window.location.reload())
+         .then(() => window.location.reload())
         .catch(() => navigate("/error"));
       handleClose();
     } else {
@@ -104,7 +104,6 @@ export const NewProjectModal = (props) => {
         id: 0,
         legajoLider: leaderID,
         nombre: name,
-        description: description
       };
       if (!name) setName("");
       if (!state) setState("");
