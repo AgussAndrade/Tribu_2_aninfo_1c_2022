@@ -1,145 +1,156 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
+  AddTaskButton,
   PrincipalContainer,
+  BackButtonContainer,
   ProyectOptionsContainer,
   BodyContainer,
   TaskContainer,
   InputContainer,
   Input,
   OptionsContainer,
+  ButtonContainer,
+  BarContainer,
   DeleteButtonContainer,
+  OptionBackContainer,
 } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
 import { TaskCard } from "./components/TaskCard";
 import { EditionModal } from "./components/EditionModal";
-import {EditionTaskModal} from "./components/EditionTaskModal"
+import { EditionTaskModal } from "./components/EditionTaskModal";
+import { NewTaskModal } from "./components/NewTaskModal";
 import { Modal } from "../../components/Modal";
 import { DeleteButton } from "../../components/DeleteButton";
+import { GenericButton } from "../../components/GenericButton";
+import { colors } from "../../utils/colors";
+import { BackButton } from "../../components/BackButton";
+import { AddEmployeeModal } from "./components/AddEmployeeModal";
 
-export const ProjectDescription = () => {
+export const ProjectDescription = (props) => {
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
-  const [showModalTask, setShowModalTask] = useState(false);
-  // use effect para ver cuando se elimina el proyecto
+  const [showModalAddTask, setshowModalAddTask] = useState(false);
+ 
+  const [project, setProject] = useState({});
+  const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
 
-  // use effect para ver cuando se elimina tarea
+  const url = "https:moduloproyectos.herokuapp.com/proyectos/" + id;
 
-  const proyecto = {
-    nombre: "Nombre1",
-    descripcion: "Esta es la descripcion1",
-    tareas: [
-      {
-        nombre: "Tarea: Nombre1",
-        descripcion:
-          "Descripcion: Esta es la descripcion de tarea 1, es una descripcion larga para probar el overflow de la caja de texto a ver si funciona bien o si no funciona bien por eso es larga. Aaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre2",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 2",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre3",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 3",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre4",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 4",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-      {
-        nombre: "Tarea: Nombre5",
-        descripcion: "Descripcion: Esta es la descripcion de tarea 5",
-        fechaCreacion: "Fecha de creacion: 22/2/2022",
-        estado: "Estado: En curso",
-      },
-    ],
-  };
+  useEffect(() => {
+    if (deleteProject) {
+      fetch(url, {
+        method: "DELETE",
+      }).catch(() => navigate("/error"))
+      .then(() => window.location.reload());
+      navigate(-1);
+    }
+  }, [deleteProject]);
 
-  const mantequita = {
-    estado: "string",
-    fechaFin: "string",
-    fechaInicio: "string",
-    id: 0,
-    legajoLider: 22,
-    nombre: "string"
-  }
+  
 
-  const [items, setItems] = useState({});
-  const [error, setError] = useState("");
+  useEffect(() => {
+    fetch(url, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setProject(result);
+      })
+      .catch(() => navigate("/error"));
+  }, []);
 
 
-//  useEffect(() => {
-//     fetch("https://moduloproyectos.herokuapp.com/proyectos", {
-//       method: "GET",
-//     } )
-//       .then(res => res.json())
-//       .then(
-//         (result) => {
-//           setItems(result);
-//           console.log( "res" + result)
-//         },
-//         (error) => {
-//           setError(error);
-//         }
-//       )
-//   }, []); //esto parece que anda
 
-  // fetch("https://moduloproyectos.herokuapp.com/proyectos", {  // Enter your IP address here
+  //use effect para ver cuando se elimina el project
+  //use effect para ver cuando se elimina tarea
 
-  //     method: 'POST',
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify(mantequita) // body data type must match "Content-Type" header
-
-  //   }) //esto anda confirmado por el evilar2
+  /*fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+     //Enter your IP address here
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(mantequita), //body data type must match "Content-Type" header
+  }); //esto anda confirmado por el evilar2 */
 
   const TaskCards = () => {
-    return proyecto.tareas
-      .filter((val) => {
-        if (searchTerm == "") return val;
-        else if (
-          val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-        )
-          return val;
-      })
-      .map((tarea) => (
-        <TaskCard
-          nombreTarea={tarea.nombre}
-          descripcionTarea={tarea.descripcion}
-          fechaCreacion={tarea.fechaCreacion}
-          estado={tarea.estado}
-          onClick={() => setShowModalTask(true)}
-        />
-      ));
+    if (project.tareas) {
+      return project.tareas
+        .filter((val) => {
+          if (searchTerm == "") return val;
+          else if (
+            val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+          )
+            return val;
+        })
+        .map((tarea) => (
+          <TaskCard
+            tarea = {tarea}
+            id = {id}
+          />
+        ));
+    }
   };
 
-  const navigate = useNavigate();
+  const [lider, setLider] = useState("");
+  fetch(
+    "https:moduloproyectos.herokuapp.com/empleados/" + project.legajoLider,
+    {
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      setLider(result.Nombre + " " + result.Apellido);
+    })
+    .catch(() => navigate("/error"));
+
+    useEffect(() => {
+      if (showModal) {
+        fetch("https:moduloproyectos.herokuapp.com/empleados", {
+          method: "GET",
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            setEmployees(result);
+          })
+          .catch(() => navigate("/error"));
+      }
+    }, [showModal]);
+
+
+
   return (
     <PrincipalContainer>
-      <EditionModal open={showModal} onClose={() => setShowModal(false)} titulo = "Editar Proyecto" defaultVal = {true}/>
-      <EditionTaskModal open={showModalTask} onClose={() => setShowModalTask(false)} />
+      <NewTaskModal
+        open={showModalAddTask}
+        onClose={() => setshowModalAddTask(false)}
+        projectId={id}
+      />
+      <EditionModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        titulo="Editar Proyecto"
+        proyecto={project}
+        listEmployees={employees}
+        projectId={id}
+      />
+      
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
-          nombreProyecto={"Proyecto: Prueba"}
-          descripcionProyecto={
-            "Descripcion: El kernel es la capa de software de mas bajo nivel del sistema operativo"
-          }
-          fechaInicio={"Fecha de inicio: 27/7/2022"}
-          fechaEstimadaFin={"Fecha estimada de fin: 28/12/2022"}
-          lider={"Lider: Yo"}
+          nombreProyecto={"Proyecto: " + project.nombre}
+          descripcionProyecto={"Descripcion: " + project.descripcion}
+          fechaInicio={"Fecha de inicio: " + project.fechaInicio}
+          fechaEstimadaFin={"Fecha de fin estimada: " + project.fechaFin}
+          lider={"Lider: " + lider}
           onClick={() => setShowModal(true)}
         />
         <TaskContainer>
+          <BarContainer>
           <InputContainer>
             <Input
               type="text"
@@ -148,12 +159,31 @@ export const ProjectDescription = () => {
                 setSerchTerm(event.target.value);
               }}
             />
-          </InputContainer>
+            </InputContainer>
+            <ButtonContainer>
+              <AddTaskButton
+                color={colors.lightGrey2}
+                name={"Agregar tarea"}
+                onClick={() => setshowModalAddTask(true)}
+              >
+                Agregar tarea
+              </AddTaskButton>
+            </ButtonContainer>
+          </BarContainer>
           <TaskCards />
         </TaskContainer>
         <OptionsContainer>
+          <OptionBackContainer>
+          <BackButtonContainer>
+            <BackButton />
+          </BackButtonContainer>
+          </OptionBackContainer>
           <DeleteButtonContainer>
-          <DeleteButton setDelete= {setDeleteProject} optionText = {"proyecto"}/>
+            <DeleteButton
+              setDelete={setDeleteProject}
+              optionText={"proyecto"}
+              icon={false}
+            />
           </DeleteButtonContainer>
         </OptionsContainer>
       </BodyContainer>

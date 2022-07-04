@@ -18,40 +18,41 @@ import {
   ErrorMessageContainer,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
+import { render } from "@testing-library/react";
 import { useNavigate } from "react-router-dom";
-import { Project } from "../../../Project";
 import { useEffect } from "react";
 
-export const EditionModal = (props) => {
-  const { open, onClose, titulo, proyecto, listEmployees } = props;
-  const nombre = proyecto.nombre;
+export const NewProjectModal = (props) => {
+  const { open, onClose, listEmployees } = props;
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [dateStart, setDateStart] = useState("");
   const [dateFinish, setDateFinish] = useState("");
   const [leaderID, setLeaderID] = useState(-1);
   const [state, setState] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   let newProject = {
-    estado: proyecto.estado,
-    fechaFin: proyecto.fechaFin,
-    fechaInicio: proyecto.fechaInicio,
-    id: proyecto.id,
-    legajoLider: proyecto.legajoLider,
-    nombre: proyecto.nombre,
+    estado: "",
+    fechaFin: "",
+    fechaInicio: "",
+    id: 0,
+    legajoLider: -1,
+    nombre: "",
   };
 
   const checkLeaderId = () => {
-    let value = false;    
+    let value = false;
+    
     listEmployees.forEach((empleado) => {
       if (empleado.legajo == leaderID) {
         value = true;
       }
     });
+    
     return value;
   };
 
@@ -61,19 +62,23 @@ export const EditionModal = (props) => {
       description &&
       dateStart &&
       dateFinish &&
+      state &&
       checkLeaderId()
     ) {
       newProject = {
         estado: state,
+        descripcion:description,
         fechaFin: dateFinish,
         fechaInicio: dateStart,
+        id: 0,
         legajoLider: leaderID,
-        descripcion:description,
         nombre: name,
       };
-     
-      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + proyecto.id, {
-        method: "PUT",
+
+      console.log(newProject)
+
+      fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
       })
@@ -92,7 +97,21 @@ export const EditionModal = (props) => {
         setErrorMessage("Rellene todos los campos");
       }
 
-       
+      newProject = {
+        estado: state,
+        fechaFin: dateFinish,
+        fechaInicio: dateStart,
+        id: 0,
+        legajoLider: leaderID,
+        nombre: name,
+        description: description
+      };
+      if (!name) setName("");
+      if (!state) setState("");
+      if (!dateFinish) setDateFinish("");
+      if (!dateStart) setDateStart("");
+      if (!description) setDescription("");
+      if (leaderID == -1) setLeaderID(-1);
     }
   };
 
@@ -101,35 +120,27 @@ export const EditionModal = (props) => {
     setState("");
     setDateFinish("");
     setDateStart("");
-    setDescription("");;
+    setDescription("");
     setName("");
-    setLeaderID("");
+    setLeaderID(-1);
     onClose();
   };
-
 
   if (!open) return null;
   return (
     <Overlay>
       <ModalContainer>
         <TitleContainer>
-          <Title>{titulo}</Title>
+          <Title>Crear proyecto</Title>
         </TitleContainer>
         <FormContainer autoComplete="off">
           <StyledTextInputContainer>
             <Text>Nombre:</Text>
-            <Input
-              type="text"
-              placeholder={proyecto.nombre}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Input type="text" onChange={(e) => setName(e.target.value)} />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Estado:</Text>
-            <DropDownList
-              defaultValue={proyecto.estado}
-              onChange={(e) => setState(e.target.value)}
-            >
+            <DropDownList onChange={(e) => setState(e.target.value)}>
               <option value="En curso">En curso</option>
               <option value="Terminado">Terminado</option>
               <option value="En pausa">En pausa</option>
@@ -138,21 +149,15 @@ export const EditionModal = (props) => {
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Fecha de creacion:</Text>
-            <Date
-              placeholder={proyecto.fechaInicio}
-              onChange={(e) => setDateStart(e.target.value)}
-            ></Date>
+            <Date onChange={(e) => setDateStart(e.target.value)}></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Fecha estimada de fin:</Text>
-            <Date
-              placeholder={proyecto.fechaFin}
-              onChange={(e) => setDateFinish(e.target.value)}
-            ></Date>
+            <Date onChange={(e) => setDateFinish(e.target.value)}></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Legajo lider:</Text>
-            <Input type="text" placeholder={proyecto.legajoLider}  onChange={(e) => setLeaderID(e.target.value)} />
+            <Input type="text" onChange={(e) => setLeaderID(e.target.value)} />
           </StyledTextInputContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>
@@ -160,7 +165,6 @@ export const EditionModal = (props) => {
           <DescriptionContainer>
             <DescriptionInput
               type="text"
-              placeholder={proyecto.descripcion}
               onChange={(e) => setDescription(e.target.value)}
             ></DescriptionInput>
           </DescriptionContainer>
@@ -168,13 +172,13 @@ export const EditionModal = (props) => {
         </FormContainer>
         <Buttons>
           <ButtonContainer>
-            <ModalButton onClick={saveInput} color={colors.lightBlue}>
-              Guardar
+            <ModalButton onClick={handleClose} color={colors.lightBlue}>
+              Cancelar
             </ModalButton>
           </ButtonContainer>
           <ButtonContainer>
-            <ModalButton onClick={onClose} color={colors.lightBlue}>
-              Cancelar
+            <ModalButton onClick={saveInput} color={colors.lightBlue}>
+              Guardar
             </ModalButton>
           </ButtonContainer>
         </Buttons>
