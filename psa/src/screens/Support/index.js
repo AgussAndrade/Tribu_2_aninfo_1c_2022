@@ -18,9 +18,22 @@ import {UseFetch} from "../../components/UseFetch";
 
 export const Support = () => {
   const [searchTerm, setSerchTerm] = useState("");
-  const [modalShow, setModalShow] = useState(false)
-  const {data: clientes} = UseFetch( {url: SOPORTE_URL + "servicio_externo/clientes", config: {}});
-  console.log(clientes)
+  const [modalShow, setModalShow] = useState(false);
+  const [clients, setClients] = useState([])
+  const config = {url: SOPORTE_URL + "servicio_externo/clientes", config: {
+      headers: {"Content-Type": "application/json"},
+      method: "GET"
+    }}
+
+  useEffect(() => {
+    fetch(config.url, config.config)
+        .then((res) => res.json())
+        .then((result) => {
+          setClients(result);
+        })
+        .catch(() => navigate("/error"))
+  }, [])
+
   const proyectos = [
     {
       nombre: "Sistema de inventarios",
