@@ -1,14 +1,9 @@
-export function getDiffDate(firstDate, secondDate){
+export function getCurrentDate(date, separator=''){
 
-    console.log(secondDate)
-    secondDate = new Date(secondDate);
-    console.log(secondDate);
-    let date = secondDate.getDate();
-    let month = secondDate.getMonth() + 1;
-    let year = secondDate.getFullYear();
 
-    secondDate = new Date(`${date < 10 ? `0${date}` : `${date}` }$/${month<10?`0${month}`:`${month}`}/${year}`);
-    let Difference_In_Time = secondDate.getTime() - firstDate.getTime();
-    console.log()
-    return Difference_In_Time / (1000 * 3600 * 24);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    return `${day < 10 ? `0${day}` : `${day}` }${separator}${month<10?`0${month}`:`${month}`}${separator}${year}`
 }
