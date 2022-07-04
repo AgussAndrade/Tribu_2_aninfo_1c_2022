@@ -1,6 +1,7 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
+import {SOPORTE_URL} from "../../../../utils/apiUrls";
 
 
 export const TicketCreateForm = () => {
@@ -12,7 +13,7 @@ export const TicketCreateForm = () => {
     const [responsible, setResponsible] = useState("");
     const [client, setClient] = useState("");
 
-    axios.get(`https://squad5-recursos.herokuapp.com/api/empleados/${id}`).then(
+    axios.post(SOPORTE_URL + "/ticket").then(
         (repos) => {
             if(repos.status == 200){
                 const name = `${repos.data.Nombre} ${repos.data.Apellido}`
