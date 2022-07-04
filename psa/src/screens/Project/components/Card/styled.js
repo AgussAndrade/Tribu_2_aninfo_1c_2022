@@ -15,7 +15,7 @@ export const CardTextContainer = styled.div`
 `
 
 export const TitleText = styled.p`
-  font-size: 25px;
+  font-size: 22px;
   color: ${colors.blue};
   font-family: "Verdana";
   margin: 0%;

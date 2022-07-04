@@ -35,20 +35,10 @@ export const NewTaskModal = (props) => {
 
   let newTask = {
     estado: "",
-    fechaInicio: "",
+    fechaCreacion: "",
     nombre: "",
     description: "",
-    // tareas: [
-    //   {
-    //     descripcion: "",
-    //     empleados: [0],
-    //     estado: "",
-    //     id: 0,
-    //     idProyecto: 0,
-    //     idTicket: 0,
-    //     nombre: "",
-    //   },
-    // ],
+    idProyecto: projectId
   };
 
 
@@ -61,8 +51,9 @@ export const NewTaskModal = (props) => {
     ) {
       newTask = {
         estado: state,
-        fechaInicio: dateStart,
-        id: 0,
+        fechaCreacion: dateStart,
+        idProyecto: projectId,
+        descripcion: description,
         nombre: name,
       };
 
@@ -79,7 +70,9 @@ export const NewTaskModal = (props) => {
 
       newTask = {
         estado: state,
-        fechaInicio: dateStart,
+        fechaCreacion: dateStart,
+        idProyecto: projectId,
+        descripcion: description,
         id: 0,
         nombre: name,
       };
