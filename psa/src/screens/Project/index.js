@@ -32,7 +32,7 @@ export const Project = () => {
       .then((result) => {
         setProjects(result);
       })
-      .catch(() => navigate("/error"));
+      //.catch(() => navigate("/error"));
   }, [update]);
 
   const Cards = () => {
