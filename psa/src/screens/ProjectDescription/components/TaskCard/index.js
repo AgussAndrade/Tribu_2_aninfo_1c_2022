@@ -63,6 +63,7 @@ export const TaskCard = (props) => {
         open={showModalTask}
         onClose={() => setShowModalTask(false)}
         tarea= {tarea}
+        id={id}
       />
       <CardTextContainer>
         <TitleText>{"Tarea: " + tarea.nombre}</TitleText>

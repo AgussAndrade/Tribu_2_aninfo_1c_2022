@@ -94,11 +94,15 @@ export const ButtonContainer = styled.div`
 `
 
 export const DeleteButtonContainer = styled.div`
-    width: 80%;
+    width: 50%;
     height: 50%;
     display:flex;
     justify-content: flex-end;
 
+`
+export const OptionBackContainer= styled.div`
+    width: 40%;
+  height: 70%;
 `
 
 export const  BackButtonContainer = styled.div`

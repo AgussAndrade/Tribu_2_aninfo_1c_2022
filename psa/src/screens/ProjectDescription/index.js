@@ -13,6 +13,7 @@ import {
   ButtonContainer,
   BarContainer,
   DeleteButtonContainer,
+  OptionBackContainer,
 } from "./styled";
 import { ProjectCard } from "./components/ProjectCard";
 import { TopBar } from "../../components/TopBar";
@@ -127,7 +128,7 @@ export const ProjectDescription = (props) => {
       <NewTaskModal
         open={showModalAddTask}
         onClose={() => setshowModalAddTask(false)}
-        projectId={project.id}
+        projectId={id}
       />
       <EditionModal
         open={showModal}
@@ -135,7 +136,7 @@ export const ProjectDescription = (props) => {
         titulo="Editar Proyecto"
         proyecto={project}
         listEmployees={employees}
-
+        projectId={id}
       />
       
       <TopBar buttonSelected={"Proyectos"} />
@@ -172,9 +173,11 @@ export const ProjectDescription = (props) => {
           <TaskCards />
         </TaskContainer>
         <OptionsContainer>
+          <OptionBackContainer>
           <BackButtonContainer>
             <BackButton />
           </BackButtonContainer>
+          </OptionBackContainer>
           <DeleteButtonContainer>
             <DeleteButton
               setDelete={setDeleteProject}
