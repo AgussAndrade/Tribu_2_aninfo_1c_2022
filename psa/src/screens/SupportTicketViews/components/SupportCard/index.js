@@ -15,7 +15,7 @@ import { SOPORTE_URL } from "../../../../utils/apiUrls";
 
 
 export const SupportCard = (props) => {
-    const {nombreTicket, tareasTicket, estadoTicket, severidadTicket,responsableTicket, vencimientoTicket,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize} = props;
+    const {nombreTicket, tareasTicket, estadoTicket, severidadTicket,responsableTicket, vencimientoTicket,  openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize, versionId, idTicket, cuitCienteTicket} = props;
     const closeTicket = () => {
       
       const body = { 
@@ -63,7 +63,18 @@ export const SupportCard = (props) => {
             <GenericButton
               name={"Editar Ticket"}
               onClick={ () => {
-                  setCurrentForm(<EditFormTicket readOnly = {false}/>);
+                  setCurrentForm(<EditFormTicket readOnly = {false} 
+                    nombreTicket = {nombreTicket}
+                    tareasTicket = {tareasTicket}
+                    estadoTicket = {estadoTicket}
+                    severidadTicket = {severidadTicket}
+                    responsableTicket = {responsableTicket}
+                    vencimientoTicket = {vencimientoTicket}
+                    idTicket = {idTicket}
+                    cuitCienteTicket = {cuitCienteTicket}
+                    versionId = {versionId}
+                    />);
+
                   setCurrentTitleModal("Editar ticket")
                   openModal(true);
                   setModalSize("lg")

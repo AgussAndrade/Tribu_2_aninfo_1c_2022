@@ -2,7 +2,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 
 export const EditFormTicket = (props) => {
-    const { readOnly, nombreTicket, tareasTicket, estadoTicket, severidadTicket, responsableTicket, vencimientoTicket, cuitClienteTicket} = props
+    const { readOnly, nombreTicket, tareasTicket, estadoTicket, severidadTicket, responsableTicket, vencimientoTicket, cuitClienteTicket, idTicket} = props
     const handleSubmit = () => { }
     const [description, setDescription] = useState("");
     const [end_time, setEndTime] = useState(vencimientoTicket);
@@ -11,6 +11,7 @@ export const EditFormTicket = (props) => {
     const [severity, setSeverity] = useState(severidadTicket);
     const [client, setClient] = useState(cuitClienteTicket);
 
+    console.log(idTicket)
     
 
     const formInputs = () => {
@@ -21,7 +22,7 @@ export const EditFormTicket = (props) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Código</Form.Label>
-                                <Form.Control type="text" placeholder="Código del ticket" name="code" disabled={true} readOnly={readOnly} />
+                                <Form.Control type="text" placeholder={idTicket} name="code" disabled={true} readOnly={readOnly} />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="description">

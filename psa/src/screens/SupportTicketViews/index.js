@@ -55,6 +55,7 @@ export const SupportTicketViews = () => {
       severidad: "CRITICO",
       responsable: "Yo",
       vencimiento: "21/12/2022",
+      id:"123",
       tarea1: [
         {
           nombre: "Nombre1",
@@ -70,6 +71,7 @@ export const SupportTicketViews = () => {
       severidad: "CRITICO",
       responsable: "Yo",
       vencimiento: "03/09/2022",
+      id:125,
       tarea2: [
         {
           nombre: "Nombre2",
@@ -85,6 +87,7 @@ export const SupportTicketViews = () => {
       severidad: "CRITICO",
       responsable: "Yo",
       vencimiento: "21/10/2022",
+      id:12223,
       tarea3: [
         {
           nombre: "Nombre3",
@@ -100,6 +103,7 @@ export const SupportTicketViews = () => {
       severidad: "CRITICO",
       responsable: "Yo",
       vencimiento: "21/10/2022",
+      id:12123455,
       tarea4: [
         {
           nombre: "Nombre4",
@@ -115,6 +119,7 @@ export const SupportTicketViews = () => {
       severidad: "CRITICO",
       responsable: "Yo",
       vencimiento: "21/10/2022",
+      id:1251235,
       tarea5: [
         {
           nombre: "Nombre5",
@@ -144,6 +149,8 @@ export const SupportTicketViews = () => {
           responsableTicket={ticket.responsable}
           vencimientoTicket={ticket.vencimiento}
           cuitClienteTicket={ticket.cuit}
+          idTicket={ticket.id}
+          versionId={ticket.version_id}
           openModal={setModalShow}
           setCurrentForm={setCurrentForm}
           setCurrentTitleModal={setCurrentTitleModal}
