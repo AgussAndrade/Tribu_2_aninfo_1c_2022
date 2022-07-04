@@ -59,7 +59,7 @@ export const Project = () => {
 
   useEffect(() => {
     if (showModal) {
-      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+      fetch("https://moduloproyectos.herokuapp.com/empleados", {
         method: "GET",
       })
         .then((res) => res.json())

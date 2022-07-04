@@ -69,7 +69,7 @@ export const NewProjectModal = (props) => {
         nombre: name,
       };
 
-      fetch("https:moduloproyectos.herokuapp.com/proyectos", {
+      fetch("https://moduloproyectos.herokuapp.com/proyectos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),
