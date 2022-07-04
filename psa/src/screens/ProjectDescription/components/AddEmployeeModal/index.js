@@ -31,7 +31,7 @@ const navigate = useNavigate();
 const handleConfirm = () => {
     console.log("El vlaor es ", employee.value);
     if(!(tarea.empleados.includes(employee.value)) && (employee.value != undefined)){
-     fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
+     fetch("https://moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
        }).then(() => window.location.reload())
@@ -50,7 +50,7 @@ const handleConfirm = () => {
 
 const handleDelete = () => {
     if((tarea.empleados.includes(employee.value))){
-    fetch("https:moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
+    fetch("https://moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       }).then(() => window.location.reload())

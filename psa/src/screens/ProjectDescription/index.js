@@ -40,7 +40,7 @@ export const ProjectDescription = (props) => {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
 
-  const url = "https:moduloproyectos.herokuapp.com/proyectos/" + id;
+  const url = "https://moduloproyectos.herokuapp.com/proyectos/" + id;
 
   useEffect(() => {
     if (deleteProject) {
@@ -86,7 +86,7 @@ export const ProjectDescription = (props) => {
 
   const [lider, setLider] = useState("");
   fetch(
-    "https:moduloproyectos.herokuapp.com/empleados/" + project.legajoLider,
+    "https://moduloproyectos.herokuapp.com/empleados/" + project.legajoLider,
     {
       method: "GET",
     }
@@ -99,7 +99,7 @@ export const ProjectDescription = (props) => {
 
     useEffect(() => {
       if (showModal) {
-        fetch("https:moduloproyectos.herokuapp.com/empleados", {
+        fetch("https://moduloproyectos.herokuapp.com/empleados", {
           method: "GET",
         })
           .then((res) => res.json())

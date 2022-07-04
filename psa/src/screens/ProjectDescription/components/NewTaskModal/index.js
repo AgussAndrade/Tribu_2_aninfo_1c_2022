@@ -52,7 +52,7 @@ export const NewTaskModal = (props) => {
       };
 
       fetch(
-        "https:moduloproyectos.herokuapp.com/proyectos/" +
+        "https://moduloproyectos.herokuapp.com/proyectos/" +
           projectId +
           "/tareas",
         {

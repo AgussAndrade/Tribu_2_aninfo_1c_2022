@@ -42,7 +42,7 @@ export const TaskCard = (props) => {
 
   useEffect(() => {
     if (showModalAddEmployee) {
-      fetch("https:moduloproyectos.herokuapp.com/empleados", {
+      fetch("https://moduloproyectos.herokuapp.com/empleados", {
         method: "GET",
       })
         .then((res) => res.json())

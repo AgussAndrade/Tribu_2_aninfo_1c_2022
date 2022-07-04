@@ -66,7 +66,7 @@ export const EditionModal = (props) => {
         nombre: name,
       };
 
-      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + proyecto.id, {
+      fetch("https://moduloproyectos.herokuapp.com/proyectos/" + proyecto.id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newProject),

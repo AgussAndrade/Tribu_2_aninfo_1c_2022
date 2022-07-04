@@ -38,14 +38,12 @@ export const EditionTaskModal = (props) => {
       fechaCreacion: dateStart,
     };
 
-    console.log("https:moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/"+ tarea.id)
-
     if (
       name &&
       description &&
       dateStart
     ) {     
-      fetch("https:moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/"+ tarea.id, {
+      fetch("https://moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/"+ tarea.id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTask),
