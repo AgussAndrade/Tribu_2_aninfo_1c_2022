@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PrincipalContainer } from "../Home/styled";
 import { TopBar } from "../../components/TopBar";
 import { FormContainer, FmtButton } from "./styled";
 import { FormGroupContainer } from "../../components/FormGroup";
+import { FormSelectContainer } from "../../components/FormSelect";
 import { useNavigate } from "react-router-dom"
 
 export const Resources = () => {
@@ -10,6 +11,8 @@ export const Resources = () => {
   const [date, setDate] = useState("");
   const axios = require ("axios");
   const navigate = useNavigate();
+
+  const [employees, setEmployees] = useState([])
 
   const validateAttributes = () => {
     if(date === "" || id === "") return true;
@@ -51,11 +54,30 @@ export const Resources = () => {
     );
   };
 
+  const mapEmployees = (data) => {
+    return data.map((employee) => {
+      return {
+        id: employee.legajo,
+        name: `${employee.Nombre} ${employee.Apellido}`
+      }
+    })
+  }
+
+  const getEmployees = async () => {
+    const {data} = await axios.get(`https://squad5-recursos.herokuapp.com/api/empleados`)
+    setEmployees(mapEmployees(data))
+  }
+
+  useEffect(() => {
+      getEmployees()
+  }, [])
+
   return (
     <PrincipalContainer>
       <TopBar buttonSelected={"Recursos"}/>
       <FormContainer >
-        <FormGroupContainer
+        <FormSelectContainer
+          options={employees}
           controlId="id"
           label="Ingrese el legajo"
           type="number"
