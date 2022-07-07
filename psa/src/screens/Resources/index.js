@@ -15,15 +15,17 @@ export const Resources = () => {
     if(date === "" || id === "") return true;
     const today = new Date();
     const relativeDate = new Date(date)
-    console.log(today);
-    console.log(relativeDate);
-    console.log(relativeDate > today);
     return relativeDate > today;
   };
 
   const handleSubmit = ()=>{
     if(validateAttributes()){
-      navigate('/resources/error');
+      navigate('/resources/error',
+      {
+        state: {
+          url: '/resources'
+        }
+      });
       return;
     }
     axios.get(`https://squad5-recursos.herokuapp.com/api/empleados/${id}`).then(
@@ -37,8 +39,13 @@ export const Resources = () => {
               name: name,
               date: date}
           })
-        }else{
-          navigate('/resources/error');
+        } else {
+          navigate('/resources/error',
+          {
+            state: {
+              url: '/resources'
+            }
+          });
         };
       }
     );
