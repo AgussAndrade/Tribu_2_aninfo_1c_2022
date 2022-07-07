@@ -79,7 +79,7 @@ export const Resources = () => {
         <FormSelectContainer
           options={employees}
           controlId="id"
-          label="Ingrese el legajo"
+          label="Seleccione a un empleado"
           type="number"
           name="id"
           placeholder="12345"
@@ -87,7 +87,7 @@ export const Resources = () => {
         />
         <FormGroupContainer
           controlId="date"
-          label="Ingrese una Fecha"
+          label="Ingrese una fecha"
           type="date"
           name="date"
           placeholder=""
