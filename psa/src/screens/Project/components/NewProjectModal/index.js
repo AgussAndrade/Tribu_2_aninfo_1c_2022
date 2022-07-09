@@ -16,9 +16,12 @@ import {
   DescriptionContainer,
   DescriptionInput,
   ErrorMessageContainer,
+  SelectContainer,
+  SelectText,
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { render } from "@testing-library/react";
+import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -142,10 +145,17 @@ export const NewProjectModal = (props) => {
             <Text>Fecha estimada de fin:</Text>
             <Date onChange={(e) => setDateFinish(e.target.value)}></Date>
           </StyledTextInputContainer>
-          <StyledTextInputContainer>
-            <Text>Legajo lider:</Text>
-            <Input type="text" onChange={(e) => setLeaderID(e.target.value)} />
-          </StyledTextInputContainer>
+            <SelectContainer>
+            <SelectText>Lider:</SelectText>
+              <Select
+                options={listEmployees.map((empleado) => ({
+                  label: empleado.Nombre + " " + empleado.Apellido,
+                  value: empleado.legajo,
+                }))}
+                onChange={(e) => setLeaderID(e.value)}
+
+              />
+            </SelectContainer>
           <StyledTextInputContainer>
             <Text>Descripcion:</Text>
           </StyledTextInputContainer>
