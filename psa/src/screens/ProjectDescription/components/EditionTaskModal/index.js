@@ -102,7 +102,7 @@ export const EditionTaskModal = (props) => {
             ></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
-            <Text>Descripcion:</Text>
+            <Text>Descripción:</Text>
           </StyledTextInputContainer>
           <DescriptionContainer>
             <DescriptionInput

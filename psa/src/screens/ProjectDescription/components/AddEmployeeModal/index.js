@@ -22,16 +22,15 @@ import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 
 export const AddEmployeeModal = (props) => {
-  const { open, onClose, listEmployees, tarea } = props;
+  const { open, onClose, listEmployees, tarea, id } = props;
   const [errorEmployeeMessage, setErrorEmployeeMessage] = useState("");
 
 const [employee, setEmployee] = useState("");
 const navigate = useNavigate();
   
 const handleConfirm = () => {
-    console.log("El vlaor es ", employee.value);
     if(!(tarea.empleados.includes(employee.value)) && (employee.value != undefined)){
-     fetch("https://moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
+     fetch("https://moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/" + tarea.id + "/empleados/" + employee.value, {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
        }).then(() => window.location.reload())
@@ -50,7 +49,7 @@ const handleConfirm = () => {
 
 const handleDelete = () => {
     if((tarea.empleados.includes(employee.value))){
-    fetch("https://moduloproyectos.herokuapp.com/tareas/" + tarea.id + "/empleados/" + employee.value, {
+    fetch("https://moduloproyectos.herokuapp.com/proyectos/" + id + "/oltareas/" + tarea.id + "/empleados/" + employee.value, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       }).then(() => window.location.reload())
@@ -79,7 +78,7 @@ if (!open) return null;
       <ModalContainer>
         <TitleContainer>
             <Title>
-                Editar empleado
+                Editar empleados
             </Title>
             <CloseContainer>
               <Close onClick={handleCancelar}>

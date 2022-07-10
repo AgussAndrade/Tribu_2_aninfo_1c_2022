@@ -34,8 +34,8 @@ export const ProjectDescription = (props) => {
   const [searchTerm, setSerchTerm] = useState("");
   const [deleteProject, setDeleteProject] = useState(false);
   const [showModalAddTask, setshowModalAddTask] = useState(false);
-  const [update, setUpdate] = useState(false)
- 
+  const [update, setUpdate] = useState(false);
+
   const [project, setProject] = useState({});
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
@@ -46,13 +46,12 @@ export const ProjectDescription = (props) => {
     if (deleteProject) {
       fetch(url, {
         method: "DELETE",
-      }).catch(() => navigate("/error"))
-      .then(() => window.location.reload());
+      })
+        .catch(() => navigate("/error"))
+        .then(() => window.location.reload());
       navigate("/projects");
     }
   }, [deleteProject]);
-
-  
 
   useEffect(() => {
     fetch(url, {
@@ -64,7 +63,7 @@ export const ProjectDescription = (props) => {
       })
       .catch(() => navigate("/error"));
   }, [update]);
-
+  
   const TaskCards = () => {
     if (project.tareas) {
       return project.tareas
@@ -76,10 +75,7 @@ export const ProjectDescription = (props) => {
             return val;
         })
         .map((tarea) => (
-          <TaskCard
-            tarea = {tarea}
-            id = {id}
-          />
+          <TaskCard tarea={tarea} id={id} employees={employees} />
         ));
     }
   };
@@ -97,20 +93,16 @@ export const ProjectDescription = (props) => {
     })
     .catch(() => navigate("/error"));
 
-    useEffect(() => {
-      if (showModal) {
-        fetch("https://moduloproyectos.herokuapp.com/empleados", {
-          method: "GET",
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            setEmployees(result);
-          })
-          .catch(() => navigate("/error"));
-      }
-    }, [showModal]);
-
-
+  useEffect(() => {
+    fetch("https://moduloproyectos.herokuapp.com/empleados", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setEmployees(result);
+      })
+      .catch(() => navigate("/error"));
+  }, []);
 
   return (
     <PrincipalContainer>
@@ -118,7 +110,7 @@ export const ProjectDescription = (props) => {
         open={showModalAddTask}
         onClose={() => setshowModalAddTask(false)}
         projectId={id}
-        setUpdate= {() => setUpdate(!update)}
+        setUpdate={() => setUpdate(!update)}
       />
       <EditionModal
         open={showModal}
@@ -127,13 +119,13 @@ export const ProjectDescription = (props) => {
         proyecto={project}
         listEmployees={employees}
         projectId={id}
-        setUpdate= {() => setUpdate(!update)}
-      />      
+        setUpdate={() => setUpdate(!update)}
+      />
       <TopBar buttonSelected={"Proyectos"} />
       <BodyContainer>
         <ProjectCard
           nombreProyecto={"Proyecto: " + project.nombre}
-          estadoProyecto={"Estado: "+ project.estado}
+          estadoProyecto={"Estado: " + project.estado}
           descripcionProyecto={"Descripcion: " + project.descripcion}
           fechaInicio={"Fecha de inicio: " + project.fechaInicio}
           fechaEstimadaFin={"Fecha de fin estimada: " + project.fechaFin}
@@ -142,14 +134,14 @@ export const ProjectDescription = (props) => {
         />
         <TaskContainer>
           <BarContainer>
-          <InputContainer>
-            <Input
-              type="text"
-              placeholder="Buscar..."
-              onChange={(event) => {
-                setSerchTerm(event.target.value);
-              }}
-            />
+            <InputContainer>
+              <Input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                  setSerchTerm(event.target.value);
+                }}
+              />
             </InputContainer>
             <ButtonContainer>
               <AddTaskButton
@@ -165,9 +157,9 @@ export const ProjectDescription = (props) => {
         </TaskContainer>
         <OptionsContainer>
           <OptionBackContainer>
-          <BackButtonContainer>
-            <BackButton />
-          </BackButtonContainer>
+            <BackButtonContainer>
+              <BackButton />
+            </BackButtonContainer>
           </OptionBackContainer>
           <DeleteButtonContainer>
             <DeleteButton
