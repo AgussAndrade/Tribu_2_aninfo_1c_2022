@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   CardContainer,
   CardTextContainer,
@@ -18,18 +18,17 @@ import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 
 export const SupportCard = (props) => {
-  const { nombreTicket, tareasTicket, estadoTicket, severidadTicket, responsableTicket, vencimientoTicket, openModal, setCurrentForm, ticketId, setCurrentTitleModal, setModalSize, versionId, idTicket, cuitCienteTicket, descriptionTicket } = props;
+  const { ticketData, modalProps } = props;
   const navigate = useNavigate();
-
   const closeTicket = () => {
 
-    //const date_formatted = getCurrentDate(new Date(vencimientoTicket), "-");
+    const date_formatted = getCurrentDate(new Date(ticketData.vencimiento), "-");
     const config = {
       config: {
         headers: { "Content-Type": "application/json" },
         method: "PUT"
       },
-      url: SOPORTE_URL + "soporte/ticket/" + idTicket + "?estado=cerrado"
+      url: SOPORTE_URL + "soporte/ticket/" + ticketData.id + "?estado=cerrado"
     }
     fetch(config.url, config.config)
       .then((res) => res.json())
@@ -44,74 +43,59 @@ export const SupportCard = (props) => {
     <CardContainer>
       <CardTextContainer>
         <TitleText>
-          {nombreTicket}
+          {ticketData.nombreTicket}
         </TitleText>
         <DescriptionText>
-          Estado: {estadoTicket} |
+          Estado: {ticketData.estado} |
 
-          Severidad {severidadTicket} |
+          Severidad {ticketData.severidad} |
 
-          Responsable: {responsableTicket}
+          Responsable: {ticketData.responsable}
         </DescriptionText>
         <DescriptionText>
-          Vencimiento: {vencimientoTicket}
+          Vencimiento: {ticketData.vencimiento}
         </DescriptionText>
       </CardTextContainer>
       <ButtonContainer>
         <GenericButton
           name={"Editar Ticket"}
           onClick={() => {
-            setCurrentForm(<EditFormTicket readOnly={false}
-              nombreTicket={nombreTicket}
-              tareasTicket={tareasTicket}
-              estadoTicket={estadoTicket}
-              severidadTicket={severidadTicket}
-              responsableTicket={responsableTicket}
-              vencimientoTicket={vencimientoTicket}
-              idTicket={idTicket}
-              cuitCienteTicket={cuitCienteTicket}
-              versionId={versionId}
-              descriptionId={descriptionTicket}
+            modalProps.setCurrentForm(<EditFormTicket
+                readOnly={false}
+                ticketData = {ticketData}
             />);
 
-            setCurrentTitleModal("Editar ticket")
-            openModal(true);
-            setModalSize("lg")
+            modalProps.setCurrentTitleModal("Editar ticket")
+            modalProps.setModalShow(true);
+            modalProps.setModalSize("lg")
           }}
           color={colors.lightBlue}
         ></GenericButton>
         <GenericButton
           name={"Derivar Ticket"}
           onClick={() => {
-            setCurrentForm(<DerivateTicketForm />)
-            setCurrentTitleModal("Derivar ticket");
-            setModalSize("md")
-            openModal(true)
+              modalProps.setCurrentForm(<DerivateTicketForm />)
+              modalProps.setCurrentTitleModal("Derivar ticket");
+              modalProps.setModalSize("md")
+              modalProps.setModalShow(true)
           }}
           color={colors.lightBlue}
         ></GenericButton>
         <GenericButton
           name={"Info Ampliada"}
           onClick={() => {
-            setCurrentForm(<EditFormTicket
+            modalProps.setCurrentForm(<EditFormTicket
                 readOnly={true}
-                nombreTicket={nombreTicket}
-                tareasTicket={tareasTicket}
-                estadoTicket={estadoTicket}
-                severidadTicket={severidadTicket}
-                responsableTicket={responsableTicket}
-                vencimientoTicket={vencimientoTicket}
-                idTicket={idTicket}
-                cuitCienteTicket={cuitCienteTicket}
-                versionId={versionId}
-                descriptionId={descriptionTicket}
-            />)
-            setCurrentTitleModal("Info ampliada")
-            openModal(true)
+                ticketData = {ticketData}
+            />);
+            modalProps.setCurrentTitleModal("Info ampliada");
+            modalProps.setModalShow(true);
+            modalProps.setModalSize("lg");
+
           }}
           color={colors.lightBlue}
         ></GenericButton>
-          {estadoTicket === "cerrado" && <GenericButton
+          {ticketData.estado !== "cerrado" && <GenericButton
               name={"Cerrar Ticket"}
               onClick={() => {
                   closeTicket()

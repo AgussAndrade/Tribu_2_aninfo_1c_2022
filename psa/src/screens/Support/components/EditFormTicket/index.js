@@ -8,21 +8,18 @@ import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 
 export const EditFormTicket = (props) => {
-    const { readOnly, nombreTicket, tareasTicket, estadoTicket, severidadTicket, responsableTicket, vencimientoTicket, cuitClienteTicket, idTicket, descriptionId} = props
-    const [description, setDescription] = useState("");
-    const [end_time, setEndTime] = useState(vencimientoTicket);
-    const [responsible, setResponsible] = useState(responsableTicket);
-    const [state, setState] = useState(estadoTicket);
-    const [severity, setSeverity] = useState(severidadTicket);
-    const [client, setClient] = useState(cuitClienteTicket);
-    const [title, setTitle] = useState(nombreTicket);
+    const { ticketData, readOnly} = props
+    const [description, setDescription] = useState(ticketData.description);
+    const [end_time, setEndTime] = useState(ticketData.vencimiento);
+    const [responsible, setResponsible] = useState(ticketData.responsable);
+    const [state, setState] = useState(ticketData.estado);
+    const [severity, setSeverity] = useState(ticketData.severidad);
+    const [client, setClient] = useState(ticketData.cuitCliente);
+    const [title, setTitle] = useState(ticketData.nombre);
     const [validated, setValidated] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [startTime, setStartTime] = useState(vencimientoTicket);
+    const [startTime, setStartTime] = useState(ticketData.vencimiento);
     const navigate = useNavigate();
-
-
-    console.log(cuitClienteTicket)
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -71,7 +68,7 @@ export const EditFormTicket = (props) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Código</Form.Label>
-                                <Form.Control type="text" value={idTicket} name="code" disabled={true} readOnly={readOnly}
+                                <Form.Control type="text" defaultValue={ticketData.id} name="code" disabled={true} readOnly={readOnly}
                                     onChange={(event) => {
                                         setTitle(event.currentTarget.value)
                                     }} />
@@ -83,10 +80,9 @@ export const EditFormTicket = (props) => {
                                     readOnly={readOnly}
                                     as={"textarea"}
                                     style={{ height: '400px', resize: "none" }}
-                                    placeholder={descriptionId}
+                                    defaultValue={description}
                                     onChange={(event) => {
                                         setDescription(event.currentTarget.value)
-                                        console.log("Titulo cambiado: " + description);
                                     }}
                                 />
                             </Form.Group>
@@ -98,16 +94,16 @@ export const EditFormTicket = (props) => {
                                     as={"input"}
                                     list="employers"
                                     readOnly={readOnly}
-                                    value={responsableTicket}
-                                    autocomplete="off"
+                                    defaultValue={ticketData.responsable}
+                                    autoComplete={"off"}
                                     onChange={(event) => {
                                         setResponsible(event.currentTarget.responsible)
                                         console.log("Responsable cambiado: " + responsible);
                                     }} />
                                 <datalist id={"employers"}>
-                                    <option value="Julian" data-id-employer="3"></option>
-                                    <option value="Juan" data-id-employer="2"></option>
-                                    <option value="Lucia" data-id-employer="1"></option>
+                                    <option defaultValue="Julian" data-id-employer="3"></option>
+                                    <option defaultValue="Juan" data-id-employer="2"></option>
+                                    <option defaultValue="Lucia" data-id-employer="1"></option>
                                 </datalist>
                             </Form.Group>
 
@@ -115,7 +111,7 @@ export const EditFormTicket = (props) => {
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Control
                                     readOnly={readOnly}
-                                    value={estadoTicket}
+                                    defaultValue={ticketData.estado}
                                     onChange={(event) => {
                                         setState(event.currentTarget.value)
                                         console.log("Severidad seleccionada: " + state);
@@ -126,14 +122,14 @@ export const EditFormTicket = (props) => {
                             <Form.Group className="mb-3" controlId="severity" >
                                 <Form.Label>Severidad</Form.Label>
                                 <Form.Select readOnly={readOnly}
-                                    value={severidadTicket}
+                                    defaultValue={ticketData.severidad}
                                     onChange={(event) => {
                                         setSeverity(event.currentTarget.value)
                                         console.log("Severidad seleccionada: " + severity);
                                     }}>
-                                    <option value="2" selected={severidadTicket == 2}>Mayor</option>
-                                    <option value="1" selected={severidadTicket == 1}>Medio</option>
-                                    <option value="0" selected={severidadTicket == 0} >Baja</option>
+                                    <option defaultValue="2" selected={ticketData.severidad == 2}>Mayor</option>
+                                    <option defaultValue="1" selected={ticketData.severidad == 1}>Medio</option>
+                                    <option defaultValue="0" selected={ticketData.severidad == 0} >Baja</option>
                                 </Form.Select>
                             </Form.Group>
 
@@ -143,7 +139,7 @@ export const EditFormTicket = (props) => {
                                     type="date"
                                     name='end_time'
                                     readOnly={readOnly}
-                                    defaultValue={getCurrentDate(new Date(vencimientoTicket), "/")}
+                                    defaultValue={getCurrentDate(new Date(ticketData.vencimiento), "/")}
                                     onChange={(event) => {
                                         setEndTime(event.currentTarget.value)
                                         console.log("Fecha de vencimiento cambiada: " + end_time);
@@ -157,18 +153,18 @@ export const EditFormTicket = (props) => {
                                     as={"input"}
                                     list="clientes"
                                     name="id_client"
-                                    value={cuitClienteTicket}
+                                    defaultValue={ticketData.cuitCliente}
                                     readOnly={readOnly}
                                     onChange={(event) => {
                                         setClient(event.currentTarget.value)
                                         console.log("Fecha de vencimiento cambiada: " + client);
                                     }}
-                                    autocomplete="off"
+                                    autoComplete={"off"}
                                 />
                                 <datalist id={"clientes"}>
-                                    <option value="Julian" data-id-client="3"></option>
-                                    <option value="Juan" data-id-client="2"></option>
-                                    <option value="Lucia" data-id-client="1"></option>
+                                    <option defaultValue="Julian" data-id-client="3"></option>
+                                    <option defaultValue="Juan" data-id-client="2"></option>
+                                    <option defaultValue="Lucia" data-id-client="1"></option>
                                 </datalist>
                             </Form.Group>
 
@@ -198,11 +194,13 @@ export const EditFormTicket = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="primary" type="submit">
-                            Guardar
-                        </Button>
-                    </div>
+                    {
+                        !readOnly && <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button variant="primary" type="submit">
+                                Guardar
+                            </Button>
+                        </div>
+                    }
                 </Container>
                 <Alert show={showSuccessMessage} variant="success">
                     <p>

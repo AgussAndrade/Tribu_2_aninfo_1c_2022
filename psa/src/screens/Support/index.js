@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   PrincipalContainer,
   OptionsContainer,
-  ButtonNewProyect,
   BodyContainer,
   Input,
   InputContainer,
@@ -14,26 +13,47 @@ import { SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
 import {SOPORTE_URL} from "../../utils/apiUrls";
-import {UseFetch} from "../../components/UseFetch";
+import {getClients} from "../../utils/getClients";
 
 export const Support = () => {
-  const [searchTerm, setSerchTerm] = useState("");
-  const [modalShow, setModalShow] = useState(false);
-  const [productos, setProductos] = useState([]);
-  const [versionId, setVersionId] = useState(1)
-  const config = {url: SOPORTE_URL + "soporte/productos", config: {
-      headers: {"Content-Type": "application/json"},
-      method: "GET"
-    }}
+    const [searchTerm, setSerchTerm] = useState("");
+    const [modalShow, setModalShow] = useState(false);
+    const [productos, setProductos] = useState([]);
+    const [versionId, setVersionId] = useState(1);
 
-  useEffect(() => {
-    fetch(config.url, config.config)
-        .then((res) => res.json())
-        .then((result) => {
-          setProductos(result);
-        })
-        .catch(() => navigate("/error"))
-  }, [])
+    function getUrl(url) {
+        return SOPORTE_URL + url;
+    }
+
+    const config = {
+        url: getUrl("soporte/productos"), config: {
+            headers: {"Content-Type": "application/json"},
+            method: "GET"
+        }
+    };
+
+
+    useEffect(() => {
+        const clientes = JSON.parse(localStorage.getItem('clientes'));
+        console.log(clientes)
+        if (clientes === null) {
+            fetch(getUrl("servicio_externo/clientes"), config.config)
+                .then((res) => res.json())
+                .then((result) => {
+                    localStorage.setItem("clientes", JSON.stringify(getClients(result)));
+                })
+        }
+    }, []);
+
+
+    useEffect(() => {
+        fetch(config.url, config.config)
+            .then((res) => res.json())
+            .then((result) => {
+                setProductos(result);
+            })
+            .catch(() => navigate("/error"))
+    }, [])
 
   const Cards = () => {
     return productos
@@ -48,11 +68,9 @@ export const Support = () => {
         return producto.versiones.map((dataVersion) => {
           return (
             <SupportCard
-              nombreProducto={producto.nombre ?? "TITULO TEMPORAL"}  
-              descripcionProducto={producto.fase ?? "DESCRIPCION TEMPORAL"} 
-              idProducto={producto.id ?? "ID TEMPORAL"}
-              ticketsAbiertos={producto.ticketsAbiertos}
-              ticketsCerrados={producto.ticketsCerrados}
+              nombreProducto={producto.nombre }
+              descripcionProducto={producto.fase}
+              idProducto={producto.id}
               versionProducto = {dataVersion.numero_version}
               versionId = {dataVersion.id}
               key={producto.id}

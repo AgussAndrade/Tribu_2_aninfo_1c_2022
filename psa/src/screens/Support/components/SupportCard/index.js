@@ -14,7 +14,7 @@ import { GenericButton } from "../GenericButton/index";
 
 export const SupportCard = (props) => {
     const navigate = useNavigate();
-    const {nombreProducto, descripcionProducto, versionId, idProducto, ticketsAbiertos,ticketsCerrados, versionProducto, onClick} = props;
+    const {nombreProducto, descripcionProducto, versionId, idProducto, versionProducto, onClick} = props;
     
     return(
         <CardContainer>
