@@ -1,5 +1,5 @@
 import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
-import { useState } from "react";
+import {useState} from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
@@ -45,12 +45,12 @@ export const TicketCreateForm = (props) => {
                 },
                 url: SOPORTE_URL + "soporte/ticket"
             }
-                fetch(config.url, config.config)
-                    .then((res) => res.json())
-                    .then((result) => {
-                        setShowSuccessMessage(true)
-                    })
-                    .catch(() => navigate("/error"))
+            fetch(config.url, config.config)
+                .then((res) => res.json())
+                .then((result) => {
+                    setShowSuccessMessage(true)
+                })
+                .catch(() => navigate("/error"))
         }
         setValidated(true)
     };
@@ -78,40 +78,41 @@ export const TicketCreateForm = (props) => {
 
                             <Form.Group className="mb-3" controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none" }} placeholder="Descripción del ticket"
-                                    type="text"
-                                    value={description}
-                                    onChange={(event) => {
-                                        setDescription(event.currentTarget.value)
-                                    }}
+                                <Form.Control as={"textarea"} style={{height: '200px', resize: "none"}}
+                                              placeholder="Descripción del ticket"
+                                              type="text"
+                                              value={description}
+                                              onChange={(event) => {
+                                                  setDescription(event.currentTarget.value)
+                                              }}
                                 />
 
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="severity" >
+                            <Form.Group className="mb-3" controlId="severity">
                                 <Form.Label>Severidad</Form.Label>
                                 <Form.Select
                                     onChange={(event) => {
                                         setSeverity(event.currentTarget.value)
                                     }}
                                 >
-                                    <option value="2" >Mayor</option>
-                                    <option value="1" >Medio</option>
-                                    <option value="0" >Baja</option>
+                                    <option value="2">Mayor</option>
+                                    <option value="1">Medio</option>
+                                    <option value="0">Baja</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group className="mb-3" controlId="responsible" >
+                            <Form.Group className="mb-3" controlId="responsible">
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control 
-                                as={"input"} 
-                                list="employers"
-                                value={responsible}
-                                autocomplete="off"
-                                onChange={(event) => {
-                                    setResponsible(event.currentTarget.value)
-                                }} />
+                                <Form.Control
+                                    as={"input"}
+                                    list="employers"
+                                    value={responsible}
+                                    autocomplete="off"
+                                    onChange={(event) => {
+                                        setResponsible(event.currentTarget.value)
+                                    }}/>
                                 <datalist id={"employers"}>
                                     <option value="Julian" data-id-employer="3"></option>
                                     <option value="Juan" data-id-employer="2"></option>
@@ -119,27 +120,27 @@ export const TicketCreateForm = (props) => {
                                 </datalist>
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="end_time" >
+                            <Form.Group className="mb-3" controlId="end_time">
                                 <Form.Label>Fecha de vencimiento</Form.Label>
                                 <Form.Control type="date" name='end_time' min="1997-01-01"
-                                    required
-                                    value={date}
-                                    onChange={(event) => {
-                                        setDate(event.currentTarget.value)
-                                    }}
+                                              required
+                                              value={date}
+                                              onChange={(event) => {
+                                                  setDate(event.currentTarget.value)
+                                              }}
                                 />
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="client_id" >
+                            <Form.Group className="mb-3" controlId="client_id">
                                 <Form.Label>Cliente</Form.Label>
-                                <Form.Control 
-                                as={"input"} 
-                                list="clientes" 
-                                name="id_client"
-                                autocomplete="off"
-                                onChange={(event) => {
-                                    setCuit(parseInt(event.target.dataset.cuit))
-                                }}
+                                <Form.Control
+                                    as={"input"}
+                                    list="clientes"
+                                    name="id_client"
+                                    autocomplete="off"
+                                    onChange={(event) => {
+                                        setCuit(parseInt(event.target.dataset.cuit))
+                                    }}
                                 />
                                 <datalist id={"clientes"}>
                                     <option value="Julian" data-cuit="3"></option>
@@ -149,7 +150,7 @@ export const TicketCreateForm = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Button variant="primary" type="submit">
                             Guardar
                         </Button>
@@ -159,7 +160,7 @@ export const TicketCreateForm = (props) => {
                     <p>
                         El ticket se creo correctamente
                     </p>
-                    <hr />
+                    <hr/>
                     <div className="d-flex justify-content-end">
                         <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
                             Cerrar

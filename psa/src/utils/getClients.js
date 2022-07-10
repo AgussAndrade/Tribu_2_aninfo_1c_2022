@@ -1,19 +1,19 @@
 /**
- * Formatea el array de clientes y lo devuelve
- * @param clientes array de clientes
+ * Formatea el array para que las keys de los objetos hijos esten en lowerCase
+ * @param array
  * @returns {*[]}
  */
-export function getClients(clientes) {
+export function getFormattedObject(array) {
     const object = []
     let partialObject ={}
-    clientes.map((cliente) => {
-        partialObject = Object.keys(cliente).reduce((accumulator, key) => {
+    array.map((_objbect) => {
+        partialObject = Object.keys(_objbect).reduce((accumulator, key) => {
             let partial_key = key.replace(/ /g, "_");
-            accumulator[partial_key.toLowerCase()] = cliente[key];
+            accumulator[partial_key.toLowerCase()] = _objbect[key];
             return accumulator;
         }, {});
         object.push(partialObject)
     });
-    console.log(object)
+
     return object;
 }

@@ -3,14 +3,11 @@ import {useNavigate} from "react-router-dom";
 import {
     PrincipalContainer,
     OptionsContainer,
-    ButtonNewProyect,
     BodyContainer,
     Input,
     InputContainer,
 } from "./styled";
 import {TopBar} from "../../components/TopBar";
-import {GenericButton} from "../../components/GenericButton";
-import {colors} from "../../utils/colors";
 import {useState} from "react";
 import {SupportCard} from "./components/SupportCard";
 import {GenericModal} from "../Support/components/GenericModal";
@@ -27,7 +24,6 @@ export const SupportTicketViews = () => {
     const {id} = useParams();
     const [tickets, setTickets] = useState([]);
 
-    //get para buscar los tickets asociados a un producto
     const config = {
         url: SOPORTE_URL + "soporte/tickets?versionId=" + id, config: {
             headers: {"Content-Type": "application/json"},
@@ -46,22 +42,25 @@ export const SupportTicketViews = () => {
 
     const clientes = JSON.parse(localStorage.getItem("clientes"));
 
-
     const Cards = () => {
         return tickets
             .filter((val) => {
                 if (searchTerm === "") return val;
                 else if (
-                    val.nombre.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+                    val.titulo.toLocaleLowerCase().includes(searchTerm.toLowerCase())
                 )
                     return val;
             })
             .map((ticket) => {
                     const clienteTicket = clientes.filter((cliente) => {
-                        return cliente.CUIT === ticket.legajoResponsable;
+                            return cliente.cuit === ticket.legajoResponsable;
                         }
                     );
-                    console.log(clienteTicket)
+
+                    if (clienteTicket.length !== 0) {
+                        ticket.cuit = clienteTicket.cuit;
+                        ticket.nombreResponsable = clienteTicket.razon_social;
+                    }
 
                     return (
                         <SupportCard
