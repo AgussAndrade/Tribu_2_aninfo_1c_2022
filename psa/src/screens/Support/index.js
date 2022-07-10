@@ -48,7 +48,7 @@ export const Support = () => {
             fetch(PROYECTO_URL + "/empleados", config)
                 .then((res) => res.json())
                 .then((result) => {
-                    localStorage.setItem("empleados", JSON.stringify(result));
+                    localStorage.setItem("empleados", JSON.stringify(getFormattedObject(result)));
                 })
         }
     }, []);
@@ -58,7 +58,7 @@ export const Support = () => {
         fetch(getUrl("soporte/productos"), config)
             .then((res) => res.json())
             .then((result) => {
-                setProductos(result);
+                setProductos(getFormattedObject(result));
             })
             .catch(() => navigate("/error"))
     }, [])
@@ -81,7 +81,7 @@ export const Support = () => {
                             idProducto={producto.id}
                             versionProducto={dataVersion.numero_version}
                             versionId={dataVersion.id}
-                            key={producto.id}
+                            key={dataVersion.numero_version}
                             onClick={() => {
                                 setVersionId(dataVersion.id)
                                 setModalShow(true);
