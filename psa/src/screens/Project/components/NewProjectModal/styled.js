@@ -89,6 +89,21 @@ export const Text = styled.p`
   color: ${colors.black};
   margin: 0px;
 `
+export const SelectText = styled.p`
+  font-size: 17px;
+  color: ${colors.black};
+  margin: 0px;
+  margin-right:5px
+`
+
+export const SelectContainer = styled.div`
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+ 
+`
 
 export const FormContainer = styled.form`
   width: 100%;

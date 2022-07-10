@@ -25,7 +25,6 @@ export const ResourcesHoursTable = (props) => {
     const getRows = async () => {
         const {data} = await axios.get(`https://squad5-recursos.herokuapp.com/api/horas/${legajo}`)
         setRows(mapRows(data))
-        console.log(data)
     }
 
     const [rows, setRows] = useState([])

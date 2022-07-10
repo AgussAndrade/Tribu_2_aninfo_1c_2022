@@ -29,12 +29,25 @@ export const ResourcesHoursForm = (props) => {
         }
         ).then(
           (repos) => {
-            console.log(repos.status)
             if (repos.status == 200) {
                 setReload(reload + 1)
+            } else {
+                console.warn("Unkown response code")
             }
           }
-        );
+        ).catch((error) => {
+            navigate(
+                '/resources/error',
+                {
+                    state: {
+                      id: legajo,
+                      name: name,
+                      date: date,
+                      url: '/resources/employee'
+                    }
+                  }
+            )
+        });
       };
 
     return (
