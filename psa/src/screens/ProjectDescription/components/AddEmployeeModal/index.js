@@ -49,7 +49,7 @@ const handleConfirm = () => {
 
 const handleDelete = () => {
     if((tarea.empleados.includes(employee.value))){
-    fetch("https://moduloproyectos.herokuapp.com/proyectos/" + id + "/oltareas/" + tarea.id + "/empleados/" + employee.value, {
+    fetch("https://moduloproyectos.herokuapp.com/proyectos/" + id + "/tareas/" + tarea.id + "/empleados/" + employee.value, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       }).then(() => window.location.reload())

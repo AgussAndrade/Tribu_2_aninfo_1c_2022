@@ -71,8 +71,8 @@ export const EditionModal = (props) => {
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-      if (name && description && dateStart && dateFinish && state && leaderID) {
-        setErrorMessage("Ingrese un ID valido");
+      if (name && description && dateStart && dateFinish && state && (leaderID!=-1)) {
+        setErrorMessage("Ingrese un líder válido");
       } else {
         setErrorMessage("Rellene todos los campos");
       }
@@ -86,7 +86,7 @@ export const EditionModal = (props) => {
     setDateStart("");
     setDescription("");
     setName("");
-    setLeaderID("");
+    setLeaderID(-1);
     onClose();
   };
 

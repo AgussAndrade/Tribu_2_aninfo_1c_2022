@@ -80,7 +80,7 @@ export const NewProjectModal = (props) => {
       handleClose();
     } else {
       if (name && description && dateStart && dateFinish && state && leaderID) {
-        setErrorMessage("Ingrese un ID valido");
+        setErrorMessage("Ingrese un líder valido");
       } else {
         setErrorMessage("Rellene todos los campos");
       }
