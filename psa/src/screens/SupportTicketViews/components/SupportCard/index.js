@@ -111,13 +111,13 @@ export const SupportCard = (props) => {
           }}
           color={colors.lightBlue}
         ></GenericButton>
-        <GenericButton
-          name={"Cerrar Ticket"}
-          onClick={() => {
-            closeTicket()
-          }}
-          color={colors.red}
-        ></GenericButton>
+          {estadoTicket === "cerrado" && <GenericButton
+              name={"Cerrar Ticket"}
+              onClick={() => {
+                  closeTicket()
+              }}
+              color={colors.red}
+          ></GenericButton>}
       </ButtonContainer>
 
 
