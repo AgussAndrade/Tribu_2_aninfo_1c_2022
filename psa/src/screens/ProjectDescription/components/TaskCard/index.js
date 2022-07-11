@@ -94,7 +94,7 @@ export const TaskCard = (props) => {
         </ProjectInfoText>
         <ProjectInfoText>{"Estado: " + tarea.estado}</ProjectInfoText>
         <ProjectInfoText>
-          {"Legajo de los empleados asignados: " + empleados()}
+          {"Empleados asignados: " + empleados()}
         </ProjectInfoText>
         <ProjectInfoText>
           {"Ticket asociado: " + ticketAsociado()}
