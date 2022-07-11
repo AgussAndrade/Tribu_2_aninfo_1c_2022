@@ -13,6 +13,7 @@ import {SupportCard} from "./components/SupportCard";
 import {GenericModal} from "../Support/components/GenericModal";
 import {useParams} from 'react-router';
 import {SOPORTE_URL} from "../../utils/apiUrls";
+import {GetOrSetItem} from "../../utils/GetOrSetItem";
 
 
 export const SupportTicketViews = () => {
@@ -40,8 +41,7 @@ export const SupportTicketViews = () => {
             .catch(() => navigate("/error"))
     }, []);
 
-    const clientes = JSON.parse(localStorage.getItem("clientes"));
-
+    const empleados = GetOrSetItem("empleados");
     const Cards = () => {
         return tickets
             .filter((val) => {
@@ -52,14 +52,24 @@ export const SupportTicketViews = () => {
                     return val;
             })
             .map((ticket) => {
-                    const clienteTicket = clientes.filter((cliente) => {
-                            return cliente.cuit === ticket.legajoResponsable;
+                    ticket.legajoResponsable = 1;
+                    ticket.cuit = "20-12345678-2";
+                    const empleadoTicket = empleados.filter((empleado) => {
+                            return empleado.legajo === ticket.legajoResponsable;
                         }
-                    );
+                    )[0];
+
+                    const clienteTicket = clientes.filter((cliente) => {
+                            return cliente.cuit === ticket.cuit;
+                        }
+                    )[0];
+
+                    if (empleadoTicket.length !== 0) {
+                        ticket.nombreResponsable = empleadoTicket.nombre + " " + empleadoTicket.apellido;
+                    }
 
                     if (clienteTicket.length !== 0) {
-                        ticket.cuit = clienteTicket.cuit;
-                        ticket.nombreResponsable = clienteTicket.razon_social;
+                        ticket.nombreCliente = clienteTicket.razon_social;
                     }
 
                     return (
@@ -73,6 +83,7 @@ export const SupportTicketViews = () => {
                                     setModalSize: setModalSize
                                 }
                             }
+                            key = {ticket.id}
                         />
                     )
                 }

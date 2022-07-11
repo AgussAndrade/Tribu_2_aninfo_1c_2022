@@ -19,7 +19,6 @@ export const SupportCard = (props) => {
     const {ticketData, modalProps} = props;
     const navigate = useNavigate();
 
-    console.log(ticketData)
     const closeTicket = () => {
 
         const date_formatted = getCurrentDate(new Date(ticketData.vencimiento), "-");
@@ -60,25 +59,27 @@ export const SupportCard = (props) => {
                 </DescriptionText>
             </CardTextContainer>
             <ButtonContainer>
-                <GenericButton
-                    name={"Editar Ticket"}
-                    onClick={() => {
-                        modalProps.setCurrentForm(<EditFormTicket
-                            readOnly={false}
-                            ticketData={ticketData}
-                        />);
+                {
+                  ticketData.estado !== "cerrado" && <GenericButton
+                        name={"Editar Ticket"}
+                        onClick={() => {
+                            modalProps.setCurrentForm(<EditFormTicket
+                                readOnly={false}
+                                ticketData={ticketData}
+                            />);
 
-                        modalProps.setCurrentTitleModal("Editar ticket: " + ticketData.titulo)
-                        modalProps.setModalShow(true);
-                        modalProps.setModalSize("lg")
-                    }}
-                    color={colors.lightBlue}
-                ></GenericButton>
+                            modalProps.setCurrentTitleModal("Editar ticket: " + ticketData.titulo)
+                            modalProps.setModalShow(true);
+                            modalProps.setModalSize("lg")
+                        }}
+                        color={colors.lightBlue}
+                    ></GenericButton>
+                }
                 <GenericButton
                     name={"Derivar Ticket"}
                     onClick={() => {
                         modalProps.setCurrentForm(<DerivateTicketForm/>)
-                        modalProps.setCurrentTitleModal("Derivar ticket");
+                        modalProps.setCurrentTitleModal("Derivar ticket: " + ticketData.titulo);
                         modalProps.setModalSize("md")
                         modalProps.setModalShow(true)
                     }}

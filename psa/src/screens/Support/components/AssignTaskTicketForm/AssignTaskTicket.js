@@ -1,17 +1,29 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
+import React from 'react';
+import Select from 'react-select'
 
-export const CreateTaskForm = (props) => {
+export const AssignTaskTicket = (props) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [severity, setSeverity] = useState("");
     const [responsible, setResponsible] = useState("");
     const [clientId, setClientId] = useState("");
-    const { closeModal } = props;
+    //const { closeModal } = props;
+
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' },
+    ];
+
+    const handleChange = selectedOption => {
+        console.log(`Option selected:`, selectedOption);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        closeModal(false)
+        //closeModal(false)
     }
 
     const formInputs = () => {
@@ -21,43 +33,11 @@ export const CreateTaskForm = (props) => {
                     <Row>
                         <Col>
                             <Form.Group className="mb-3 crearTareaContainer" controlId="title">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name="title" />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="description">
-                                <Form.Label>Estado</Form.Label>
-                                <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
-                                </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
-                                <Form.Label>Fecha de inicio</Form.Label>
-                                <Form.Control type="date" name='end_time' />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
-                                <Form.Label>Fecha de fin</Form.Label>
-                                <Form.Control type="date" name='end_time' />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="description">
-                                <Form.Label>Prioridad</Form.Label>
-                                <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
-                                </Form.Select>
-                            </Form.Group>
-                            <Form.Group className="mb-3 " controlId="description">
-                                <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción del ticket"/>
+                                <Form.Label>Buscar tarea</Form.Label>
+                                <Select options={options} setValue isMulti  closeMenuOnSelect={false} onChange={handleChange}
+                                />
                             </Form.Group>
                         </Col>
-
                     </Row>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <Button variant="primary" type="submit">

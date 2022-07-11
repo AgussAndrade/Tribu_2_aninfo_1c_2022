@@ -2,6 +2,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { CreateTaskForm } from "../CreateTaskForm";
 import { GenericModal } from "../GenericModal";
+import {AssignTaskTicket} from "../AssignTaskTicketForm/AssignTaskTicket";
 
 export const DerivateTicketForm = () => {
     const [title, setTitle] = useState("");
@@ -10,6 +11,7 @@ export const DerivateTicketForm = () => {
     const [responsible, setResponsible] = useState("");
     const [clientId, setClientId] = useState("");
     const [modalShow, setModalShow] = useState(false)
+    const [form, setForm] = useState("")
     const [area, setArea] = useState("");
 
 
@@ -24,7 +26,7 @@ export const DerivateTicketForm = () => {
                     <GenericModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        form={<CreateTaskForm closeModal={setModalShow} />}
+                        form={form}
                         title={"Crear tarea"}
                         size={"md"}
                     />
@@ -48,12 +50,18 @@ export const DerivateTicketForm = () => {
                                 <Form.Label>Seleccione una o más tareas para asignar al ticket</Form.Label>
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     <div>
-                                        <Button variant="primary"  >
+                                        <Button variant="primary" onClick={() => {
+                                            setForm(<AssignTaskTicket closeModal={setModalShow} />)
+                                            setModalShow(true)
+                                        }} >
                                             Seleccionar tareas
                                         </Button>
                                     </div>
                                     <div style={{ marginLeft: "10px" }}>
-                                        <Button variant="primary" onClick={() => { setModalShow(true) }}>
+                                        <Button variant="primary" onClick={() => {
+                                            setForm(<CreateTaskForm closeModal={setModalShow} />)
+                                            setModalShow(true)
+                                        }}>
                                             Crear tarea
                                         </Button>
                                     </div>
@@ -68,7 +76,7 @@ export const DerivateTicketForm = () => {
                             </Button>
                         </div>
                         <div style={{ marginLeft: "10px" }}>
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" >
                                 Cancelar
                             </Button>
                         </div>

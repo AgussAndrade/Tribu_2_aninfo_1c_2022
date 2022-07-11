@@ -3,22 +3,28 @@ import {useState} from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
+import {GetOrSetItem} from "../../../../utils/GetOrSetItem";
 
 
 export const EditFormTicket = (props) => {
     const {ticketData, readOnly} = props
-    const [description, setDescription] = useState(ticketData.description);
+    const [description, setDescription] = useState(ticketData.descripcion);
     const [end_time, setEndTime] = useState(ticketData.fechaDeFinalizacion);
-    const [responsible, setResponsible] = useState(ticketData.cuit);
+    const [responsible, setResponsible] = useState(ticketData.nombreResponsable);
     const [state, setState] = useState(ticketData.estado);
     const [severity, setSeverity] = useState(ticketData.severidad);
-    const [client, setClient] = useState(ticketData.cuit);
+    const [clientName, setClientName] = useState(ticketData.nombreCliente);
+    const [cuitClient, setCuitClient] = useState(ticketData.cuit);
     const [title, setTitle] = useState(ticketData.nombre);
     const [validated, setValidated] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [startTime, setStartTime] = useState(ticketData.fechaDeCreacion);
     const navigate = useNavigate();
-    console.log(ticketData)
+
+    const empleados = GetOrSetItem("empleados");
+    const clientes = GetOrSetItem("clientes");
+
+
     const handleSubmit = (event) => {
         const form = event.currentTarget;
 
@@ -93,27 +99,32 @@ export const EditFormTicket = (props) => {
                                     as={"input"}
                                     list="employers"
                                     value={responsible}
-                                    autocomplete="off"
+                                    autoComplete={"off"}
                                     onChange={(event) => {
                                         setResponsible(event.currentTarget.value)
-                                    }}/>
+                                    }}
+                                    />
                                 <datalist id={"employers"}>
-                                    <option value="Julian" data-id-employer="3"></option>
-                                    <option value="Juan" data-id-employer="2"></option>
-                                    <option value="Lucia" data-id-employer="1"></option>
+                                    {
+                                        empleados.map((empleado) => {
+                                            return <option key={empleado.legajo} >{empleado.nombre + " " + empleado.apellido}</option>
+                                        })
+                                    }
                                 </datalist>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="state">
                                 <Form.Label>Estado</Form.Label>
-                                <Form.Control
-                                    readOnly={readOnly}
+                                <Form.Select
+                                    disabled={readOnly || ticketData.estado === "cerrado" }
                                     defaultValue={ticketData.estado}
                                     onChange={(event) => {
                                         setState(event.currentTarget.value)
-                                        console.log("Severidad seleccionada: " + state);
                                     }}
-                                />
+                                >
+                                    <option value="cerrado">Cerrado</option>
+                                    <option value="abierto">Abierto</option>
+                                </Form.Select>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="severity">
@@ -135,6 +146,8 @@ export const EditFormTicket = (props) => {
                                 <Form.Control
                                     type="date"
                                     name='end_time'
+                                    value={end_time}
+                                    pattern={"[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}"}
                                     readOnly={readOnly}
                                     defaultValue={getCurrentDate(new Date(ticketData.vencimiento), "/")}
                                     onChange={(event) => {
@@ -150,18 +163,25 @@ export const EditFormTicket = (props) => {
                                     as={"input"}
                                     list="clientes"
                                     name="id_client"
-                                    defaultValue={ticketData.cuitCliente}
+                                    defaultValue={clientName}
                                     readOnly={readOnly}
                                     onChange={(event) => {
-                                        setClient(event.currentTarget.value)
-                                        console.log("Fecha de vencimiento cambiada: " + client);
+                                        setClientName(event.currentTarget.value)
+                                        clientes.map((cliente) => {
+                                            if (cliente.razon_social.includes(event.currentTarget.value)) {
+                                                setCuitClient(cliente.cuit)
+                                            }
+                                        })
+
                                     }}
                                     autoComplete={"off"}
                                 />
                                 <datalist id={"clientes"}>
-                                    <option defaultValue="Julian" data-id-client="3"></option>
-                                    <option defaultValue="Juan" data-id-client="2"></option>
-                                    <option defaultValue="Lucia" data-id-client="1"></option>
+                                    {
+                                        clientes.map((cliente) => {
+                                            return <option key={cliente.cuit} >{cliente.razon_social}</option>
+                                        })
+                                    }
                                 </datalist>
                             </Form.Group>
 

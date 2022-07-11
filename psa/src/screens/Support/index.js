@@ -12,8 +12,9 @@ import {useState} from "react";
 import {SupportCard} from "./components/SupportCard";
 import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
-import {SOPORTE_URL, PROYECTO_URL} from "../../utils/apiUrls";
+import {SOPORTE_URL} from "../../utils/apiUrls";
 import {getFormattedObject} from "../../utils/getClients";
+import {GetOrSetItem} from "../../utils/GetOrSetItem";
 
 export const Support = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -30,29 +31,8 @@ export const Support = () => {
         method: "GET"
     };
 
-
-    useEffect(() => {
-        const clientes = JSON.parse(localStorage.getItem('clientes'));
-        if (clientes === null) {
-            fetch(getUrl("servicio_externo/clientes"), config)
-                .then((res) => res.json())
-                .then((result) => {
-                    localStorage.setItem("clientes", JSON.stringify(getFormattedObject(result)));
-                })
-        }
-    }, []);
-
-    useEffect(() => {
-        const empleados = JSON.parse(localStorage.getItem('empleados'));
-        if (empleados === null) {
-            fetch(PROYECTO_URL + "/empleados", config)
-                .then((res) => res.json())
-                .then((result) => {
-                    localStorage.setItem("empleados", JSON.stringify(getFormattedObject(result)));
-                })
-        }
-    }, []);
-
+    //GetOrSetItem("clientes");
+    //GetOrSetItem("empleados");
 
     useEffect(() => {
         fetch(getUrl("soporte/productos"), config)
