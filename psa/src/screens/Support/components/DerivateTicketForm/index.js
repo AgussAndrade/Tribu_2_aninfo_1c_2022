@@ -27,7 +27,7 @@ export const DerivateTicketForm = () => {
                         show={modalShow}
                         onHide={() => setModalShow(false)}
                         form={form}
-                        title={"Crear tarea"}
+                        title={title}
                         size={"md"}
                     />
                     <Row>
@@ -52,7 +52,8 @@ export const DerivateTicketForm = () => {
                                     <div>
                                         <Button variant="primary" onClick={() => {
                                             setForm(<AssignTaskTicket closeModal={setModalShow} />)
-                                            setModalShow(true)
+                                            setModalShow(true);
+                                            setTitle("Seleccionar tareas")
                                         }} >
                                             Seleccionar tareas
                                         </Button>
@@ -60,7 +61,8 @@ export const DerivateTicketForm = () => {
                                     <div style={{ marginLeft: "10px" }}>
                                         <Button variant="primary" onClick={() => {
                                             setForm(<CreateTaskForm closeModal={setModalShow} />)
-                                            setModalShow(true)
+                                            setModalShow(true);
+                                            setTitle("Creat tarea")
                                         }}>
                                             Crear tarea
                                         </Button>

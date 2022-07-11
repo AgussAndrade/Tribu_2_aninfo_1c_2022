@@ -14,12 +14,15 @@ import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
 import {SOPORTE_URL} from "../../utils/apiUrls";
 import {getFormattedObject} from "../../utils/getClients";
+import {useLocalStorage} from "../../utils/useLocalStorage";
 
 export const Support = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [modalShow, setModalShow] = useState(false);
     const [productos, setProductos] = useState([]);
     const [versionId, setVersionId] = useState(1);
+    const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
+    const {data: clientes, isPending: esperandoClientes} = useLocalStorage("clientes");
 
     function getUrl(url) {
         return SOPORTE_URL + url;
@@ -89,7 +92,7 @@ export const Support = () => {
                 <GenericModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
-                    form={<TicketCreateForm versionId={versionId}/>}
+                    form={<TicketCreateForm empleados = {empleados} clientes={clientes} versionId={versionId}/>}
                     title={"Crear ticket"}
                 />
             </BodyContainer>

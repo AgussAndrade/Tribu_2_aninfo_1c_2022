@@ -53,9 +53,6 @@ export const SupportTicketViews = () => {
                     return val;
             })
             .map((ticket) => {
-                    ticket.legajoResponsable = 1;
-                    ticket.cuit = "20-12345678-2";
-                    ticket.versionId = id;
                     let empleadoTicket = []
                     if (empleados !== null) {
                         empleadoTicket = empleados.filter((empleado) => {

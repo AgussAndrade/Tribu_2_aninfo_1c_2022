@@ -12,13 +12,11 @@ import {EditFormTicket} from "../../../Support/components/EditFormTicket";
 import {DerivateTicketForm} from "../../../Support/components/DerivateTicketForm";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
-import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 
 export const SupportCard = (props) => {
     const {ticketData, modalProps, localStorageData} = props;
     const navigate = useNavigate();
-    console.log(ticketData)
 
     const cambiarEstadoTicket = (estado) => {
 

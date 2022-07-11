@@ -3,6 +3,7 @@ import {useState} from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
+import {isInteger, isString} from "formik";
 
 
 export const TicketCreateForm = (props) => {
@@ -14,7 +15,9 @@ export const TicketCreateForm = (props) => {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [responsible, setResponsible] = useState("");
-    const [cuit, setCuit] = useState("");
+    const [legajoResponsable, setLegajoResponsable] = useState("");
+    const [clientName, setClientName] = useState("");
+    const [cuitClient, setCuitClient] = useState("");
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -23,18 +26,16 @@ export const TicketCreateForm = (props) => {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            const date_formatted = getCurrentDate(new Date(date), "-");
-
             const body = {
                 "titulo": title,
                 "descripcion": description,
-                "fechaDeFinalizacion": date_formatted,
-                "fechaDeCreacion": date_formatted,
-                "cuit": 23,
+                "fechaDeFinalizacion": date,
+                "fechaDeCreacion": date,
+                "cuit": cuitClient,
                 "estado": "abierto",
-                "versionId": props.versionId,
+                "idVersion": props.versionId,
                 "severidad": parseInt(severity),
-                "legajoResponsable": 10
+                "legajoResponsable": legajoResponsable
             }
 
             const config = {
@@ -43,8 +44,9 @@ export const TicketCreateForm = (props) => {
                     headers: {"Content-Type": "application/json"},
                     method: "POST"
                 },
-                url: SOPORTE_URL + "soporte/ticket"
+                url: SOPORTE_URL + "soporte/ticket?idVersion=" + props.versionId
             }
+
             fetch(config.url, config.config)
                 .then((res) => res.json())
                 .then((result) => {
@@ -96,9 +98,9 @@ export const TicketCreateForm = (props) => {
                                         setSeverity(event.currentTarget.value)
                                     }}
                                 >
-                                    <option value="2">Mayor</option>
-                                    <option value="1">Medio</option>
-                                    <option value="0">Baja</option>
+                                    <option defaultValue="2">Mayor</option>
+                                    <option defaultValue="1">Medio</option>
+                                    <option defaultValue="0">Baja</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -108,15 +110,24 @@ export const TicketCreateForm = (props) => {
                                 <Form.Control
                                     as={"input"}
                                     list="employers"
-                                    value={responsible}
-                                    autocomplete="off"
+                                    defaultValue={responsible}
+                                    autoComplete={"off"}
                                     onChange={(event) => {
                                         setResponsible(event.currentTarget.value)
-                                    }}/>
+                                        props.empleados.map((empleado) => {
+                                            if (empleado.nombre.includes(event.currentTarget.value.split(' ')[0])) {
+                                                setLegajoResponsable(empleado.legajo)
+                                            }
+                                        })
+
+                                    }}
+                                />
                                 <datalist id={"employers"}>
-                                    <option value="Julian" data-id-employer="3"></option>
-                                    <option value="Juan" data-id-employer="2"></option>
-                                    <option value="Lucia" data-id-employer="1"></option>
+                                    {
+                                        props.empleados !== null && props.empleados.map((empleado) => {
+                                            return <option key={empleado.legajo} >{empleado.nombre + " " + empleado.apellido}</option>
+                                        })
+                                    }
                                 </datalist>
                             </Form.Group>
 
@@ -134,18 +145,29 @@ export const TicketCreateForm = (props) => {
                             <Form.Group className="mb-3" controlId="client_id">
                                 <Form.Label>Cliente</Form.Label>
                                 <Form.Control
+                                    required
                                     as={"input"}
                                     list="clientes"
                                     name="id_client"
-                                    autocomplete="off"
+                                    defaultValue={clientName}
                                     onChange={(event) => {
-                                        setCuit(parseInt(event.target.dataset.cuit))
+                                        setClientName(event.currentTarget.value)
+                                        props.clientes.map((cliente) => {
+                                            if (cliente.razon_social.includes(event.currentTarget.value)) {
+                                                setCuitClient(cliente.cuit)
+                                            }
+                                        })
+
                                     }}
+                                    autoComplete={"off"}
                                 />
                                 <datalist id={"clientes"}>
-                                    <option value="Julian" data-cuit="3"></option>
-                                    <option value="Juan" data-cuit="2"></option>
-                                    <option value="Lucia" data-cuit="1"></option>
+                                    {
+
+                                        props.clientes !== null && props.clientes.map((cliente) => {
+                                            return <option key={cliente.cuit} >{cliente.razon_social}</option>
+                                        })
+                                    }
                                 </datalist>
                             </Form.Group>
                         </Col>

@@ -32,7 +32,7 @@ export const AssignTaskTicket = (props) => {
                 <Container>
                     <Row>
                         <Col>
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="title">
+                            <Form.Group className="mb-12" controlId="title">
                                 <Form.Label>Buscar tarea</Form.Label>
                                 <Select options={options} setValue isMulti  closeMenuOnSelect={false} onChange={handleChange}
                                 />
