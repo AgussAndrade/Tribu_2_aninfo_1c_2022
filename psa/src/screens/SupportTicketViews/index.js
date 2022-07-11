@@ -13,7 +13,7 @@ import {SupportCard} from "./components/SupportCard";
 import {GenericModal} from "../Support/components/GenericModal";
 import {useParams} from 'react-router';
 import {SOPORTE_URL} from "../../utils/apiUrls";
-import {GetOrSetItem} from "../../utils/GetOrSetItem";
+import {useLocalStorage} from "../../utils/useLocalStorage";
 
 
 export const SupportTicketViews = () => {
@@ -24,6 +24,8 @@ export const SupportTicketViews = () => {
     const [modalSize, setModalSize] = useState("lg");
     const {id} = useParams();
     const [tickets, setTickets] = useState([]);
+    const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
+    const {data: clientes, isPending: esperandoClientes} = useLocalStorage("clientes");
 
     const config = {
         url: SOPORTE_URL + "soporte/tickets?versionId=" + id, config: {
@@ -41,7 +43,6 @@ export const SupportTicketViews = () => {
             .catch(() => navigate("/error"))
     }, []);
 
-    const empleados = GetOrSetItem("empleados");
     const Cards = () => {
         return tickets
             .filter((val) => {
@@ -54,22 +55,26 @@ export const SupportTicketViews = () => {
             .map((ticket) => {
                     ticket.legajoResponsable = 1;
                     ticket.cuit = "20-12345678-2";
-                    const empleadoTicket = empleados.filter((empleado) => {
-                            return empleado.legajo === ticket.legajoResponsable;
+                    let empleadoTicket = []
+                    if (empleados !== null) {
+                        console.log(empleados)
+                        empleadoTicket = empleados.filter((empleado) => {
+                                return empleado.legajo === ticket.legajoResponsable;
+                            }
+                        )[0];
+                        if (empleadoTicket !== undefined && empleadoTicket.length !== 0) {
+                            ticket.nombreResponsable = empleadoTicket.nombre + " " + empleadoTicket.apellido;
                         }
-                    )[0];
-
-                    const clienteTicket = clientes.filter((cliente) => {
-                            return cliente.cuit === ticket.cuit;
-                        }
-                    )[0];
-
-                    if (empleadoTicket.length !== 0) {
-                        ticket.nombreResponsable = empleadoTicket.nombre + " " + empleadoTicket.apellido;
                     }
-
-                    if (clienteTicket.length !== 0) {
-                        ticket.nombreCliente = clienteTicket.razon_social;
+                    let clienteTicket = [];
+                    if (clientes!== null) {
+                         clienteTicket = clientes.filter((cliente) => {
+                                return cliente.cuit === ticket.cuit;
+                            }
+                        )[0];
+                        if (clienteTicket !== undefined &&clienteTicket.length !== 0) {
+                            ticket.nombreCliente = clienteTicket.razon_social;
+                        }
                     }
 
                     return (
@@ -106,7 +111,10 @@ export const SupportTicketViews = () => {
                 </InputContainer>
             </OptionsContainer>
             <BodyContainer>
-                <Cards/>
+                {(esperandoEmpleados || esperandoClientes) && ( <h2> Cargando información </h2>)}
+
+                {!esperandoEmpleados && !esperandoClientes && ( <Cards/>)}
+
                 <GenericModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}

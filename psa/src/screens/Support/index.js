@@ -14,7 +14,6 @@ import {GenericModal} from "./components/GenericModal";
 import {TicketCreateForm} from "./components/TicketCreateForm";
 import {SOPORTE_URL} from "../../utils/apiUrls";
 import {getFormattedObject} from "../../utils/getClients";
-import {GetOrSetItem} from "../../utils/GetOrSetItem";
 
 export const Support = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -30,9 +29,6 @@ export const Support = () => {
         headers: {"Content-Type": "application/json"},
         method: "GET"
     };
-
-    //GetOrSetItem("clientes");
-    //GetOrSetItem("empleados");
 
     useEffect(() => {
         fetch(getUrl("soporte/productos"), config)

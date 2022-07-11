@@ -3,7 +3,7 @@ import {useState} from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
-import {GetOrSetItem} from "../../../../utils/GetOrSetItem";
+import {useLocalStorage} from "../../../../utils/useLocalStorage";
 
 
 export const EditFormTicket = (props) => {
@@ -21,8 +21,9 @@ export const EditFormTicket = (props) => {
     const [startTime, setStartTime] = useState(ticketData.fechaDeCreacion);
     const navigate = useNavigate();
 
-    const empleados = GetOrSetItem("empleados");
-    const clientes = GetOrSetItem("clientes");
+    const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
+    const {data: clientes, isPending: esperandoClientes} = useLocalStorage("clientes");
+
 
 
     const handleSubmit = (event) => {
