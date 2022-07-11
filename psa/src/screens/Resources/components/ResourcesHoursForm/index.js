@@ -4,7 +4,7 @@ import { FormGroupContainer } from "../../../../components/HFormGroup";
 import axios from "axios";
 import { ResourcesFormButton } from "./styled";
 import { useNavigate } from "react-router-dom";
-import { FormSelectContainer } from "../../../../components/FormSelect";
+import { FormSelectContainer } from "../../../../components/HFormSelect";
 
 export const ResourcesHoursForm = (props) => {
     const navigate = useNavigate()
