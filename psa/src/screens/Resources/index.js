@@ -66,6 +66,7 @@ export const Resources = () => {
   const getEmployees = async () => {
     const {data} = await axios.get(`https://squad5-recursos.herokuapp.com/api/empleados`)
     setEmployees(mapEmployees(data))
+    setId(data[0].legajo)
   }
 
   useEffect(() => {
