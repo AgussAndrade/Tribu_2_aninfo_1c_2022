@@ -16,18 +16,19 @@ import {getCurrentDate} from "../../../../utils/getCurrentDate";
 
 
 export const SupportCard = (props) => {
-    const {ticketData, modalProps} = props;
+    const {ticketData, modalProps, localStorageData} = props;
     const navigate = useNavigate();
+    console.log(ticketData)
 
-    const closeTicket = () => {
+    const cambiarEstadoTicket = (estado) => {
 
-        const date_formatted = getCurrentDate(new Date(ticketData.vencimiento), "-");
+        const date_formatted = getCurrentDate(new Date(ticketData.fechaDeFinalizacion), "-");
         const config = {
             config: {
                 headers: {"Content-Type": "application/json"},
                 method: "PUT"
             },
-            url: SOPORTE_URL + "soporte/ticket/" + ticketData.id + "?estado=cerrado"
+            url: SOPORTE_URL + "soporte/ticket/" + ticketData.id + "?estado="+ estado
         }
         fetch(config.url, config.config)
             .then((res) => res.json())
@@ -54,9 +55,6 @@ export const SupportCard = (props) => {
                 <DescriptionText>
                     Vencimiento: {ticketData.fechaDeFinalizacion}
                 </DescriptionText>
-                <DescriptionText>
-                    Descripción: <i> {ticketData.descripcion} </i>
-                </DescriptionText>
             </CardTextContainer>
             <ButtonContainer>
                 {
@@ -66,6 +64,7 @@ export const SupportCard = (props) => {
                             modalProps.setCurrentForm(<EditFormTicket
                                 readOnly={false}
                                 ticketData={ticketData}
+                                localStorageData = {localStorageData}
                             />);
 
                             modalProps.setCurrentTitleModal("Editar ticket: " + ticketData.titulo)
@@ -75,22 +74,26 @@ export const SupportCard = (props) => {
                         color={colors.lightBlue}
                     ></GenericButton>
                 }
-                <GenericButton
-                    name={"Derivar Ticket"}
-                    onClick={() => {
-                        modalProps.setCurrentForm(<DerivateTicketForm/>)
-                        modalProps.setCurrentTitleModal("Derivar ticket: " + ticketData.titulo);
-                        modalProps.setModalSize("md")
-                        modalProps.setModalShow(true)
-                    }}
-                    color={colors.lightBlue}
-                ></GenericButton>
+                {
+                    ticketData.estado !== "cerrado" && <GenericButton
+                        name={"Derivar Ticket"}
+                        onClick={() => {
+                            modalProps.setCurrentForm(<DerivateTicketForm/>)
+                            modalProps.setCurrentTitleModal("Derivar ticket: " + ticketData.titulo);
+                            modalProps.setModalSize("md")
+                            modalProps.setModalShow(true)
+                        }}
+                        color={colors.lightBlue}
+                    ></GenericButton>
+                }
+
                 <GenericButton
                     name={"Info Ampliada"}
                     onClick={() => {
                         modalProps.setCurrentForm(<EditFormTicket
                             readOnly={true}
                             ticketData={ticketData}
+                            localStorageData = {localStorageData}
                         />);
                         modalProps.setCurrentTitleModal("Info ampliada: " + ticketData.titulo);
                         modalProps.setModalShow(true);
@@ -99,12 +102,12 @@ export const SupportCard = (props) => {
                     }}
                     color={colors.lightBlue}
                 ></GenericButton>
-                {ticketData.estado !== "cerrado" && <GenericButton
-                    name={"Cerrar Ticket"}
+                {<GenericButton
+                    name={ticketData.estado === "cerrado" ? "Abrir ticket": "Cerrar Ticket"}
                     onClick={() => {
-                        closeTicket()
+                        cambiarEstadoTicket(ticketData.estado === "cerrado" ? "abierto" : "cerrado")
                     }}
-                    color={colors.red}
+                    color={ ticketData.estado === "cerrado" ? colors.green: colors.red}
                 ></GenericButton>}
             </ButtonContainer>
 

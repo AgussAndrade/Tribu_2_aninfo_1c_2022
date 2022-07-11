@@ -55,9 +55,9 @@ export const SupportTicketViews = () => {
             .map((ticket) => {
                     ticket.legajoResponsable = 1;
                     ticket.cuit = "20-12345678-2";
+                    ticket.versionId = id;
                     let empleadoTicket = []
                     if (empleados !== null) {
-                        console.log(empleados)
                         empleadoTicket = empleados.filter((empleado) => {
                                 return empleado.legajo === ticket.legajoResponsable;
                             }
@@ -80,6 +80,7 @@ export const SupportTicketViews = () => {
                     return (
                         <SupportCard
                             ticketData={ticket}
+                            localStorageData = {{empleados: empleados, clientes:clientes}}
                             modalProps={
                                 {
                                     setModalShow: setModalShow,

@@ -4,13 +4,15 @@ import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
 import {getCurrentDate} from "../../../../utils/getCurrentDate";
 import {useLocalStorage} from "../../../../utils/useLocalStorage";
+import {isString} from "formik";
 
 
 export const EditFormTicket = (props) => {
-    const {ticketData, readOnly} = props
+    const {ticketData, readOnly, localStorageData} = props
     const [description, setDescription] = useState(ticketData.descripcion);
     const [end_time, setEndTime] = useState(ticketData.fechaDeFinalizacion);
     const [responsible, setResponsible] = useState(ticketData.nombreResponsable);
+    const [legajoResponsable, setLegajoResponsable] = useState(ticketData.legajoResponsable);
     const [state, setState] = useState(ticketData.estado);
     const [severity, setSeverity] = useState(ticketData.severidad);
     const [clientName, setClientName] = useState(ticketData.nombreCliente);
@@ -21,48 +23,44 @@ export const EditFormTicket = (props) => {
     const [startTime, setStartTime] = useState(ticketData.fechaDeCreacion);
     const navigate = useNavigate();
 
-    const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
-    const {data: clientes, isPending: esperandoClientes} = useLocalStorage("clientes");
-
-
+    function objToQueryString(obj) {
+        const keyValuePairs = [];
+        for (const key in obj) {
+            keyValuePairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+        }
+        return keyValuePairs.join('&');
+    }
 
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-
         event.preventDefault();
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-        } else {
-            const date_formatted = getCurrentDate(new Date(end_time), "-");
-
-            const body = {
-                "titulo": title,
-                "descripicion": description,
-                "fechaDeFinalizacion": date_formatted,
-                "fechaDeCreacion": date_formatted,
-                "cuit": 23,
-                "estado": "abierto",
-                "versionId": 10,
-                "severidad": parseInt(severity),
-                "legajo_cliente": 10
+            const severidades = {
+                "Mayor": 2,
+                "Medio": 1,
+                "Baja": 0,
             }
+            const body = {
+                "descripcion": description,
+                "fechaVencimiento": end_time,
+                "fechaInicial": startTime,
+                "cuit": cuitClient,
+                "estado": state,
+                "severidad": isString(severity) ? severidades[severity] : severity,
+            }
+
 
             const config = {
                 config: {
-                    body: JSON.stringify(body),
                     headers: {"Content-Type": "application/json"},
                     method: "PUT"
                 },
-                url: SOPORTE_URL + "soporte/ticket"
+                url: SOPORTE_URL + "soporte/ticket/"+ticketData.id + "?"+ objToQueryString(body)
             }
             fetch(config.url, config.config)
                 .then((res) => res.json())
                 .then((result) => {
                     setShowSuccessMessage(true)
                 })
-                .catch(() => navigate("/error"))
-        }
-        setValidated(true)
+                .catch((error) => console.log(error))
     };
 
     const formInputs = () => {
@@ -87,6 +85,7 @@ export const EditFormTicket = (props) => {
                                     as={"textarea"}
                                     style={{height: '400px', resize: "none"}}
                                     defaultValue={description}
+                                    required
                                     onChange={(event) => {
                                         setDescription(event.currentTarget.value)
                                     }}
@@ -97,17 +96,24 @@ export const EditFormTicket = (props) => {
                             <Form.Group className="mb-3" controlId="responsible">
                                 <Form.Label>Responsable</Form.Label>
                                 <Form.Control
+                                    readOnly={true}
                                     as={"input"}
                                     list="employers"
-                                    value={responsible}
+                                    defaultValue={responsible}
                                     autoComplete={"off"}
                                     onChange={(event) => {
                                         setResponsible(event.currentTarget.value)
+                                        localStorageData.empleados.map((empleado) => {
+                                            if (empleado.nombre.includes(event.currentTarget.value.split(' ')[0])) {
+                                                setLegajoResponsable(empleado.legajo)
+                                            }
+                                        })
+
                                     }}
                                     />
                                 <datalist id={"employers"}>
                                     {
-                                        empleados.map((empleado) => {
+                                        localStorageData.empleados !== null && localStorageData.empleados.map((empleado) => {
                                             return <option key={empleado.legajo} >{empleado.nombre + " " + empleado.apellido}</option>
                                         })
                                     }
@@ -117,6 +123,7 @@ export const EditFormTicket = (props) => {
                             <Form.Group className="mb-3" controlId="state">
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Select
+                                    required
                                     disabled={readOnly || ticketData.estado === "cerrado" }
                                     defaultValue={ticketData.estado}
                                     onChange={(event) => {
@@ -130,7 +137,9 @@ export const EditFormTicket = (props) => {
 
                             <Form.Group className="mb-3" controlId="severity">
                                 <Form.Label>Severidad</Form.Label>
-                                <Form.Select readOnly={readOnly}
+                                <Form.Select
+                                    required
+                                    disabled={readOnly}
                                              defaultValue={ticketData.severidad}
                                              onChange={(event) => {
                                                  setSeverity(event.currentTarget.value)
@@ -145,15 +154,13 @@ export const EditFormTicket = (props) => {
                             <Form.Group className="mb-3" controlId="end_time">
                                 <Form.Label>Fecha de vencimiento</Form.Label>
                                 <Form.Control
+                                    required
                                     type="date"
                                     name='end_time'
-                                    value={end_time}
-                                    pattern={"[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}"}
                                     readOnly={readOnly}
-                                    defaultValue={getCurrentDate(new Date(ticketData.vencimiento), "/")}
+                                    defaultValue={ticketData.fechaDeFinalizacion}
                                     onChange={(event) => {
                                         setEndTime(event.currentTarget.value)
-                                        console.log("Fecha de vencimiento cambiada: " + end_time);
                                     }}
                                 />
                             </Form.Group>
@@ -161,6 +168,7 @@ export const EditFormTicket = (props) => {
                             <Form.Group className="mb-3" controlId="client_id">
                                 <Form.Label>Cliente</Form.Label>
                                 <Form.Control
+                                    required
                                     as={"input"}
                                     list="clientes"
                                     name="id_client"
@@ -168,7 +176,7 @@ export const EditFormTicket = (props) => {
                                     readOnly={readOnly}
                                     onChange={(event) => {
                                         setClientName(event.currentTarget.value)
-                                        clientes.map((cliente) => {
+                                        localStorageData.clientes.map((cliente) => {
                                             if (cliente.razon_social.includes(event.currentTarget.value)) {
                                                 setCuitClient(cliente.cuit)
                                             }
@@ -179,26 +187,12 @@ export const EditFormTicket = (props) => {
                                 />
                                 <datalist id={"clientes"}>
                                     {
-                                        clientes.map((cliente) => {
+
+                                        localStorageData.clientes !== null && localStorageData.clientes.map((cliente) => {
                                             return <option key={cliente.cuit} >{cliente.razon_social}</option>
                                         })
                                     }
                                 </datalist>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="product">
-                                <Form.Label>Producto</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Producto"
-                                    name="title"
-                                    disabled={true}
-                                />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="version">
-                                <Form.Label>Version</Form.Label>
-                                <Form.Control type="text" placeholder="Version" name="title" disabled={true}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="tasks">
@@ -227,7 +221,7 @@ export const EditFormTicket = (props) => {
                     <hr/>
                     <div className="d-flex justify-content-end">
                         <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
-                            Close me y'all!
+                            Cerrar
                         </Button>
                     </div>
                 </Alert>
