@@ -22,19 +22,17 @@ export const SupportCard = (props) => {
 
     const cambiarEstadoTicket = (estado) => {
 
-        const date_formatted = getCurrentDate(new Date(ticketData.fechaDeFinalizacion), "-");
         const config = {
             config: {
                 headers: {"Content-Type": "application/json"},
                 method: "PUT"
             },
-            url: SOPORTE_URL + "soporte/ticket/" + ticketData.id + "?estado="+ estado
+            url: SOPORTE_URL + "soporte/ticket/"+ticketData.id + "?estado="+ estado
         }
         fetch(config.url, config.config)
             .then((res) => res.json())
             .then((result) => {
-                // window.location.reload()
-                console.log(result)
+                window.location.reload()
             })
             .catch(() => navigate("/error"))
     }
