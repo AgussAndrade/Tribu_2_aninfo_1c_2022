@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
 import React, { useState } from "react";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 
@@ -7,6 +7,7 @@ export const CreateTaskForm = (props) => {
     const [description, setDescription] = useState("");
     const [dateStart, setDateStart] = useState("");
     const [state, setState] = useState("");
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const { closeModal, idTicket, idProyecto } = props;
 
     const handleSubmit = (e) => {
@@ -29,9 +30,10 @@ export const CreateTaskForm = (props) => {
         }
 
         fetch(config.url, config.config)
-            .then((res) => res.json())
-            .then((result) => {
-                console.log(result)
+            .then((res) => {
+                if (res.status === 200) {
+                    setShowSuccessMessage(true)
+                }
             })
             .catch((e) => console.log(e))
     }
@@ -74,6 +76,17 @@ export const CreateTaskForm = (props) => {
                         </Button>
                     </div>
                 </Container>
+                <Alert show={showSuccessMessage} variant="success">
+                    <p>
+                        Las tareas se creo correctamente
+                    </p>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
+                            Cerrar
+                        </Button>
+                    </div>
+                </Alert>
             </Form>
         )
     }

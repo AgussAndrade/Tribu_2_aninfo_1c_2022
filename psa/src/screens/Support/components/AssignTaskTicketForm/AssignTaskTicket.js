@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import {Alert, Button, Col, Container, Form, Row} from "react-bootstrap";
 import { useState } from "react";
 import React from 'react';
 import Select from 'react-select'
@@ -7,6 +7,7 @@ import {SOPORTE_URL} from "../../../../utils/apiUrls";
 export const AssignTaskTicket = (props) => {
     const {closeModal, tareas, idProyecto, idTicket} = props
     const [tareasSeleccionadas, setTareasSeleccionadas] = useState([])
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const options = [];
 
     tareas.map((tarea) => {
@@ -19,6 +20,8 @@ export const AssignTaskTicket = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        let totalTareas = tareasSeleccionadas.length;
+        let totalTareasDerivadas = 0;
         tareasSeleccionadas.map((tarea) => {
             const config = {
                 config: {
@@ -27,13 +30,17 @@ export const AssignTaskTicket = (props) => {
                 },
                 url: SOPORTE_URL + "proyectos/tarea/" + idProyecto + "/"+ tarea.value + "/" + idTicket
             }
-            fetch("https://moduloproyectos.herokuapp.com/proyectos/" + idProyecto + "/tareas/"+ tarea.value + "/tickets/" + idTicket, {
+            fetch(config.url, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
+                body: JSON.stringify([])
             })
-                .then((res) => res.json())
-                .then((result) => {
-                    console.log(result)
+                .then((res) => {
+                    if (res.status === 200) {
+                        totalTareasDerivadas = totalTareasDerivadas + 1
+                        setShowSuccessMessage(totalTareas === totalTareasDerivadas)
+                        console.log(totalTareasDerivadas)
+                    }
                 })
                 .catch((e) => console.log(e))
         })
@@ -58,6 +65,17 @@ export const AssignTaskTicket = (props) => {
                         </Button>
                     </div>
                 </Container>
+                <Alert show={showSuccessMessage} variant="success">
+                    <p>
+                        Las tareas se derivaron correctamente
+                    </p>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShowSuccessMessage(false)} variant="outline-success">
+                            Cerrar
+                        </Button>
+                    </div>
+                </Alert>
             </Form>
         )
     }
