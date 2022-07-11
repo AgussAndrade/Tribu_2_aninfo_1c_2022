@@ -49,8 +49,6 @@ export const NewProjectModal = (props) => {
 
   const checkLeaderId = () => {
     let value = false;
-
-    console.log(listEmployees);
     listEmployees.forEach((empleado) => {
       if (empleado.legajo == leaderID) {
         value = true;
@@ -61,7 +59,7 @@ export const NewProjectModal = (props) => {
   };
 
   const saveInput = () => {
-    if (name && description && dateStart && dateFinish && checkLeaderId()) {
+    if (name && description && dateStart && dateFinish && (leaderID != -1)) {
       newProject = {
         estado: state,
         descripcion: description,
@@ -82,7 +80,7 @@ export const NewProjectModal = (props) => {
       handleClose();
     } else {
       if (name && description && dateStart && dateFinish && state && leaderID) {
-        setErrorMessage("Ingrese un ID valido");
+        setErrorMessage("Ingrese un líder valido");
       } else {
         setErrorMessage("Rellene todos los campos");
       }
@@ -138,7 +136,7 @@ export const NewProjectModal = (props) => {
             </DropDownList>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
-            <Text>Fecha de creacion:</Text>
+            <Text>Fecha de creación:</Text>
             <Date onChange={(e) => setDateStart(e.target.value)}></Date>
           </StyledTextInputContainer>
           <StyledTextInputContainer>
@@ -157,7 +155,7 @@ export const NewProjectModal = (props) => {
               />
             </SelectContainer>
           <StyledTextInputContainer>
-            <Text>Descripcion:</Text>
+            <Text>Descripción:</Text>
           </StyledTextInputContainer>
           <DescriptionContainer>
             <DescriptionInput

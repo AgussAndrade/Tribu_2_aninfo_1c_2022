@@ -19,11 +19,16 @@ import {
 } from "./styled";
 import { colors } from "../../../../utils/colors";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 import { Project } from "../../../Project";
 import { useEffect } from "react";
+import {
+  SelectText,
+  SelectContainer,
+} from "../../../Project/components/NewProjectModal/styled";
 
 export const EditionModal = (props) => {
-  const { open, onClose, titulo, proyecto, listEmployees, setUpdate} = props;
+  const { open, onClose, titulo, proyecto, listEmployees, setUpdate } = props;
   const nombre = proyecto.nombre;
 
   const [name, setName] = useState("");
@@ -45,18 +50,9 @@ export const EditionModal = (props) => {
     nombre: proyecto.nombre,
   };
 
-  const checkLeaderId = () => {
-    let value = false;
-    listEmployees.forEach((empleado) => {
-      if (empleado.legajo == leaderID) {
-        value = true;
-      }
-    });
-    return value;
-  };
 
   const saveInput = () => {
-    if (name && description && dateStart && dateFinish && checkLeaderId()) {
+    if (name && description && dateStart && dateFinish &&( leaderID != -1)) {
       newProject = {
         estado: state,
         fechaFin: dateFinish,
@@ -75,8 +71,8 @@ export const EditionModal = (props) => {
         .catch(() => navigate("/error"));
       handleClose();
     } else {
-      if (name && description && dateStart && dateFinish && state && leaderID) {
-        setErrorMessage("Ingrese un ID valido");
+      if (name && description && dateStart && dateFinish && state && (leaderID!=-1)) {
+        setErrorMessage("Ingrese un líder válido");
       } else {
         setErrorMessage("Rellene todos los campos");
       }
@@ -90,7 +86,7 @@ export const EditionModal = (props) => {
     setDateStart("");
     setDescription("");
     setName("");
-    setLeaderID("");
+    setLeaderID(-1);
     onClose();
   };
 
@@ -136,16 +132,18 @@ export const EditionModal = (props) => {
               onChange={(e) => setDateFinish(e.target.value)}
             ></Date>
           </StyledTextInputContainer>
-          <StyledTextInputContainer>
-            <Text>Legajo lider:</Text>
-            <Input
-              type="text"
-              placeholder={proyecto.legajoLider}
-              onChange={(e) => setLeaderID(e.target.value)}
+          <SelectContainer>
+            <SelectText> Lider: </SelectText>
+            <Select
+              options={listEmployees.map((empleado) => ({
+                label: empleado.Nombre + " " + empleado.Apellido,
+                value: empleado.legajo,
+              }))}
+              onChange={(e) => setLeaderID(e.value)}
             />
-          </StyledTextInputContainer>
+          </SelectContainer>
           <StyledTextInputContainer>
-            <Text>Descripcion:</Text>
+            <Text>Descripción:</Text>
           </StyledTextInputContainer>
           <DescriptionContainer>
             <DescriptionInput
