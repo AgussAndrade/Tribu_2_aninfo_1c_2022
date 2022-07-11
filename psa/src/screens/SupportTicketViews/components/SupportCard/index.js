@@ -74,7 +74,7 @@ export const SupportCard = (props) => {
                     ticketData.estado !== "cerrado" && <GenericButton
                         name={"Derivar Ticket"}
                         onClick={() => {
-                            modalProps.setCurrentForm(<DerivateTicketForm/>)
+                            modalProps.setCurrentForm(<DerivateTicketForm idTicket={ticketData.id}/>)
                             modalProps.setCurrentTitleModal("Derivar ticket: " + ticketData.titulo);
                             modalProps.setModalSize("md")
                             modalProps.setModalShow(true)

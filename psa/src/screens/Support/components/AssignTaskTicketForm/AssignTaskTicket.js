@@ -4,12 +4,7 @@ import React from 'react';
 import Select from 'react-select'
 
 export const AssignTaskTicket = (props) => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [clientId, setClientId] = useState("");
-    //const { closeModal } = props;
+    const {closeModal, tareas, idProyecto, idTicket} = props
 
     const options = [
         { value: 'chocolate', label: 'Chocolate' },

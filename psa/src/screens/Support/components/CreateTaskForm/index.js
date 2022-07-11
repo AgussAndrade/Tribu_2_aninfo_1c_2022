@@ -1,17 +1,39 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useState } from "react";
+import React, { useState } from "react";
+import {SOPORTE_URL} from "../../../../utils/apiUrls";
 
 export const CreateTaskForm = (props) => {
-    const [title, setTitle] = useState("");
+    const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [clientId, setClientId] = useState("");
-    const { closeModal } = props; 
+    const [dateStart, setDateStart] = useState("");
+    const [state, setState] = useState("");
+    const { closeModal, idTicket, idProyecto } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        closeModal(false)
+        let newTask = {
+            "estado": state,
+            "fechaCreacion": dateStart,
+            "idProyecto": idProyecto,
+            "idTicket": idTicket,
+            "descripcion": description,
+            "nombre": name,
+        };
+        const config = {
+            config: {
+                body: JSON.stringify(newTask),
+                headers: {"Content-Type": "application/json"},
+                method: "POST"
+            },
+            url: SOPORTE_URL + "proyectos/" + idTicket + "/" + idProyecto + "/tarea"
+        }
+
+        fetch(config.url, config.config)
+            .then((res) => res.json())
+            .then((result) => {
+                console.log(result)
+            })
+            .catch((e) => console.log(e))
     }
 
     const formInputs = () => {
@@ -20,41 +42,28 @@ export const CreateTaskForm = (props) => {
                 <Container>
                     <Row>
                         <Col>
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="title">
+                            <Form.Group className="mb-3 crearTareaContainer" controlId="name">
                                 <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Titulo del ticket" name="title" />
+                                <Form.Control required type="text" placeholder="Titulo del ticket" name="nombre" onChange={(e) => setName(e.currentTarget.value)}/>
                             </Form.Group>
 
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="description">
+                            <Form.Group className="mb-3 crearTareaContainer" controlId="state">
                                 <Form.Label>Estado</Form.Label>
-                                <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
+                                <Form.Select onChange={(e) => setState(e.currentTarget.value)}>
+                                    <option value="En curso">En curso</option>
+                                    <option value="Terminado">Terminado</option>
+                                    <option value="En pausa">En pausa</option>
+                                    <option value="Sin empezar">Sin empezar</option>
                                 </Form.Select>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
-                                <Form.Label>Fecha de inicio</Form.Label>
-                                <Form.Control type="date" name='end_time' />
                             </Form.Group>
 
                             <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
                                 <Form.Label>Fecha de fin</Form.Label>
-                                <Form.Control type="date" name='end_time' />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3 crearTareaContainer" controlId="description">
-                                <Form.Label>Prioridad</Form.Label>
-                                <Form.Select>
-                                    <option value="3">Mayor</option>
-                                    <option value="2">Medio</option>
-                                    <option value="1">Baja</option>
-                                </Form.Select>
+                                <Form.Control type="date" name='startDate' onChange={(e) => setDateStart(e.currentTarget.value)} />
                             </Form.Group>
                             <Form.Group className="mb-3 " controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción del ticket"/>
+                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción de la tarea" required onChange={(e) => setDescription(e.currentTarget.value)}/>
                             </Form.Group>
                         </Col>
 

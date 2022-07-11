@@ -3,18 +3,16 @@ import { useState } from "react";
 import { CreateTaskForm } from "../CreateTaskForm";
 import { GenericModal } from "../GenericModal";
 import {AssignTaskTicket} from "../AssignTaskTicketForm/AssignTaskTicket";
+import {useLocalStorage} from "../../../../utils/useLocalStorage";
 
-export const DerivateTicketForm = () => {
+export const DerivateTicketForm = ({idTicket}) => {
     const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-    const [responsible, setResponsible] = useState("");
-    const [clientId, setClientId] = useState("");
+    const [idProyecto, setIdProyecto] = useState();
+    const [nombreProyecto, setNombreProyecto] = useState("");
+    const [tareas, setTareas] = useState([])
     const [modalShow, setModalShow] = useState(false)
     const [form, setForm] = useState("")
-    const [area, setArea] = useState("");
-
-
+    const {data: proyectos, isPending: esperandoProyectos} = useLocalStorage("proyectos");
     const handleSubmit = () => { }
 
     const formInputs = () => {
@@ -28,21 +26,28 @@ export const DerivateTicketForm = () => {
                         onHide={() => setModalShow(false)}
                         form={form}
                         title={title}
-                        size={"md"}
+                        size={"lg"}
                     />
                     <Row>
                         <Col>
-                            <Form.Group className="mb-3" controlId="severity" >
-                                <Form.Label>Seleccione el área correspondiente</Form.Label>
+                            <Form.Group className="mb-3" controlId="idProyecto" >
+                                <Form.Label>Seleccione el proyecto correspondiente</Form.Label>
                                 <Form.Select
+                                    defaultValue={idProyecto}
                                     onChange={(event) => {
-                                        setArea(event.currentTarget.value)
-                                        console.log("Fecha de vencimiento cambiada: " + area);
+                                        setIdProyecto(parseInt(event.currentTarget.value))
+                                        proyectos.map((proyecto) => {
+                                            if (proyecto.id === parseInt(event.currentTarget.value)) {
+                                                setTareas(proyecto.tareas);
+                                            }
+                                        })
                                     }}
                                 >
-                                    <option value="3">Infraestructura</option>
-                                    <option value="2">Proyectos</option>
-                                    <option value="1">Soporte</option>
+                                    {
+                                        proyectos !== null && proyectos.map((proyecto) => {
+                                            return <option key={proyecto.id} value={proyecto.id} >{proyecto.nombre}</option>
+                                        })
+                                    }
                                 </Form.Select>
                             </Form.Group>
 
@@ -51,18 +56,18 @@ export const DerivateTicketForm = () => {
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     <div>
                                         <Button variant="primary" onClick={() => {
-                                            setForm(<AssignTaskTicket closeModal={setModalShow} />)
-                                            setModalShow(true);
+                                            setForm(<AssignTaskTicket closeModal={setModalShow} tareas = {tareas} idProyecto={idProyecto} idTicket = {idTicket} />)
                                             setTitle("Seleccionar tareas")
+                                            setModalShow(true);
                                         }} >
                                             Seleccionar tareas
                                         </Button>
                                     </div>
                                     <div style={{ marginLeft: "10px" }}>
                                         <Button variant="primary" onClick={() => {
-                                            setForm(<CreateTaskForm closeModal={setModalShow} />)
+                                            setForm(<CreateTaskForm closeModal={setModalShow} idProyecto = {idProyecto} idTicket = {idTicket}/>);
+                                            setTitle("Creat tarea");
                                             setModalShow(true);
-                                            setTitle("Creat tarea")
                                         }}>
                                             Crear tarea
                                         </Button>
