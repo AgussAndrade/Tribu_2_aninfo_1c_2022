@@ -26,6 +26,7 @@ export const SupportTicketViews = () => {
     const [tickets, setTickets] = useState([]);
     const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
     const {data: clientes, isPending: esperandoClientes} = useLocalStorage("clientes");
+    const {data: proyectos, isPending: esperandoProyectos} = useLocalStorage("proyectos");
 
     const config = {
         url: SOPORTE_URL + "soporte/tickets?versionId=" + id, config: {
@@ -109,9 +110,9 @@ export const SupportTicketViews = () => {
                 </InputContainer>
             </OptionsContainer>
             <BodyContainer>
-                {(esperandoEmpleados || esperandoClientes) && ( <h2> Cargando información </h2>)}
+                {(esperandoEmpleados || esperandoClientes || esperandoProyectos) && ( <h2> Cargando información </h2>)}
 
-                {!esperandoEmpleados && !esperandoClientes && ( <Cards/>)}
+                {!esperandoEmpleados && !esperandoClientes && !esperandoProyectos && ( <Cards/>)}
 
                 <GenericModal
                     show={modalShow}

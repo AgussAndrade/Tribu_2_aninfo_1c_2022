@@ -12,14 +12,11 @@ import {EditFormTicket} from "../../../Support/components/EditFormTicket";
 import {DerivateTicketForm} from "../../../Support/components/DerivateTicketForm";
 import {SOPORTE_URL} from "../../../../utils/apiUrls";
 import {useNavigate} from "react-router-dom";
-import {useLocalStorage} from "../../../../utils/useLocalStorage";
 
 
 export const SupportCard = (props) => {
     const {ticketData, modalProps, localStorageData} = props;
     const navigate = useNavigate();
-    const {data: proyectos, isPending: esperandoProyectos} = useLocalStorage("proyectos");
-
     const severidades = {
         0: "Baja",
         1: "Medio",

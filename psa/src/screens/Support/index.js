@@ -19,6 +19,7 @@ import {useLocalStorage} from "../../utils/useLocalStorage";
 export const Support = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [modalShow, setModalShow] = useState(false);
+    const [esperandoProductos, setEsperandoProductos] = useState(false);
     const [productos, setProductos] = useState([]);
     const [versionId, setVersionId] = useState(1);
     const {data: empleados, isPending: esperandoEmpleados} = useLocalStorage("empleados");
@@ -32,14 +33,17 @@ export const Support = () => {
         headers: {"Content-Type": "application/json"},
         method: "GET"
     };
-
+    console.log(esperandoProductos);
     useEffect(() => {
+        setEsperandoProductos(true)
         fetch(getUrl("soporte/productos"), config)
             .then((res) => res.json())
             .then((result) => {
                 setProductos(getFormattedObject(result));
+                setEsperandoProductos(false)
             })
             .catch(() => navigate("/error"))
+
     }, [])
 
     const Cards = () => {
@@ -88,13 +92,15 @@ export const Support = () => {
                 </InputContainer>
             </OptionsContainer>
             <BodyContainer>
-                <Cards/>
+                {!esperandoClientes && !esperandoProductos && !esperandoEmpleados  && <Cards/> }
                 <GenericModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     form={<TicketCreateForm empleados = {empleados} clientes={clientes} versionId={versionId}/>}
                     title={"Crear ticket"}
                 />
+
+                {(esperandoEmpleados || esperandoClientes || esperandoProductos) && ( <h2> Cargando información </h2>)}
             </BodyContainer>
         </PrincipalContainer>
     );

@@ -10,6 +10,7 @@ import { HomePresentation } from "../../components/HomePresentation";
 
 export const Home = () => {
   const navigate = useNavigate();
+  localStorage.clear();
 
   return (
     <PrincipalContainer>

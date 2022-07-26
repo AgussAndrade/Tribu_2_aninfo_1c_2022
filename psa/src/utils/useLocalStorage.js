@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef} from "react"
-import {PROYECTO_URL, SOPORTE_URL} from "./apiUrls";
+import {PROYECTO_URL, RECURSOS_URL, SOPORTE_URL} from "./apiUrls";
 import {getFormattedObject} from "./getClients";
 
 export const useLocalStorage = (keyName) => {
@@ -12,11 +12,11 @@ export const useLocalStorage = (keyName) => {
       formatJson: true,
     },
     "empleados": {
-      url: PROYECTO_URL + "/empleados",
+      url: RECURSOS_URL + "api/empleados",
       formatJson: true,
     },
     "proyectos": {
-      url: PROYECTO_URL + "/proyectos",
+      url: PROYECTO_URL + "proyectos",
       formatJson: false,
     }
   }
