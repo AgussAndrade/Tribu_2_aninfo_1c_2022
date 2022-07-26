@@ -61,7 +61,7 @@ export const CreateTaskForm = (props) => {
                         <Col>
                             <Form.Group className="mb-3 crearTareaContainer" controlId="name">
                                 <Form.Label>Nombre</Form.Label>
-                                <Form.Control required type="text" placeholder="Nombre de la tarea" name="nombre" onChange={(e) => setName(e.currentTarget.value)}/>
+                                <Form.Control required type="text" defaultValue={name} placeholder="Nombre de la tarea" name="nombre" onChange={(e) => setName(e.currentTarget.value)}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 crearTareaContainer" controlId="state">
@@ -76,17 +76,17 @@ export const CreateTaskForm = (props) => {
 
                             <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
                                 <Form.Label>Fecha de fin</Form.Label>
-                                <Form.Control type="date" name='startDate' onChange={(e) => setDateStart(e.currentTarget.value)} required />
+                                <Form.Control type="date" name='startDate' defaultValue={dateStart} onChange={(e) => setDateStart(e.currentTarget.value)} required />
                             </Form.Group>
                             <Form.Group className="mb-3 " controlId="description">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción de la tarea" required onChange={(e) => setDescription(e.currentTarget.value)}/>
+                                <Form.Control defaultValue={description} as={"textarea"} style={{ height: '200px', resize: "none"}} placeholder="Descripción de la tarea" required onChange={(e) => setDescription(e.currentTarget.value)}/>
                             </Form.Group>
                         </Col>
 
                     </Row>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="primary" type="submit">
+                        <Button variant={pending ? "secondary": "primary"} disabled={pending} type="submit">
                             Guardar
                         </Button>
                     </div>
