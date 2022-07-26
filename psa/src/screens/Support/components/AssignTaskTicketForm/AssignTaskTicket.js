@@ -59,7 +59,7 @@ export const AssignTaskTicket = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: "90px" }}>
                         <Button variant="primary" type="submit">
                             Guardar
                         </Button>

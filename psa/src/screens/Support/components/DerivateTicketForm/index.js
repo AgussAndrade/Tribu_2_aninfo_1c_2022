@@ -7,20 +7,17 @@ import {useLocalStorage} from "../../../../utils/useLocalStorage";
 
 export const DerivateTicketForm = ({idTicket}) => {
     const [title, setTitle] = useState("");
-    const [idProyecto, setIdProyecto] = useState();
-    const [nombreProyecto, setNombreProyecto] = useState("");
     const [tareas, setTareas] = useState([])
     const [modalShow, setModalShow] = useState(false)
     const [form, setForm] = useState("")
     const {data: proyectos, isPending: esperandoProyectos} = useLocalStorage("proyectos");
-    const handleSubmit = () => { }
+    const [idProyecto, setIdProyecto] = useState(-1);
 
     const formInputs = () => {
         return (
 
-            <Form onSubmit={handleSubmit}>
+            <Form>
                 <Container>
-
                     <GenericModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
@@ -32,30 +29,34 @@ export const DerivateTicketForm = ({idTicket}) => {
                         <Col>
                             <Form.Group className="mb-3" controlId="idProyecto" >
                                 <Form.Label>Seleccione el proyecto correspondiente</Form.Label>
-                                <Form.Select
-                                    defaultValue={idProyecto}
-                                    onChange={(event) => {
-                                        setIdProyecto(parseInt(event.currentTarget.value))
-                                        proyectos.map((proyecto) => {
-                                            if (proyecto.id === parseInt(event.currentTarget.value)) {
-                                                setTareas(proyecto.tareas);
-                                            }
-                                        })
-                                    }}
-                                >
-                                    {
-                                        proyectos !== null && proyectos.map((proyecto) => {
-                                            return <option key={proyecto.id} value={proyecto.id} >{proyecto.nombre}</option>
-                                        })
-                                    }
-                                </Form.Select>
+                                {
+                                    !esperandoProyectos && <Form.Select
+                                                            defaultValue={idProyecto}
+                                                            onChange={(event) => {
+                                                                setIdProyecto(parseInt(event.currentTarget.value))
+                                                                proyectos.map((proyecto) => {
+                                                                    if (proyecto.id === parseInt(event.currentTarget.value)) {
+                                                                        setTareas(proyecto.tareas);
+                                                                    }
+                                                                })
+                                                            }}
+                                                        >
+                                                        <option value={-1} > Seleccione un proyecto </option>
+                                                            {
+                                                                proyectos !== null && proyectos.map((proyecto) => {
+                                                                    return <option key={proyecto.id} value={proyecto.id} > {proyecto.nombre} </option>
+                                                                })
+                                                            }
+                                                        </Form.Select>
+                                }
+                                { esperandoProyectos && "Buscando los proyectos"}
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="title">
                                 <Form.Label>Seleccione una o más tareas para asignar al ticket</Form.Label>
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     <div>
-                                        <Button variant="primary" onClick={() => {
+                                        <Button variant= {idProyecto === -1 ? "secondary": "primary"} disabled={idProyecto === -1} onClick={() => {
                                             setForm(<AssignTaskTicket closeModal={setModalShow} tareas = {tareas} idProyecto={idProyecto} idTicket = {idTicket} />)
                                             setTitle("Seleccionar tareas")
                                             setModalShow(true);
@@ -64,9 +65,9 @@ export const DerivateTicketForm = ({idTicket}) => {
                                         </Button>
                                     </div>
                                     <div style={{ marginLeft: "10px" }}>
-                                        <Button variant="primary" onClick={() => {
+                                        <Button variant= {idProyecto === -1 ? "secondary": "primary"} disabled={idProyecto === -1} onClick={() => {
                                             setForm(<CreateTaskForm closeModal={setModalShow} idProyecto = {idProyecto} idTicket = {idTicket}/>);
-                                            setTitle("Creat tarea");
+                                            setTitle("Crear tarea");
                                             setModalShow(true);
                                         }}>
                                             Crear tarea
@@ -76,18 +77,6 @@ export const DerivateTicketForm = ({idTicket}) => {
                             </Form.Group>
                         </Col>
                     </Row>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <div>
-                            <Button variant="primary" type="submit">
-                                Guardar
-                            </Button>
-                        </div>
-                        <div style={{ marginLeft: "10px" }}>
-                            <Button variant="primary" >
-                                Cancelar
-                            </Button>
-                        </div>
-                    </div>
                 </Container>
             </Form>
         )

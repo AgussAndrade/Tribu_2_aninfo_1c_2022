@@ -6,12 +6,22 @@ export const CreateTaskForm = (props) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [dateStart, setDateStart] = useState("");
-    const [state, setState] = useState("");
+    const [state, setState] = useState("En curso");
+    const [pending, setPending] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const { closeModal, idTicket, idProyecto } = props;
 
+
+    const clearForm = () => {
+        setDescription("")
+        setDateStart("")
+        setState("En curso")
+        setName("")
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        setPending(true)
         let newTask = {
             "estado": state,
             "fechaCreacion": dateStart,
@@ -34,8 +44,13 @@ export const CreateTaskForm = (props) => {
                 if (res.status === 200) {
                     setShowSuccessMessage(true)
                 }
+                setPending(false)
+                clearForm()
             })
-            .catch((e) => console.log(e))
+            .catch((e) => {
+                console.log(e)
+                setPending(false)
+            })
     }
 
     const formInputs = () => {
@@ -46,12 +61,12 @@ export const CreateTaskForm = (props) => {
                         <Col>
                             <Form.Group className="mb-3 crearTareaContainer" controlId="name">
                                 <Form.Label>Nombre</Form.Label>
-                                <Form.Control required type="text" placeholder="Titulo del ticket" name="nombre" onChange={(e) => setName(e.currentTarget.value)}/>
+                                <Form.Control required type="text" placeholder="Nombre de la tarea" name="nombre" onChange={(e) => setName(e.currentTarget.value)}/>
                             </Form.Group>
 
                             <Form.Group className="mb-3 crearTareaContainer" controlId="state">
                                 <Form.Label>Estado</Form.Label>
-                                <Form.Select onChange={(e) => setState(e.currentTarget.value)}>
+                                <Form.Select onChange={(e) => setState(e.currentTarget.value)} required>
                                     <option value="En curso">En curso</option>
                                     <option value="Terminado">Terminado</option>
                                     <option value="En pausa">En pausa</option>
@@ -61,7 +76,7 @@ export const CreateTaskForm = (props) => {
 
                             <Form.Group className="mb-3 crearTareaContainer" controlId= "end_time" >
                                 <Form.Label>Fecha de fin</Form.Label>
-                                <Form.Control type="date" name='startDate' onChange={(e) => setDateStart(e.currentTarget.value)} />
+                                <Form.Control type="date" name='startDate' onChange={(e) => setDateStart(e.currentTarget.value)} required />
                             </Form.Group>
                             <Form.Group className="mb-3 " controlId="description">
                                 <Form.Label>Descripción</Form.Label>
@@ -78,7 +93,7 @@ export const CreateTaskForm = (props) => {
                 </Container>
                 <Alert show={showSuccessMessage} variant="success">
                     <p>
-                        Las tareas se creo correctamente
+                        La tarea se creo correctamente
                     </p>
                     <hr/>
                     <div className="d-flex justify-content-end">

@@ -58,7 +58,7 @@ export const useLocalStorage = (keyName) => {
     let _items = JSON.parse(localStorage.getItem(keyName));
     if (_items !== null) {
       setData(_items)
-    }else {
+    } else {
       fetchData()
     }
 
