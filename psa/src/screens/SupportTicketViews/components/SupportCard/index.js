@@ -20,6 +20,12 @@ export const SupportCard = (props) => {
     const navigate = useNavigate();
     const {data: proyectos, isPending: esperandoProyectos} = useLocalStorage("proyectos");
 
+    const severidades = {
+        0: "Baja",
+        1: "Medio",
+        2: "Mayor",
+    }
+
     const cambiarEstadoTicket = (estado) => {
 
         const config = {
@@ -46,9 +52,9 @@ export const SupportCard = (props) => {
                 <DescriptionText>
                     Estado: {ticketData.estado} |
 
-                    Severidad {ticketData.severidad} |
+                    Severidad {severidades[ticketData.severidad]} |
 
-                    Responsable: {ticketData.nombreResponsable}
+                    Responsable: {ticketData.nombreResponsable ?? "No tiene responsable asignado"}
                 </DescriptionText>
                 <DescriptionText>
                     Vencimiento: {ticketData.fechaDeFinalizacion}
@@ -96,7 +102,6 @@ export const SupportCard = (props) => {
                         modalProps.setCurrentTitleModal("Info ampliada: " + ticketData.titulo);
                         modalProps.setModalShow(true);
                         modalProps.setModalSize("lg");
-
                     }}
                     color={colors.lightBlue}
                 ></GenericButton>

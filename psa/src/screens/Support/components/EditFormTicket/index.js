@@ -22,7 +22,6 @@ export const EditFormTicket = (props) => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [startTime, setStartTime] = useState(ticketData.fechaDeCreacion);
     const navigate = useNavigate();
-
     function objToQueryString(obj) {
         const keyValuePairs = [];
         for (const key in obj) {
@@ -30,7 +29,19 @@ export const EditFormTicket = (props) => {
         }
         return keyValuePairs.join('&');
     }
-
+    const severidades = [
+        {
+            "descripcion": "Baja",
+            "id": 0
+        },
+        {
+            "descripcion": "Medio",
+            "id": 1
+        },{
+            "descripcion": "Mayor",
+            "id": 2
+        },
+    ]
     const handleSubmit = (event) => {
         event.preventDefault();
             const severidades = {
@@ -125,7 +136,7 @@ export const EditFormTicket = (props) => {
                                 <Form.Select
                                     required
                                     disabled={readOnly || ticketData.estado === "cerrado" }
-                                    defaultValue={ticketData.estado}
+                                    defaultValue={state}
                                     onChange={(event) => {
                                         setState(event.currentTarget.value)
                                     }}
@@ -140,14 +151,19 @@ export const EditFormTicket = (props) => {
                                 <Form.Select
                                     required
                                     disabled={readOnly}
-                                             defaultValue={ticketData.severidad}
-                                             onChange={(event) => {
-                                                 setSeverity(event.currentTarget.value)
-                                                 console.log("Severidad seleccionada: " + severity);
-                                             }}>
-                                    <option defaultValue="2">Mayor</option>
-                                    <option defaultValue="1">Medio</option>
-                                    <option defaultValue="0">Baja</option>
+                                    onChange={(event) => {
+                                     setSeverity(event.currentTarget.value)
+                                    }}
+                                    >
+                                    {
+                                        severidades.map((severidad) => {
+                                            if (severity === severidad.id) {
+                                                return <option key={severidad.id} defaultValue= {severidad.id} selected>{severidad.descripcion}</option>
+                                            } else {
+                                                return <option key={severidad.id} defaultValue={severidad.id}>{severidad.descripcion}</option>
+                                            }
+                                        })
+                                    }
                                 </Form.Select>
                             </Form.Group>
 
