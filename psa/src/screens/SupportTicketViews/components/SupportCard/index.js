@@ -105,7 +105,7 @@ export const SupportCard = (props) => {
                     onClick={() => {
                         cambiarEstadoTicket(ticketData.estado === "cerrado" ? "abierto" : "cerrado")
                     }}
-                    color={ ticketData.estado === "cerrado" ? colors.green: colors.red}
+                    color={ ticketData.estado === "cerrado" ? colors.blue: colors.red}
                 ></GenericButton>}
             </ButtonContainer>
 

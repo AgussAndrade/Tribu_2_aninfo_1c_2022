@@ -194,16 +194,6 @@ export const EditFormTicket = (props) => {
                                     }
                                 </datalist>
                             </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="tasks">
-                                <Form.Label>Tareas</Form.Label>
-                                <Form.Control type="text" placeholder="Tareas" name="title" disabled={true}/>
-                            </Form.Group>
-
-                            {/*<Form.Group className="mb-3" controlId="areas">
-                                <Form.Label>Areas</Form.Label>
-                                <Form.Control type="text" placeholder="Areas" name="title" disabled={true} />
-                            </Form.Group>*/}
                         </Col>
                     </Row>
                     {
